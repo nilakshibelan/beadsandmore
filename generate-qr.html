@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Beats & More</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .preset-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .preset-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-output {
+            margin-top: 30px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px dashed #ddd;
+        }
+
+        .qr-code {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-section {
+            margin-top: 20px;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .url-display {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            word-break: break-all;
+            border-left: 4px solid #667eea;
+        }
+
+        .instructions {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: #155724;
+            margin-bottom: 15px;
+        }
+
+        .instructions ul {
+            color: #155724;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .preset-buttons {
+                flex-direction: column;
+            }
+            
+            .preset-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 QR Code Generator</h1>
+        <p style="margin-bottom: 30px; color: #666; font-size: 1.1em;">
+            Generate QR codes for your Beats & More jewelry website
+        </p>
+
+        <div class="input-section">
+            <label for="url-input">Website URL:</label>
+            <input type="text" id="url-input" placeholder="Enter your website URL here..." value="https://nilakshibelan.github.io/beadsandmore/">
+            
+            <div class="preset-buttons">
+                <button class="preset-btn" onclick="setURL('https://nilakshibelan.github.io/beadsandmore/')">🌐 Live Website</button>
+                <button class="preset-btn" onclick="setURL('http://localhost:8000')">💻 Local Testing</button>
+                <button class="preset-btn" onclick="setURL('https://wa.me/918432254327?text=Hi! I want to see your jewelry collection')">💬 WhatsApp Direct</button>
+            </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateQR()">🎯 Generate QR Code</button>
+
+        <div class="qr-output" id="qr-output" style="display: none;">
+            <h3>Your QR Code is Ready! 🎉</h3>
+            <div class="url-display" id="url-display"></div>
+            <div class="qr-code" id="qr-code"></div>
+            
+            <div class="download-section">
+                <button class="download-btn" onclick="downloadQR('png')">📱 Download PNG</button>
+                <button class="download-btn" onclick="downloadQR('svg')">🖼️ Download SVG</button>
+                <button class="download-btn" onclick="printQR()">🖨️ Print QR Code</button>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 How to Use Your QR Code:</h3>
+            <ul>
+                <li><strong>For Local Testing:</strong> Use the "Local Website" button to generate a QR code for testing</li>
+                <li><strong>For Live Website:</strong> After deploying to GitHub Pages, replace [username] with your GitHub username</li>
+                <li><strong>For WhatsApp:</strong> Generate a QR code that directly opens WhatsApp chat with you</li>
+                <li><strong>Print & Share:</strong> Download and print QR codes for business cards, flyers, or social media</li>
+                <li><strong>Test First:</strong> Always test your QR code with your phone before sharing</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px;">
+            <p><a href="index.html" style="color: white; text-decoration: none;">← Back to Beads & More</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8; color: white;">
+                <i class="fas fa-globe"></i> Visit us online: <a href="https://nilakshibelan.github.io/beadsandmore/" target="_blank" rel="noopener noreferrer" style="color: #f0f0f0; text-decoration: none;">nilakshibelan.github.io/beadsandmore</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let currentQRData = '';
+
+        function setURL(url) {
+            document.getElementById('url-input').value = url;
+        }
+
+        function generateQR() {
+            const url = document.getElementById('url-input').value;
+            if (!url) {
+                alert('Please enter a URL!');
+                return;
+            }
+
+            currentQRData = url;
+            const qrOutput = document.getElementById('qr-output');
+            const qrCode = document.getElementById('qr-code');
+            const urlDisplay = document.getElementById('url-display');
+
+            // Clear previous QR code
+            qrCode.innerHTML = '';
+            urlDisplay.textContent = url;
+
+            // Generate QR code
+            QRCode.toCanvas(qrCode, url, {
+                width: 200,
+                height: 200,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                },
+                errorCorrectionLevel: 'M',
+                margin: 2
+            }, function (error) {
+                if (error) {
+                    console.error(error);
+                    alert('Error generating QR code!');
+                } else {
+                    qrOutput.style.display = 'block';
+                    qrOutput.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        function downloadQR(format) {
+            if (!currentQRData) {
+                alert('Please generate a QR code first!');
+                return;
+            }
+
+            const canvas = document.querySelector('#qr-code canvas');
+            if (!canvas) {
+                alert('No QR code found!');
+                return;
+            }
+
+            if (format === 'png') {
+                const link = document.createElement('a');
+                link.download = 'beadsandmore-website-qr.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            } else if (format === 'svg') {
+                QRCode.toString(currentQRData, {
+                    type: 'svg',
+                    width: 200,
+                    color: {
+                        dark: '#000000',
+                        light: '#FFFFFF'
+                    }
+                }, function (err, string) {
+                    if (err) throw err;
+                    const blob = new Blob([string], { type: 'image/svg+xml' });
+                    const link = document.createElement('a');
+                    link.download = 'beadsandmore-website-qr.svg';
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                });
+            }
+        }
+
+        function printQR() {
+            if (!currentQRData) {
+                alert('Please generate a QR code first!');
+                return;
+            }
+
+            const canvas = document.querySelector('#qr-code canvas');
+            if (!canvas) {
+                alert('No QR code found!');
+                return;
+            }
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Beats & More - QR Code</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            text-align: center; 
+                            padding: 40px;
+                        }
+                        .qr-container {
+                            border: 2px dashed #ccc;
+                            padding: 30px;
+                            margin: 20px auto;
+                            max-width: 400px;
+                        }
+                        .url { 
+                            margin: 20px 0; 
+                            font-size: 14px; 
+                            word-break: break-all;
+                            background: #f5f5f5;
+                            padding: 10px;
+                            border-radius: 5px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Beats & More Jewelry</h1>
+                    <p>Scan to visit our website</p>
+                    <div class="qr-container">
+                        <img src="${canvas.toDataURL()}" style="max-width: 100%;">
+                        <div class="url">${currentQRData}</div>
+                    </div>
+                    <p>📱 Scan with your phone camera</p>
+                    <p>💎 Beautiful handcrafted jewelry</p>
+                    <p>📞 WhatsApp: +91 8432254327</p>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // Generate QR code for local website on page load
+        window.onload = function() {
+            generateQR();
+        };
+    </script>
+</body>
+</html>

@@ -167,8 +167,8 @@
         
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
             margin-bottom: 50px;
             animation: fadeInUp 1s ease-out 1s both;
         }
@@ -222,7 +222,7 @@
         
         .product-image {
             width: 100%;
-            height: 280px;
+            height: 350px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             display: flex;
             align-items: center;
@@ -250,10 +250,11 @@
         }
         
         .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
             transition: transform 0.4s ease;
+            border-radius: 8px;
         }
 
         .product-card:hover .product-image img {
@@ -276,9 +277,15 @@
         
         .product-description {
             color: #6c757d;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            font-size: 0.85em;
+            max-height: 4.2em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
         
         .product-price {
@@ -289,7 +296,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 20px;
+            margin-bottom: 0;
             display: flex;
             align-items: center;
         }
@@ -298,25 +305,64 @@
             font-size: 0.7em;
             margin-right: 2px;
         }
+
+        .price-order-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quantity-selector label {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .quantity-dropdown {
+            padding: 4px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 0.9em;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .quantity-dropdown:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .quantity-dropdown:hover {
+            border-color: #ccc;
+        }
         
         .whatsapp-btn {
             background: linear-gradient(135deg, #25D366 0%, #20c158 100%);
             color: white;
-            padding: 15px 25px;
+            padding: 8px 15px;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 12px;
             font-weight: 500;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .whatsapp-btn::before {
@@ -346,22 +392,69 @@
         }
         
         .footer {
-            text-align: center;
+            text-align: center !important;
             color: white;
-            margin-top: 50px;
-            padding: 30px;
-            background: rgba(0,0,0,0.15);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            margin: 50px 0 0 0;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 0;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.1);
             animation: fadeIn 1.5s ease-out 2s both;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .footer p {
+            margin: 8px auto !important;
+            line-height: 1.6;
+            text-align: center !important;
+            display: block;
+            width: auto !important;
+            font-size: 1em;
+            padding: 0;
+            text-indent: 0;
+        }
+
+        .footer p:first-child {
+            margin-bottom: 12px !important;
+            font-weight: 500;
         }
 
         .footer-url {
-            margin-top: 10px;
+            margin: 8px auto !important;
             font-size: 0.9em;
             opacity: 0.8;
+            text-align: center !important;
+            width: auto !important;
+        }
+        
+        .footer-url a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-url a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -380,6 +473,21 @@
 
             .product-card {
                 margin: 0 10px;
+            }
+
+            .price-order-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .quantity-selector {
+                align-self: flex-start;
+            }
+
+            .whatsapp-btn {
+                align-self: stretch;
+                justify-content: center;
             }
         }
         
@@ -430,6 +538,13 @@
             transition: transform 0.3s ease;
         }
 
+        .qr-code img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            display: block;
+        }
+
         .qr-code:hover {
             transform: scale(1.05);
         }
@@ -475,7 +590,7 @@
     <div class="container">
         <header>
             <h1><span class="sparkle">✨</span>Beads & More<span class="sparkle">✨</span></h1>
-            <p class="subtitle">Beautiful Ornaments, Jewelry & Accessories</p>
+            <p class="subtitle">Beautiful Handcrafted Ornaments</p>
         </header>
         
         <div class="contact-info">
@@ -488,10 +603,8 @@
             <h3><i class="fas fa-qrcode"></i>Share this page easily!</h3>
             <p>Scan the QR code below to share with friends</p>
             <div class="qr-code" id="qr-code">
-                <!-- QR Code will be generated here -->
-                <div class="qr-placeholder">
-                    QR Code will appear here
-                </div>
+                <!-- Static QR Code Image -->
+                <img src="images/BEADSANDMORE-professional-qr.png" alt="QR Code for Beads & More Website" />
             </div>
         </div>
         
@@ -499,73 +612,123 @@
             <!-- Sample Products - Replace with your actual products -->
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/necklace-gold-elegant.svg" alt="Elegant Gold Necklace" />
+                    <img src="images/KalashMahirap-1.png" alt="Kalash Mahirap #1" />
                 </div>
                 <div class="product-info">
-                    <div class="product-title">Elegant Gold Necklace</div>
-                    <div class="product-description">Beautiful handcrafted gold necklace with intricate design. Perfect for special occasions and daily wear.</div>
-                    <div class="product-price"><span class="price-currency">₹</span>2,500</div>
-                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Elegant Gold Necklace (₹2,500)" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
-                    </a>
+                    <div class="product-title">Kalash Mahirap #1</div>
+                    <div class="product-description">Kalash Mahirap represents a stunning fusion of traditional Indian jewelry design with the timeless appeal of beadwork. This exquisite piece combines the sacred symbolism of the classic mahirap with the versatile beauty of carefully selected beads, creating jewelry that's both spiritually significant and fashionably contemporary.</div>
+                    <div class="price-order-container">
+                        <div class="product-price"><span class="price-currency">₹</span>125</div>
+                        <div class="quantity-selector">
+                            <label for="qty-kalash1">Qty:</label>
+                            <select id="qty-kalash1" class="quantity-dropdown" data-product="Kalash Mahirap #1" data-price="125">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Kalash Mahirap #1 (₹125) - Quantity: 1" class="whatsapp-btn" id="whatsapp-kalash1">
+                            <i class="fab fa-whatsapp"></i> Order
+                        </a>
+                    </div>
                 </div>
             </div>
             
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/earrings-silver-drop.svg" alt="Silver Drop Earrings" />
+                    <img src="images/Shree-1.png" alt="Colorful Shree #1" />
                 </div>
                 <div class="product-info">
-                    <div class="product-title">Silver Drop Earrings</div>
-                    <div class="product-description">Stunning silver earrings with crystal accents. Lightweight and comfortable for all-day wear.</div>
-                    <div class="product-price"><span class="price-currency">₹</span>1,200</div>
-                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Silver Drop Earrings (₹1,200)" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
-                    </a>
+                    <div class="product-title">Colorful Shree #1</div>
+                    <div class="product-description">A magnificent sacred ornament featuring intricate Shree symbols crafted with vibrant beadwork. This divine piece gracefully combines traditional spiritual significance with contemporary artistic expression, offering both auspicious blessings and elegant style for religious ceremonies and cultural celebrations.</div>
+                    <div class="price-order-container">
+                        <div class="product-price"><span class="price-currency">₹</span>250</div>
+                        <div class="quantity-selector">
+                            <label for="qty-kalash2">Qty:</label>
+                            <select id="qty-kalash2" class="quantity-dropdown" data-product="Colorful Shree #1" data-price="250">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Colorful Shree #1 (₹250) - Quantity: 1" class="whatsapp-btn" id="whatsapp-kalash2">
+                            <i class="fab fa-whatsapp"></i> Order
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/bracelet-beaded-colorful.svg" alt="Beaded Bracelet" />
+                    <img src="images/KalashMahirap-2.png" alt="Kalash Mahirap #2" />
                 </div>
                 <div class="product-info">
-                    <div class="product-title">Colorful Beaded Bracelet</div>
-                    <div class="product-description">Vibrant beaded bracelet with natural stones. Perfect accessory for casual and ethnic wear.</div>
-                    <div class="product-price"><span class="price-currency">₹</span>800</div>
-                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Colorful Beaded Bracelet (₹800)" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
-                    </a>
+                    <div class="product-title">Kalash Mahirap #2</div>
+                    <div class="product-description">An enchanting traditional necklace featuring sacred kalash motifs crafted with premium beads. This elegant piece beautifully merges ancient Indian artistry with modern sophistication, offering both cultural heritage and contemporary style for special occasions and festive celebrations.</div>
+                    <div class="price-order-container">
+                        <div class="product-price"><span class="price-currency">₹</span>120</div>
+                        <div class="quantity-selector">
+                            <label for="qty-shree1">Qty:</label>
+                            <select id="qty-shree1" class="quantity-dropdown" data-product="Kalash Mahirap #2" data-price="120">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Kalash Mahirap #2 (₹120) - Quantity: 1" class="whatsapp-btn" id="whatsapp-shree1">
+                            <i class="fab fa-whatsapp"></i> Order
+                        </a>
+                    </div>
                 </div>
             </div>
-            
+
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/rings-designer-set.svg" alt="Ring Collection" />
-                </div>
-                <div class="product-info">
-                    <div class="product-title">Designer Ring Set</div>
-                    <div class="product-description">Set of 3 designer rings with unique patterns. Can be worn together or separately.</div>
-                    <div class="product-price"><span class="price-currency">₹</span>1,500</div>
-                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Designer Ring Set (₹1,500)" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
-                    </a>
+                        <img src="images/Moti-Har-1.png" alt="Moti Har #1" />
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">Colorful Moti Har #1</div>
+                        <div class="product-description">Exquisite Shree plate crafted with meticulous attention to traditional design elements. This sacred jewelry piece features the revered Shree symbol, believed to attract prosperity and divine blessings.</div>
+                        <div class="price-order-container">
+                            <div class="product-price"><span class="price-currency">₹</span>80</div>
+                            <div class="quantity-selector">
+                                <label for="qty-moti1">Qty:</label>
+                                <select id="qty-moti1" class="quantity-dropdown" data-product="Colorful Moti Har #1" data-price="80">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Colorful Moti Har #1 (₹800) - Quantity: 1" class="whatsapp-btn" id="whatsapp-moti1">
+                                <i class="fab fa-whatsapp"></i> Order
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="footer">
             <p><i class="fas fa-heart heart-icon"></i> Thank you for choosing Beads & More! <i class="fas fa-heart heart-icon"></i></p>
-            <p>We create beautiful memories with beautiful jewelry</p>
+            <p>We create beautiful memories with beautiful beads articles</p>
             <p class="footer-url">
-                <i class="fas fa-share-alt"></i> Share this page: <span id="current-url">beadsandmore.com</span>
+                <i class="fas fa-globe"></i> Visit us online: <a href="https://nilakshibelan.github.io/beadsandmore/" target="_blank" rel="noopener noreferrer">nilakshibelan.github.io/beadsandmore</a>
             </p>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script>
-        // Generate QR Code for the current page
+        // Generate QR Code for the current page - DISABLED (using static image)
+        /*
         function generateQR() {
             const currentUrl = window.location.href;
             document.getElementById('current-url').textContent = currentUrl;
@@ -590,6 +753,33 @@
         
         // Generate QR code when page loads
         window.addEventListener('load', generateQR);
+        */
+        
+        // Handle quantity change for WhatsApp links
+        function updateWhatsAppLink(selectElement) {
+            const quantity = selectElement.value;
+            const productName = selectElement.dataset.product;
+            const price = selectElement.dataset.price;
+            const totalPrice = parseInt(price) * parseInt(quantity);
+            
+            // Find the corresponding WhatsApp button
+            const whatsappBtn = selectElement.closest('.price-order-container').querySelector('.whatsapp-btn');
+            
+            // Update the href with quantity and total price
+            const message = `Hi! I'm interested in the ${productName} (₹${price} each) - Quantity: ${quantity} - Total: ₹${totalPrice}`;
+            const whatsappUrl = `https://wa.me/918432254327?text=${encodeURIComponent(message)}`;
+            whatsappBtn.href = whatsappUrl;
+        }
+        
+        // Add event listeners to all quantity dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityDropdowns = document.querySelectorAll('.quantity-dropdown');
+            quantityDropdowns.forEach(dropdown => {
+                dropdown.addEventListener('change', function() {
+                    updateWhatsAppLink(this);
+                });
+            });
+        });
         
         // Add smooth scrolling for better UX
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

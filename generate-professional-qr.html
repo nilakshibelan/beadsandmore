@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Professional QR Code</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .qr-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        #qr-canvas {
+            border-radius: 10px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #25D366 0%, #20c158 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .url-display {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Professional QR Code Generator</h1>
+        <p>Creating QR code for Beads & More - Beautiful Handcrafted Ornaments</p>
+        
+        <div class="url-display">
+            <strong>Target URL:</strong> https://nilakshibelan.github.io/beadsandmore/
+        </div>
+
+        <div class="qr-container">
+            <canvas id="qr-canvas"></canvas>
+        </div>
+
+        <button class="download-btn" onclick="downloadQR()">
+            📱 Download BEADSANDMORE-professional-qr.png
+        </button>
+
+        <div class="info">
+            <h3>🌟 Features of this Professional QR Code:</h3>
+            <ul style="text-align: left; display: inline-block;">
+                <li>High resolution (300x300px) for crystal clear scanning</li>
+                <li>Professional design with optimal contrast</li>
+                <li>Direct link to your GitHub Pages website</li>
+                <li>Compatible with all QR code scanners</li>
+                <li>Optimized for both mobile and desktop viewing</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        // Generate professional QR code
+        function generateProfessionalQR() {
+            const websiteUrl = 'https://nilakshibelan.github.io/beadsandmore/';
+            const canvas = document.getElementById('qr-canvas');
+            
+            QRCode.toCanvas(canvas, websiteUrl, {
+                width: 300,
+                height: 300,
+                colorDark: '#2c3e50',      // Professional dark blue-gray
+                colorLight: '#ffffff',      // Pure white background
+                margin: 4,                  // Good margin for scanning
+                errorCorrectionLevel: 'H',  // High error correction
+                type: 'image/png',
+                quality: 1.0,
+                rendererOpts: {
+                    quality: 1.0
+                }
+            }, function (error) {
+                if (error) {
+                    console.error('Error generating QR code:', error);
+                    alert('Error generating QR code. Please try again.');
+                } else {
+                    console.log('Professional QR code generated successfully!');
+                }
+            });
+        }
+
+        // Download the QR code as PNG
+        function downloadQR() {
+            const canvas = document.getElementById('qr-canvas');
+            const link = document.createElement('a');
+            link.download = 'BEADSANDMORE-professional-qr.png';
+            link.href = canvas.toDataURL('image/png', 1.0);
+            
+            // Create a click event
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('✅ QR code downloaded successfully as BEADSANDMORE-professional-qr.png!');
+        }
+
+        // Generate QR code when page loads
+        window.addEventListener('load', generateProfessionalQR);
+    </script>
+</body>
+</html>
