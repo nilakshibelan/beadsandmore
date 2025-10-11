@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beads & More - Business Brochure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .brochure-container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-50px) translateY(-50px); }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .tagline {
+            font-size: 1.1em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sparkle {
+            color: #FFD700;
+            animation: sparkle 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        /* Main Content */
+        .content {
+            display: flex;
+            flex: 1;
+            padding: 25px 40px;
+        }
+
+        .left-column {
+            flex: 2;
+            padding-right: 30px;
+        }
+
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            padding: 15px;
+            margin-left: 15px;
+            gap: 10px;
+            max-height: fit-content;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .product-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            text-align: center;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.85em;
+            line-height: 1.2;
+        }
+
+        .contact-info {
+            background: rgba(118, 75, 162, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            font-size: 0.8em;
+        }
+
+        .contact-item i {
+            color: #667eea;
+            width: 20px;
+        }
+
+        .qr-section {
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .qr-code {
+            margin: 8px auto;
+            background: white;
+            padding: 8px;
+            border-radius: 6px;
+            display: inline-block;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .qr-code img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+        }
+
+        .qr-text {
+            font-size: 0.7em;
+            color: #666;
+            margin-top: 6px;
+            line-height: 1.2;
+        }
+
+        .features {
+            list-style: none;
+            font-size: 0.9em;
+        }
+
+        .features li {
+            margin-bottom: 6px;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .features li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #667eea;
+            font-size: 0.9em;
+        }
+
+        .qr-header {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .special-offer {
+            background: linear-gradient(135deg, #25D366, #20c158);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .special-offer h3 {
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+
+        .special-offer p {
+            font-size: 0.8em;
+            line-height: 1.2;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 30px;
+            font-size: 0.85em;
+        }
+
+        .website-url {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .website-url:hover {
+            text-decoration: underline;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            
+            .brochure-container {
+                box-shadow: none;
+            }
+        }
+
+        .decorative-elements {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="brochure-container">
+        <div class="header">
+            <div class="decorative-elements">🎨💎✨</div>
+            <h1 class="logo"><span class="sparkle">✨</span>Beads & More<span class="sparkle">✨</span></h1>
+            <p class="tagline">Beautiful Handcrafted Ornaments</p>
+        </div>
+
+        <div class="content">
+            <div class="left-column">
+                <div class="section">
+                    <h2><i class="fas fa-gem"></i>Our Featured Products</h2>
+                    <div class="products-grid">
+                        <div class="product-item">
+                            <div class="product-name">Laxmi Paula</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Gopadma</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Taata Bhovati Chi Mahirap</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Toran</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Swastik</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Kalash Mahirap</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Aaukshan Supari</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Samai Mahirap</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name">Niranjan Mahirap</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-star"></i>Why Choose Beads & More?</h2>
+                    <ul class="features">
+                        <li>Handcrafted with premium quality beads</li>
+                        <li>Traditional designs with modern appeal</li>
+                        <li>Perfect for festivals and celebrations</li>
+                        <li>Spiritual significance meets elegant style</li>
+                        <li>Competitive pricing with excellent quality</li>
+                        <li>Custom orders available on request</li>
+                        <li>Easy WhatsApp ordering with quantity selection</li>
+                        <li>Beautiful memories with beautiful ornaments</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-shopping-bag"></i>Easy Ordering Process</h2>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px;">
+                        <div style="text-align: center; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                            <i class="fas fa-mobile-alt" style="font-size: 1.5em; color: #667eea; margin-bottom: 8px; display: block;"></i>
+                            <strong>1. Browse</strong><br>
+                            <small>Visit our website or scan QR code</small>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                            <i class="fas fa-heart" style="font-size: 1.5em; color: #667eea; margin-bottom: 8px; display: block;"></i>
+                            <strong>2. Select</strong><br>
+                            <small>Choose your favorite design</small>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                            <i class="fas fa-plus-circle" style="font-size: 1.5em; color: #667eea; margin-bottom: 8px; display: block;"></i>
+                            <strong>3. Quantity</strong><br>
+                            <small>Pick quantity (1-5 items)</small>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 10px;">
+                            <i class="fab fa-whatsapp" style="font-size: 1.5em; color: #25D366; margin-bottom: 8px; display: block;"></i>
+                            <strong>4. Order</strong><br>
+                            <small>WhatsApp us instantly</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="contact-info">
+                    <h3 style="text-align: center; margin-bottom: 15px; color: #667eea;">
+                        <i class="fas fa-phone"></i> Contact Us
+                    </h3>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span><strong>WhatsApp:</strong> +91 8432254327</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span><strong>Email:</strong> nilakshibelan@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="address">
+                            <strong>Address:</strong><br>
+                            ASHAY, Bunglow No 31,<br>
+                            Dnyanadeep Society,<br>
+                            Thorat Colony, Karve Nagar<br>
+                            Pune 411052
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qr-section">
+                    <h3 style="color: #667eea; margin-bottom: 10px;">
+                        <i class="fas fa-qrcode"></i> Visit Our Website
+                    </h3>
+                    <div class="qr-code">
+                        <img src="images/BEADSANDMORE-professional-qr.png" alt="QR Code for Beads & More Website" />
+                    </div>
+                    <div class="qr-text">
+                        Scan to visit our online catalog<br>
+                        <strong>nilakshibelan.github.io/beadsandmore</strong>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #25D366, #20c158); color: white; padding: 12px; border-radius: 10px; text-align: center; margin-top: 8px;">
+                    <h3 style="margin-bottom: 6px; font-size: 0.9em;">
+                        <i class="fas fa-gift"></i> Special Offer
+                    </h3>
+                    <p style="font-size: 0.8em; line-height: 1.2;">
+                        <strong>Bulk Orders Welcome!</strong><br>
+                        <em>Contact us for custom pricing</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                <i class="fas fa-heart" style="color: #ff6b6b;"></i> 
+                Thank you for choosing Beads & More! We create beautiful memories with beautiful ornaments 
+                <i class="fas fa-heart" style="color: #ff6b6b;"></i>
+            </p>
+            <p style="margin-top: 10px;">
+                <i class="fas fa-globe"></i> 
+                Visit us online: <a href="https://nilakshibelan.github.io/beadsandmore/" class="website-url">nilakshibelan.github.io/beadsandmore</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
