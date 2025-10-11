@@ -1,0 +1,11 @@
+<!-- This is a placeholder for your actual product image -->
+<!-- Replace this file with your real earrings photo -->
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#764ba2"/>
+  <text x="200" y="150" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle" alignment-baseline="middle">
+    YOUR SILVER EARRINGS PHOTO
+  </text>
+  <text x="200" y="180" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" alignment-baseline="middle">
+    Replace this with actual photo
+  </text>
+</svg>

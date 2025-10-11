@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beads & More - Ornaments & Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .particle:nth-child(1) { width: 10px; height: 10px; left: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 15px; height: 15px; left: 40%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 8px; height: 8px; left: 60%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 12px; height: 12px; left: 80%; animation-delay: 1s; }
+        .particle:nth-child(5) { width: 6px; height: 6px; left: 30%; animation-delay: 3s; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            animation: slideInDown 1s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.6); }
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.95; }
+        }
+
+        .sparkle {
+            display: inline-block;
+            margin: 0 10px;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+        }
+        
+        .contact-info {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: slideInLeft 1s ease-out 0.5s both;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .contact-info i {
+            margin-right: 8px;
+            color: #ffd700;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+        
+        .product-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            animation: slideInUp 0.6s ease-out both;
+        }
+
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #ffd700);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-image::after {
+            opacity: 1;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 30px 25px;
+            background: white;
+        }
+        
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+        
+        .product-description {
+            color: #6c757d;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .product-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .price-currency {
+            font-size: 0.7em;
+            margin-right: 2px;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #20c158 100%);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .whatsapp-btn:hover::before {
+            left: 100%;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: fadeIn 1.5s ease-out 2s both;
+        }
+
+        .footer-url {
+            margin-top: 10px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .product-card {
+                margin: 0 10px;
+            }
+        }
+        
+        .qr-section {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: slideInRight 1s ease-out 0.7s both;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .qr-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .qr-section i {
+            color: #ffd700;
+            margin-right: 10px;
+        }
+        
+        .qr-code {
+            margin: 25px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            border-radius: 10px;
+        }
+        
+        .heart-icon {
+            color: #ff6b6b;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .footer-url .fa-share-alt {
+            color: #667eea;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles background -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1><span class="sparkle">✨</span>Beads & More<span class="sparkle">✨</span></h1>
+            <p class="subtitle">Beautiful Ornaments, Jewelry & Accessories</p>
+        </header>
+        
+        <div class="contact-info">
+            <h3><i class="fas fa-phone"></i>Contact Us</h3>
+            <p><i class="fab fa-whatsapp"></i>WhatsApp: <strong>+91 8432254327</strong> | <i class="fas fa-envelope"></i>Email: <strong>nilakshibelan@gmail.com</strong></p>
+            <p><i class="fas fa-map-marker-alt"></i>ASHAY, Bunglow No 31, Dnyanadeep Society, Thorat Colony, Karve Nagar Pune 411052</p>
+        </div>
+        
+        <div class="qr-section">
+            <h3><i class="fas fa-qrcode"></i>Share this page easily!</h3>
+            <p>Scan the QR code below to share with friends</p>
+            <div class="qr-code" id="qr-code">
+                <!-- QR Code will be generated here -->
+                <div class="qr-placeholder">
+                    QR Code will appear here
+                </div>
+            </div>
+        </div>
+        
+        <div class="products-grid" id="products">
+            <!-- Sample Products - Replace with your actual products -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/necklace-gold-elegant.svg" alt="Elegant Gold Necklace" />
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Elegant Gold Necklace</div>
+                    <div class="product-description">Beautiful handcrafted gold necklace with intricate design. Perfect for special occasions and daily wear.</div>
+                    <div class="product-price"><span class="price-currency">₹</span>2,500</div>
+                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Elegant Gold Necklace (₹2,500)" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
+                    </a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/earrings-silver-drop.svg" alt="Silver Drop Earrings" />
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Silver Drop Earrings</div>
+                    <div class="product-description">Stunning silver earrings with crystal accents. Lightweight and comfortable for all-day wear.</div>
+                    <div class="product-price"><span class="price-currency">₹</span>1,200</div>
+                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Silver Drop Earrings (₹1,200)" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
+                    </a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/bracelet-beaded-colorful.svg" alt="Beaded Bracelet" />
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Colorful Beaded Bracelet</div>
+                    <div class="product-description">Vibrant beaded bracelet with natural stones. Perfect accessory for casual and ethnic wear.</div>
+                    <div class="product-price"><span class="price-currency">₹</span>800</div>
+                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Colorful Beaded Bracelet (₹800)" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
+                    </a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="images/rings-designer-set.svg" alt="Ring Collection" />
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Designer Ring Set</div>
+                    <div class="product-description">Set of 3 designer rings with unique patterns. Can be worn together or separately.</div>
+                    <div class="product-price"><span class="price-currency">₹</span>1,500</div>
+                    <a href="https://wa.me/918432254327?text=Hi! I'm interested in the Designer Ring Set (₹1,500)" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp to Order
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><i class="fas fa-heart heart-icon"></i> Thank you for choosing Beads & More! <i class="fas fa-heart heart-icon"></i></p>
+            <p>We create beautiful memories with beautiful jewelry</p>
+            <p class="footer-url">
+                <i class="fas fa-share-alt"></i> Share this page: <span id="current-url">beadsandmore.com</span>
+            </p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        // Generate QR Code for the current page
+        function generateQR() {
+            const currentUrl = window.location.href;
+            document.getElementById('current-url').textContent = currentUrl;
+            
+            QRCode.toCanvas(document.createElement('canvas'), currentUrl, {
+                width: 150,
+                height: 150,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                margin: 2
+            }, function (error, canvas) {
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+                
+                const qrContainer = document.getElementById('qr-code');
+                qrContainer.innerHTML = '';
+                qrContainer.appendChild(canvas);
+            });
+        }
+        
+        // Generate QR code when page loads
+        window.addEventListener('load', generateQR);
+        
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

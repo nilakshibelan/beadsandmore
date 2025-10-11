@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Generator - Beads & More</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+        }
+        
+        .output {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .copy-btn {
+            background: #28a745;
+        }
+        
+        .copy-btn:hover {
+            background: #218838;
+        }
+        
+        .note {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>🛍️ Product HTML Generator</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            Fill out the form below to generate HTML code for your new product
+        </p>
+        
+        <form id="productForm">
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" placeholder="e.g., Elegant Gold Necklace" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="productDescription">Description:</label>
+                <textarea id="productDescription" placeholder="Describe your product features, materials, etc." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="productPrice">Price (₹):</label>
+                <input type="number" id="productPrice" placeholder="2500" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="productImage">Image File Name (in images folder):</label>
+                <input type="text" id="productImage" placeholder="necklace-gold-elegant.jpg (just the filename)" required>
+                <small style="color: #666; display: block; margin-top: 5px;">
+                    Add your image to the 'images' folder and enter just the filename here
+                </small>
+            </div>
+            
+            <div class="form-group">
+                <label for="whatsappNumber">WhatsApp Number (with country code):</label>
+                <input type="text" id="whatsappNumber" placeholder="91XXXXXXXXXX" required>
+            </div>
+            
+            <button type="submit" class="btn">Generate Product HTML</button>
+            <button type="button" class="btn copy-btn" id="copyBtn" style="display: none;">Copy to Clipboard</button>
+        </form>
+        
+        <div class="note">
+            <strong>📝 Instructions:</strong>
+            <ol>
+                <li>Fill out all the fields above</li>
+                <li>Click "Generate Product HTML"</li>
+                <li>Copy the generated code</li>
+                <li>Paste it into your index.html file inside the products-grid div</li>
+                <li>Save and refresh your website</li>
+            </ol>
+        </div>
+        
+        <div id="output" class="output" style="display: none;"></div>
+    </div>
+    
+    <script>
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('productName').value;
+            const description = document.getElementById('productDescription').value;
+            const price = document.getElementById('productPrice').value;
+            const imageFile = document.getElementById('productImage').value;
+            const image = imageFile ? `images/${imageFile}` : `https://via.placeholder.com/300x250/667eea/white?text=${encodeURIComponent(name)}`;
+            const whatsapp = document.getElementById('whatsappNumber').value;
+            
+            const html = `            <div class="product-card">
+                <div class="product-image">
+                    <img src="${image}" alt="${name}" />
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${name}</div>
+                    <div class="product-description">${description}</div>
+                    <div class="product-price">₹${price}</div>
+                    <a href="https://wa.me/${whatsapp}?text=Hi! I'm interested in the ${name} (₹${price})" class="whatsapp-btn">
+                        💬 WhatsApp to Order
+                    </a>
+                </div>
+            </div>`;
+            
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('output').textContent = html;
+            document.getElementById('copyBtn').style.display = 'inline-block';
+        });
+        
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const output = document.getElementById('output');
+            navigator.clipboard.writeText(output.textContent).then(function() {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                btn.style.background = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#28a745';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
