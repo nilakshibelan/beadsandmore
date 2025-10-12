@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEADS & MORE - Product Stickers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .sticker-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .sticker-design {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .sticker-design:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Circular Sticker */
+        .circular-sticker {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .circular-sticker::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: 8px;
+            opacity: 0.9;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .contact-mini {
+            font-size: 7px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Square Sticker */
+        .square-sticker {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+
+        .square-sticker::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+
+        /* Rectangular Sticker */
+        .rectangular-sticker {
+            width: 300px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            color: white;
+            position: relative;
+        }
+
+        .left-content {
+            flex: 1;
+        }
+
+        .right-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 15px;
+        }
+
+        .mini-qr {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .mini-qr img {
+            width: 55px;
+            height: 55px;
+            border-radius: 4px;
+        }
+
+        .scan-text {
+            font-size: 7px;
+            text-align: center;
+        }
+
+        /* Premium Gold Sticker */
+        .premium-sticker {
+            width: 220px;
+            height: 160px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6347 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #2c3e50;
+            position: relative;
+            border-radius: 20px;
+        }
+
+        .premium-sticker::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 3px solid rgba(255,255,255,0.6);
+            border-radius: 15px;
+        }
+
+        .premium-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+        }
+
+        /* Mini Round Sticker */
+        .mini-round {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 10px;
+        }
+
+        /* Heart Shaped Sticker */
+        .heart-sticker {
+            width: 160px;
+            height: 140px;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            clip-path: polygon(50% 15%, 85% 0%, 100% 35%, 50% 100%, 0% 35%, 15% 0%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #2c3e50;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .print-guide {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        .sticker-sizes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .size-info {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .sticker-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+                max-width: none;
+            }
+
+            .sticker-design {
+                page-break-inside: avoid;
+                margin: 5px;
+                box-shadow: none;
+            }
+
+            .print-guide {
+                display: none;
+            }
+        }
+
+        .whatsapp-mini {
+            background: #25D366;
+            color: white;
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-size: 6px;
+            margin-top: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .social-icons i {
+            font-size: 8px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white; margin-bottom: 30px; font-family: 'Playfair Display', serif; text-align: center;">
+        BEADS & MORE - Product Sticker Designs
+    </h1>
+
+    <div class="sticker-container">
+        <!-- Circular Brand Sticker -->
+        <div class="sticker-design">
+            <div class="circular-sticker">
+                <div class="brand-name">BEADS & MORE</div>
+                <div class="tagline">Beautiful Handcrafted Ornaments</div>
+                <div class="contact-mini">+91 9748267853</div>
+                <div class="contact-mini">nilakshibelan@gmail.com</div>
+                <div class="whatsapp-mini">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Orders
+                </div>
+            </div>
+        </div>
+
+        <!-- Square QR Sticker -->
+        <div class="sticker-design">
+            <div class="square-sticker">
+                <div class="brand-name" style="font-size: 16px;">BEADS & MORE</div>
+                <div class="mini-qr" style="margin: 10px 0;">
+                    <img src="images/BEADSANDMORE-professional-qr.png" alt="QR Code">
+                </div>
+                <div class="scan-text">Scan for our website</div>
+                <div class="contact-mini">Karve Nagar, Pune</div>
+            </div>
+        </div>
+
+        <!-- Rectangular Product Sticker -->
+        <div class="sticker-design">
+            <div class="rectangular-sticker">
+                <div class="left-content">
+                    <div class="brand-name" style="font-size: 16px;">BEADS & MORE</div>
+                    <div class="tagline" style="font-size: 9px;">Traditional Ornaments</div>
+                    <div class="contact-mini" style="font-size: 8px; margin-top: 5px;">
+                        📱 +91 9748267853<br>
+                        📍 Karve Nagar, Pune
+                    </div>
+                    <div class="whatsapp-mini">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </div>
+                </div>
+                <div class="right-content">
+                    <div class="mini-qr">
+                        <img src="images/BEADSANDMORE-professional-qr.png" alt="QR Code">
+                    </div>
+                    <div class="scan-text">Visit Website</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Gold Sticker -->
+        <div class="sticker-design">
+            <div class="premium-sticker">
+                <div class="premium-brand">BEADS & MORE</div>
+                <div style="font-size: 10px; margin-bottom: 8px;">✨ Premium Quality ✨</div>
+                <div style="font-size: 8px; text-align: center;">
+                    Beautiful Handcrafted Ornaments<br>
+                    <strong>+91 9748267853</strong>
+                </div>
+                <div class="social-icons">
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fas fa-phone"></i>
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Round Thank You Sticker -->
+        <div class="sticker-design">
+            <div class="mini-round">
+                <div style="font-size: 12px; font-weight: bold;">Thank You!</div>
+                <div style="font-size: 8px; text-align: center; margin: 3px 0;">
+                    BEADS & MORE
+                </div>
+                <div style="font-size: 6px; text-align: center;">
+                    Follow us for more<br>
+                    beautiful ornaments
+                </div>
+                <div style="font-size: 6px; margin-top: 3px;">
+                    <i class="fab fa-whatsapp"></i> +91 9748267853
+                </div>
+            </div>
+        </div>
+
+        <!-- Heart Shaped Love Sticker -->
+        <div class="sticker-design">
+            <div class="heart-sticker">
+                <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">
+                    Made with ❤️
+                </div>
+                <div style="font-size: 10px; text-align: center;">
+                    BEADS & MORE
+                </div>
+                <div style="font-size: 7px; text-align: center; margin-top: 3px;">
+                    Traditional Ornaments
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-guide">
+        <h3><i class="fas fa-print"></i> Printing Guidelines for Stickers</h3>
+        <div class="sticker-sizes">
+            <div class="size-info">
+                <h4>Recommended Sticker Sizes:</h4>
+                <ul style="text-align: left; margin-top: 10px;">
+                    <li><strong>Circular:</strong> 2 inches diameter</li>
+                    <li><strong>Square:</strong> 1.8 × 1.8 inches</li>
+                    <li><strong>Rectangular:</strong> 3 × 1.2 inches</li>
+                    <li><strong>Premium:</strong> 2.2 × 1.6 inches</li>
+                    <li><strong>Mini Round:</strong> 1.2 inches diameter</li>
+                    <li><strong>Heart:</strong> 1.6 × 1.4 inches</li>
+                </ul>
+            </div>
+            <div class="size-info">
+                <h4>Printing Tips:</h4>
+                <ul style="text-align: left; margin-top: 10px;">
+                    <li>Use high-quality sticker paper</li>
+                    <li>Print at 300 DPI for crisp quality</li>
+                    <li>Waterproof vinyl for durability</li>
+                    <li>Cut with precision for clean edges</li>
+                    <li>Test print on regular paper first</li>
+                    <li>Consider matte or glossy finish</li>
+                </ul>
+            </div>
+        </div>
+        <button onclick="window.print()" style="background: #25D366; color: white; border: none; padding: 15px 30px; border-radius: 8px; margin-top: 20px; cursor: pointer; font-size: 14px;">
+            <i class="fas fa-print"></i> Print Stickers
+        </button>
+    </div>
+</body>
+</html>
