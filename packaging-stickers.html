@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEADS & MORE - Packaging Stickers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .stickers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 40px;
+            justify-items: center;
+        }
+
+        .sticker {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sticker:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Small Circle Sticker - 1.5 inch */
+        .small-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            margin: 0 auto;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 15px;
+        }
+
+        .small-circle .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .small-circle .tagline {
+            font-size: 6px;
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+
+        .small-circle .contact {
+            font-size: 5px;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .small-circle .qr-code {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .small-circle .qr-code img {
+            width: 27px;
+            height: 27px;
+            border-radius: 2px;
+        }
+
+        /* Medium Rectangle - 2 x 1 inch */
+        .medium-rect {
+            width: 200px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 10px;
+            color: white;
+            margin: 0 auto;
+            border-radius: 15px;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .medium-rect .left {
+            flex: 1;
+        }
+
+        .medium-rect .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            letter-spacing: 0.8px;
+            white-space: nowrap;
+        }
+
+        .medium-rect .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            margin-bottom: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .medium-rect .contact {
+            font-family: 'Inter', sans-serif;
+            font-size: 7px;
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .medium-rect .qr-mini {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .medium-rect .qr-mini img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        /* Small Square - 1.2 x 1.2 inch */
+        .small-square {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .small-square::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+        }
+
+        .small-square .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .small-square .tagline {
+            font-size: 6px;
+            text-align: center;
+            margin-bottom: 3px;
+        }
+
+        .small-square .contact {
+            font-size: 5px;
+            text-align: center;
+        }
+
+        /* Thank You Sticker */
+        .thank-you {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin: 0 auto;
+        }
+
+        .thank-you .message {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .thank-you .brand {
+            font-size: 8px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .thank-you .follow {
+            font-size: 5px;
+            text-align: center;
+        }
+
+        /* Oval Sticker */
+        .oval-sticker {
+            width: 180px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #2c3e50;
+            margin: 0 auto;
+        }
+
+        .oval-sticker .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .oval-sticker .tagline {
+            font-size: 7px;
+            margin-bottom: 3px;
+        }
+
+        .oval-sticker .contact {
+            font-size: 6px;
+        }
+
+        /* Premium Gold Circle */
+        .premium-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #2c3e50;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .premium-circle::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 2px solid rgba(255,255,255,0.7);
+            border-radius: 50%;
+        }
+
+        .premium-circle .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            margin-bottom: 2px;
+        }
+
+        .premium-circle .quality {
+            font-size: 7px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .premium-circle .contact {
+            font-size: 6px;
+            text-align: center;
+        }
+
+        .print-instructions {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            margin-top: 20px;
+        }
+
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .size-info {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .whatsapp-badge {
+            background: #25D366;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 8px;
+            font-size: 5px;
+            margin-top: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 20px;
+                margin: 0;
+            }
+
+            .stickers-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                max-width: none;
+                justify-items: center;
+                margin: 20px auto;
+            }
+
+            .sticker {
+                page-break-inside: avoid;
+                margin: 10px;
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .header, .print-instructions {
+                display: none;
+            }
+
+            .sticker-label {
+                display: none;
+            }
+
+            /* Ensure stickers maintain their actual sizes for printing */
+            .small-circle {
+                width: 144px;  /* 1.5 inches at 96 DPI */
+                height: 144px;
+            }
+
+            .medium-rect {
+                width: 192px;  /* 2 inches at 96 DPI */
+                height: 115px; /* Adjusted for better proportion */
+            }
+
+            /* Ensure page breaks work properly */
+            @page {
+                margin: 0.5in;
+                size: letter;
+            }
+        }
+
+        .sticker-label {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Packaging Stickers for Transparent Bags</h1>
+        <p>Professional branding stickers for your ornament packages</p>
+    </div>
+
+    <div class="stickers-grid">
+        <!-- Small Circle Sticker -->
+        <div class="sticker">
+            <div class="small-circle">
+                <div class="brand">BEADS & MORE</div>
+                <div class="tagline">Beautiful Handcrafted Ornaments</div>
+                <div class="contact">+91 9748267853</div>
+                <div class="qr-code">
+                    <img src="images/BEADSANDMORE-professional-qr.png" alt="QR">
+                </div>
+            </div>
+            <div class="sticker-label">1.5" Circle - Perfect for small bags</div>
+        </div>
+
+        <!-- Medium Rectangle with QR -->
+        <div class="sticker">
+            <div class="medium-rect">
+                <div class="left">
+                    <div class="brand">BEADS & MORE</div>
+                    <div class="tagline">Traditional Ornaments</div>
+                    <div class="contact">📱 +91 9748267853</div>
+                    <div class="contact">📍 Karve Nagar, Pune</div>
+                </div>
+                <div class="qr-mini">
+                    <img src="images/BEADSANDMORE-professional-qr.png" alt="QR">
+                </div>
+            </div>
+            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+        </div>
+    </div>
+
+    <div class="print-instructions">
+        <h3><i class="fas fa-print"></i> Printing Instructions for Packaging Stickers</h3>
+        
+        <div class="size-grid">
+            <div class="size-info">
+                <h4>🎯 Usage Recommendations:</h4>
+                <ul style="text-align: left; margin-top: 8px;">
+                    <li><strong>Small Circle (1.5"):</strong> Small ornament bags</li>
+                    <li><strong>Rectangle (2" x 1"):</strong> Medium bags with QR</li>
+                    <li><strong>Square (1.2"):</strong> Compact, clean design</li>
+                    <li><strong>Thank You (1"):</strong> Customer appreciation</li>
+                    <li><strong>Oval (1.8" x 0.8"):</strong> Premium presentation</li>
+                    <li><strong>Gold Circle (1.4"):</strong> High-value items</li>
+                </ul>
+            </div>
+            
+            <div class="size-info">
+                <h4>📦 Packaging Tips:</h4>
+                <ul style="text-align: left; margin-top: 8px;">
+                    <li>Place sticker on front center of bag</li>
+                    <li>Ensure good contrast on transparent bags</li>
+                    <li>Use waterproof vinyl stickers</li>
+                    <li>Apply before sealing the bag</li>
+                    <li>Keep extras for reorders</li>
+                    <li>Match sticker size to bag size</li>
+                </ul>
+            </div>
+            
+            <div class="size-info">
+                <h4>🖨️ Print Settings:</h4>
+                <ul style="text-align: left; margin-top: 8px;">
+                    <li><strong>Paper:</strong> Use high-quality sticker paper</li>
+                    <li><strong>Quality:</strong> Print at 300 DPI resolution</li>
+                    <li><strong>Finish:</strong> Choose matte or glossy finish</li>
+                    <li><strong>Material:</strong> Waterproof vinyl recommended</li>
+                    <li><strong>Layout:</strong> 4 stickers per row for best results</li>
+                    <li><strong>Test:</strong> Print on regular paper first</li>
+                    <li><strong>Cutting:</strong> Cut precisely for clean edges</li>
+                </ul>
+            </div>
+            
+            <div class="size-info">
+                <h4>💡 Branding Benefits:</h4>
+                <ul style="text-align: left; margin-top: 8px;">
+                    <li>Professional package presentation</li>
+                    <li>Easy brand recognition</li>
+                    <li>Customer contact information</li>
+                    <li>QR code for easy website access</li>
+                    <li>Thank you message builds loyalty</li>
+                    <li>Cost-effective marketing tool</li>
+                </ul>
+            </div>
+        </div>
+
+        <button onclick="window.print()" style="background: #25D366; color: white; border: none; padding: 15px 30px; border-radius: 8px; margin-top: 20px; cursor: pointer; font-size: 14px;">
+            <i class="fas fa-print"></i> Print Packaging Stickers
+        </button>
+    </div>
+</body>
+</html>
