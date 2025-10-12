@@ -164,6 +164,17 @@
             animation: iconBounce 2s ease infinite;
         }
 
+        .contact-info a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #ffeaa7;
+            text-shadow: 0 0 10px rgba(255, 234, 167, 0.5);
+        }
+
         @keyframes iconBounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-3px); }
@@ -650,8 +661,8 @@
         <div class="header-content">
             <div class="logo">BEADS & MORE</div>
             <div class="contact-info">
-                <div><i class="fas fa-phone"></i> +91 9748267853</div>
-                <div><i class="fas fa-envelope"></i> nilakshibelan@gmail.com</div>
+                <div><i class="fas fa-phone"></i> <a href="tel:+919748267853">+91 9748267853</a></div>
+                <div><i class="fas fa-envelope"></i> <a href="mailto:nilakshibelan@gmail.com">nilakshibelan@gmail.com</a></div>
                 <div><i class="fas fa-map-marker-alt"></i> Karve Nagar, Pune</div>
             </div>
         </div>
@@ -820,7 +831,7 @@
 
         function openWhatsApp() {
             const message = encodeURIComponent("🙏 Hello BEADS & MORE! I'm interested in placing an order for your beautiful traditional ornaments. Could you please help me with:\n\n📋 Available products and pricing\n🚚 Delivery details\n💳 Payment options\n\nThank you!");
-            window.open(`https://wa.me/918432254327?text=${message}`, '_blank');
+            window.open(`https://wa.me/919748267853?text=${message}`, '_blank');
         }
 
         // Event listeners
