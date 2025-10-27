@@ -655,6 +655,60 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Welcome Back Notification */
+        .welcome-back-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            z-index: 1001;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .welcome-back-notification.show {
+            display: flex;
+        }
+
+        .welcome-back-notification i {
+            font-size: 18px;
+        }
+
+        .welcome-back-notification .close-btn {
+            margin-left: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .welcome-back-notification .close-btn:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
         /* Product Modal Styles */
         .product-modal {
             display: none;
@@ -846,6 +900,13 @@
     </header>
 
     <div class="container">
+        <!-- Welcome Back Notification -->
+        <div id="welcomeBackNotification" class="welcome-back-notification">
+            <i class="fab fa-whatsapp"></i>
+            <span>Welcome back! Continue browsing our beautiful collection</span>
+            <button class="close-btn" onclick="hideWelcomeNotification()">✕</button>
+        </div>
+
         <div class="page-title">
             <h1>Traditional Ornaments Collection</h1>
             <p>Discover our beautiful handcrafted traditional ornaments for every occasion</p>
@@ -1015,7 +1076,20 @@
 
         function orderProduct(productName, price) {
             const message = encodeURIComponent(`Hi! I'm interested in ordering ${productName} (${price}). Could you please provide more details?`);
-            window.open(`https://wa.me/918432254327?text=${message}`, '_blank');
+            
+            // Mark that user is going to WhatsApp
+            markWhatsAppRedirect();
+            
+            // Check if it's mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // On mobile, use window.location.href to ensure smooth navigation back
+                window.location.href = `https://wa.me/918432254327?text=${message}`;
+            } else {
+                // On desktop, open in new tab
+                window.open(`https://wa.me/918432254327?text=${message}`, '_blank');
+            }
         }
 
         // Close modal when clicking outside
@@ -1133,7 +1207,20 @@
 
         function openWhatsApp() {
             const message = encodeURIComponent("🙏 Hello BEADS & MORE! I'm interested in placing an order for your beautiful traditional ornaments. Could you please help me with:\n\n📋 Available products and pricing\n🚚 Delivery details\n💳 Payment options\n\nThank you!");
-            window.open(`https://wa.me/918432254327?text=${message}`, '_blank');
+            
+            // Mark that user is going to WhatsApp
+            markWhatsAppRedirect();
+            
+            // Check if it's mobile device
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // On mobile, use window.location.href to ensure smooth navigation back
+                window.location.href = `https://wa.me/918432254327?text=${message}`;
+            } else {
+                // On desktop, open in new tab
+                window.open(`https://wa.me/918432254327?text=${message}`, '_blank');
+            }
         }
 
         // Event listeners
@@ -1146,8 +1233,52 @@
             });
         });
 
+        // Welcome back notification functions
+        function showWelcomeNotification() {
+            const notification = document.getElementById('welcomeBackNotification');
+            notification.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hideWelcomeNotification();
+            }, 5000);
+        }
+
+        function hideWelcomeNotification() {
+            const notification = document.getElementById('welcomeBackNotification');
+            notification.classList.remove('show');
+        }
+
+        // Detect when user returns from WhatsApp
+        function detectReturnFromWhatsApp() {
+            // Check if the page was hidden (user went to WhatsApp) and is now visible again
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    // Page is now visible again
+                    const lastWhatsAppTime = localStorage.getItem('lastWhatsAppTime');
+                    const currentTime = new Date().getTime();
+                    
+                    // If user went to WhatsApp in the last 2 minutes and is now back
+                    if (lastWhatsAppTime && (currentTime - lastWhatsAppTime) < 120000) {
+                        setTimeout(() => {
+                            showWelcomeNotification();
+                        }, 1000); // Show notification after 1 second
+                        
+                        // Clear the timestamp
+                        localStorage.removeItem('lastWhatsAppTime');
+                    }
+                }
+            });
+        }
+
+        // Store timestamp when user goes to WhatsApp
+        function markWhatsAppRedirect() {
+            localStorage.setItem('lastWhatsAppTime', new Date().getTime());
+        }
+
         // Initialize
         renderCategories();
+        detectReturnFromWhatsApp();
     </script>
 </body>
 </html>
