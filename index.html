@@ -654,6 +654,183 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Product Modal Styles */
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .product-modal.active {
+            display: flex;
+            opacity: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .product-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #ff5252;
+            transform: scale(1.1);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .product-item {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .order-btn {
+            background: linear-gradient(135deg, #25D366, #20c158);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -725,7 +902,136 @@
         <span class="order-text">Order Now!</span>
     </div>
 
+    <!-- Product Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Category Products</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Sample product data - you'll replace this with your actual product data
+        const productData = {
+            "Kalash Mahirap": [
+                {
+                    name: "Golden Kalash Set",
+                    description: "Beautiful traditional golden kalash with intricate designs",
+                    price: "₹250",
+                    image: "images/KalashMahirap-1.png"
+                },
+                {
+                    name: "Silver Kalash Mahirap",
+                    description: "Elegant silver kalash perfect for ceremonies",
+                    price: "₹200",
+                    image: "images/KalashMahirap-2.png"
+                },
+                {
+                    name: "Premium Kalash Collection",
+                    description: "Premium quality kalash with pearl decorations",
+                    price: "₹300",
+                    image: "images/KalashMahirap-1.png"
+                }
+            ],
+            "Laxmi Paula": [
+                {
+                    name: "Traditional Laxmi Paula",
+                    description: "Sacred Laxmi Paula for prosperity rituals",
+                    price: "₹150",
+                    image: "images/Shree-1.png"
+                },
+                {
+                    name: "Decorative Laxmi Paula",
+                    description: "Beautiful decorative Laxmi Paula with golden finish",
+                    price: "₹180",
+                    image: "images/Shree-1.png"
+                }
+            ],
+            "Gopadma": [
+                {
+                    name: "Sacred Lotus Design",
+                    description: "Traditional Gopadma with lotus motifs",
+                    price: "₹120",
+                    image: "images/Moti-Har-1.png"
+                }
+            ]
+            // Add more categories and products as needed
+        };
+
+        // Modal functions
+        function openModal(categoryName) {
+            const modal = document.getElementById('productModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const productsGrid = document.getElementById('productsGrid');
+            
+            modalTitle.textContent = categoryName;
+            
+            // Get products for this category
+            const products = productData[categoryName] || [];
+            
+            if (products.length === 0) {
+                productsGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                        <i class="fas fa-box-open" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+                        <h3>Coming Soon!</h3>
+                        <p>Products for ${categoryName} will be available soon.</p>
+                        <button class="order-btn" onclick="openWhatsApp()" style="margin-top: 20px; max-width: 200px;">
+                            <i class="fab fa-whatsapp"></i> Ask About Products
+                        </button>
+                    </div>
+                `;
+            } else {
+                productsGrid.innerHTML = products.map(product => `
+                    <div class="product-item">
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
+                        </div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-price">${product.price}</div>
+                        <button class="order-btn" onclick="orderProduct('${product.name}', '${product.price}')">
+                            <i class="fab fa-whatsapp"></i> Order Now
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function orderProduct(productName, price) {
+            const message = encodeURIComponent(`Hi! I'm interested in ordering ${productName} (${price}). Could you please provide more details?`);
+            window.open(`https://wa.me/918432254327?text=${message}`, '_blank');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         const categories = [
             { name: "Laxmi Paula", type: "religious", icon: "fas fa-om", description: "Traditional Laxmi Paula for worship and prosperity rituals" },
             { name: "Gopadma", type: "religious", icon: "fas fa-lotus", description: "Sacred lotus design for spiritual ceremonies" },
@@ -818,15 +1124,11 @@
         }
 
         function selectCategory(categoryName) {
-            // Placeholder for category selection logic
-            alert(`Selected: ${categoryName}\nThis will load the specific products for this category.`);
-            // Here you would typically navigate to a product page or load products dynamically
+            openModal(categoryName);
         }
 
         function viewProducts(categoryName) {
-            // Placeholder for viewing products
-            alert(`Viewing products for: ${categoryName}\nThis will show all items in this category.`);
-            // Here you would typically show a modal or navigate to a products page
+            openModal(categoryName);
         }
 
         function openWhatsApp() {
