@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logo Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .logo-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        
+        .logo-variant {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .logo-variant h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        /* Circular Logo */
+        .circular-logo {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #b8860b, #daa520, #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(184, 134, 11, 0.3);
+            border: 4px solid #fff;
+            position: relative;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+        
+        .circular-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        .circular-logo .logo-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .circular-logo .logo-main {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 1px 1px 2px rgba(0,0,0,0.6);
+            letter-spacing: 2px;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        
+        .circular-logo .logo-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: 9px;
+            font-weight: 500;
+            color: #fff;
+            opacity: 0.95;
+            letter-spacing: 2px;
+            margin-top: 2px;
+            font-style: italic;
+        }
+        
+        /* Horizontal Logo */
+        .horizontal-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px 30px;
+            border-radius: 50px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .horizontal-logo .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffd700, #daa520);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+            font-size: 12px;
+        }
+        
+        .horizontal-logo .text {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Square Logo */
+        .square-logo {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .square-logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #ffd700);
+            border-radius: 22px;
+            z-index: -1;
+            animation: borderRotate 3s linear infinite;
+        }
+        
+        .square-logo .main-text {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .square-logo .sub-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        /* Text-only Logo */
+        .text-logo {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin: 20px auto;
+            position: relative;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef, #fff);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1), 
+                        inset 0 1px 3px rgba(255,255,255,0.8);
+            border: 2px solid #fff;
+            overflow: hidden;
+        }
+
+        .text-logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #daa520, #b8860b, #ffd700);
+            border-radius: 22px;
+            z-index: -1;
+            animation: borderGlow 4s linear infinite;
+        }
+        
+        .text-logo .main {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #b8860b, #ffd700, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .text-logo .sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            color: #666;
+            letter-spacing: 3px;
+            font-weight: 500;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        /* Decorative beads around text logo */
+        .text-logo-beads {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .text-bead {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset 3px 3px 6px rgba(255,255,255,0.4), 
+                        inset -3px -3px 6px rgba(0,0,0,0.4),
+                        0 3px 10px rgba(0,0,0,0.2);
+            animation: beadFloat 6s infinite ease-in-out;
+        }
+
+        .text-bead::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50%;
+            box-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .text-bead::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15%;
+            height: 15%;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Individual text logo beads */
+        .text-bead1 {
+            width: 12px;
+            height: 12px;
+            top: 15px;
+            left: 20px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c, #c0392b);
+            animation-delay: 0s;
+        }
+
+        .text-bead2 {
+            width: 10px;
+            height: 10px;
+            top: 20px;
+            right: 25px;
+            background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db, #2980b9);
+            animation-delay: 1s;
+        }
+
+        .text-bead3 {
+            width: 14px;
+            height: 14px;
+            bottom: 15px;
+            left: 15px;
+            background: radial-gradient(circle at 30% 30%, #55efc4, #2ecc71, #27ae60);
+            animation-delay: 2s;
+        }
+
+        .text-bead4 {
+            width: 8px;
+            height: 8px;
+            bottom: 20px;
+            right: 20px;
+            background: radial-gradient(circle at 30% 30%, #a29bfe, #9b59b6, #8e44ad);
+            animation-delay: 3s;
+        }
+
+        .text-bead5 {
+            width: 11px;
+            height: 11px;
+            top: 50%;
+            left: 5px;
+            background: radial-gradient(circle at 30% 30%, #fff7e6, #ffd700, #daa520);
+            animation-delay: 1.5s;
+        }
+
+        .text-bead6 {
+            width: 9px;
+            height: 9px;
+            top: 50%;
+            right: 8px;
+            background: radial-gradient(circle at 30% 30%, #f8f9fa, #bdc3c7, #95a5a6);
+            animation-delay: 2.5s;
+        }
+
+        .text-bead7 {
+            width: 7px;
+            height: 7px;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle at 30% 30%, #ffb347, #ff7675, #e17055);
+            animation-delay: 0.5s;
+        }
+
+        .text-bead8 {
+            width: 6px;
+            height: 6px;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle at 30% 30%, #ffb3d9, #fd79a8, #e84393);
+            animation-delay: 3.5s;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes beadFloat {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(-3px) scale(1.05);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translateY(2px) scale(0.95);
+                opacity: 1;
+            }
+        }
+        
+        .beads {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset 3px 3px 6px rgba(255,255,255,0.4), 
+                        inset -3px -3px 6px rgba(0,0,0,0.4),
+                        0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .beads::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            box-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .beads::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20%;
+            height: 20%;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .bead1 { 
+            width: 12px; 
+            height: 12px; 
+            top: 20px; 
+            right: 30px; 
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c, #c0392b);
+        }
+        .bead2 { 
+            width: 10px; 
+            height: 10px; 
+            bottom: 25px; 
+            left: 25px; 
+            background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db, #2980b9);
+        }
+        .bead3 { 
+            width: 8px; 
+            height: 8px; 
+            top: 30px; 
+            left: 20px; 
+            background: radial-gradient(circle at 30% 30%, #55efc4, #2ecc71, #27ae60);
+        }
+        .bead4 { 
+            width: 6px; 
+            height: 6px; 
+            bottom: 20px; 
+            right: 25px; 
+            background: radial-gradient(circle at 30% 30%, #a29bfe, #9b59b6, #8e44ad);
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .download-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e8;
+            border-radius: 10px;
+            text-align: center;
+            color: #2d5a2d;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #333; margin-bottom: 30px;">BEADS & MORE - Logo Variations</h1>
+    
+    <div class="logo-showcase">
+        <div class="logo-variant">
+            <h3>Circular Logo (Primary)</h3>
+            <div class="circular-logo">
+                <div class="beads bead1"></div>
+                <div class="beads bead2"></div>
+                <div class="beads bead3"></div>
+                <div class="beads bead4"></div>
+                <div class="logo-text">
+                    <div class="logo-main">BEADS</div>
+                    <div class="logo-sub">& MORE</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-variant">
+            <h3>Horizontal Logo</h3>
+            <div class="horizontal-logo">
+                <div class="icon">B&M</div>
+                <div class="text">BEADS & MORE</div>
+            </div>
+        </div>
+        
+        <div class="logo-variant">
+            <h3>Square Logo</h3>
+            <div class="square-logo">
+                <div class="main-text">BEADS</div>
+                <div class="sub-text">& MORE</div>
+            </div>
+        </div>
+        
+        <div class="logo-variant">
+            <h3>Text Logo</h3>
+            <div class="text-logo">
+                <div class="text-logo-beads">
+                    <div class="text-bead text-bead1"></div>
+                    <div class="text-bead text-bead2"></div>
+                    <div class="text-bead text-bead3"></div>
+                    <div class="text-bead text-bead4"></div>
+                    <div class="text-bead text-bead5"></div>
+                    <div class="text-bead text-bead6"></div>
+                    <div class="text-bead text-bead7"></div>
+                    <div class="text-bead text-bead8"></div>
+                </div>
+                <div class="main">BEADS & MORE</div>
+                <div class="sub">TRADITIONAL ORNAMENTS</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="download-info">
+        <h3>Usage Guidelines</h3>
+        <p><strong>Primary Logo:</strong> Use the circular logo for main branding, WhatsApp profile, and social media</p>
+        <p><strong>Horizontal Logo:</strong> Perfect for headers, business cards, and wide banner spaces</p>
+        <p><strong>Square Logo:</strong> Great for app icons, favicon, and square social media posts</p>
+        <p><strong>Text Logo:</strong> Use for letterheads, documents, and when you need text-only branding</p>
+    </div>
+    
+    <script>
+        // You can right-click and save each logo variant as an image
+        console.log("Logo variations created for BEADS & MORE");
+    </script>
+</body>
+</html>

@@ -6,6 +6,7 @@
     <title>BEADS & MORE - Link in Bio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -34,31 +35,264 @@
             margin-bottom: 30px;
         }
 
-        .business-logo {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-            border-radius: 50%;
+        /* Enhanced Dark Text Logo for Link-in-Bio */
+        .enhanced-text-logo {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c, #1a1a1a);
+            padding: 35px 25px;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3), 
+                        inset 0 2px 6px rgba(255,255,255,0.1),
+                        0 0 0 1px rgba(255,215,0,0.4);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            overflow: hidden;
             margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5em;
-            color: white;
-            font-weight: bold;
+            max-width: 400px;
+        }
+
+        .enhanced-text-logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #daa520, #b8860b, #ffd700, #daa520);
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderRotate 6s linear infinite;
+        }
+
+        .enhanced-text-logo::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            background: linear-gradient(135deg, 
+                rgba(255,215,0,0.08) 0%, 
+                rgba(255,255,255,0.03) 50%, 
+                rgba(218,165,32,0.08) 100%);
+            border-radius: 12px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .enhanced-text-logo .main-text {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #daa520, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 6px rgba(255,215,0,0.3);
+            animation: gradientShift 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .enhanced-text-logo .sub-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 12px;
+            color: #bdc3c7;
+            letter-spacing: 3px;
+            font-weight: 500;
+            font-style: italic;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Decorative beads for dark logo */
+        .enhanced-logo-beads {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .enhanced-bead {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2), 
+                        inset -2px -2px 4px rgba(0,0,0,0.6),
+                        0 2px 8px rgba(0,0,0,0.4),
+                        0 0 12px rgba(255,215,0,0.15);
+            animation: beadFloat 6s infinite ease-in-out;
+        }
+
+        .enhanced-bead::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 25%;
+            height: 25%;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+        }
+
+        .enhanced-bead::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12%;
+            height: 12%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .enhanced-bead1 {
+            width: 10px;
+            height: 10px;
+            top: 12px;
+            left: 15px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c, #c0392b);
+            animation-delay: 0s;
+        }
+
+        .enhanced-bead2 {
+            width: 8px;
+            height: 8px;
+            top: 15px;
+            right: 18px;
+            background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db, #2980b9);
+            animation-delay: 1s;
+        }
+
+        .enhanced-bead3 {
+            width: 12px;
+            height: 12px;
+            bottom: 12px;
+            left: 12px;
+            background: radial-gradient(circle at 30% 30%, #55efc4, #2ecc71, #27ae60);
+            animation-delay: 2s;
+        }
+
+        .enhanced-bead4 {
+            width: 7px;
+            height: 7px;
+            bottom: 15px;
+            right: 15px;
+            background: radial-gradient(circle at 30% 30%, #a29bfe, #9b59b6, #8e44ad);
+            animation-delay: 3s;
+        }
+
+        .enhanced-bead5 {
+            width: 9px;
+            height: 9px;
+            top: 35px;
+            left: 5px;
+            background: radial-gradient(circle at 30% 30%, #fff7e6, #ffd700, #daa520);
+            animation-delay: 1.5s;
+        }
+
+        .enhanced-bead6 {
+            width: 6px;
+            height: 6px;
+            top: 40px;
+            right: 8px;
+            background: radial-gradient(circle at 30% 30%, #f8f9fa, #bdc3c7, #95a5a6);
+            animation-delay: 2.5s;
+        }
+
+        .enhanced-bead7 {
+            width: 8px;
+            height: 8px;
+            bottom: 35px;
+            left: 8px;
+            background: radial-gradient(circle at 30% 30%, #ffb347, #ff7675, #e17055);
+            animation-delay: 0.5s;
+        }
+
+        .enhanced-bead8 {
+            width: 5px;
+            height: 5px;
+            bottom: 40px;
+            right: 12px;
+            background: radial-gradient(circle at 30% 30%, #ffb3d9, #fd79a8, #e84393);
+            animation-delay: 3.5s;
+        }
+
+        /* Animations for enhanced dark logo */
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes beadFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-2px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(1px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-1px) rotate(270deg);
+            }
+        }
+
+        /* Responsive adjustments for enhanced logo */
+        @media (max-width: 480px) {
+            .enhanced-text-logo {
+                margin: 0 15px 20px;
+                padding: 25px 20px;
+            }
+            
+            .enhanced-text-logo .main-text {
+                font-size: 22px;
+                letter-spacing: 1px;
+            }
+            
+            .enhanced-text-logo .sub-text {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
         }
 
         .business-name {
-            font-size: 1.8em;
-            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            font-size: 1.9em;
+            font-weight: 600;
             color: #333;
             margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .business-tagline {
+            font-family: 'Cormorant Garamond', serif;
             color: #666;
             font-size: 1.1em;
             margin-bottom: 20px;
+            font-style: italic;
+            font-weight: 500;
         }
 
         .links-section {
@@ -220,10 +454,20 @@
 <body>
     <div class="container">
         <div class="profile-section">
-            <div class="business-logo">
-                <i class="fas fa-gem"></i>
+            <div class="enhanced-text-logo">
+                <div class="enhanced-logo-beads">
+                    <div class="enhanced-bead enhanced-bead1"></div>
+                    <div class="enhanced-bead enhanced-bead2"></div>
+                    <div class="enhanced-bead enhanced-bead3"></div>
+                    <div class="enhanced-bead enhanced-bead4"></div>
+                    <div class="enhanced-bead enhanced-bead5"></div>
+                    <div class="enhanced-bead enhanced-bead6"></div>
+                    <div class="enhanced-bead enhanced-bead7"></div>
+                    <div class="enhanced-bead enhanced-bead8"></div>
+                </div>
+                <div class="main-text">BEADS & MORE</div>
+                <div class="sub-text">Traditional Craftsmanship</div>
             </div>
-            <div class="business-name">BEADS & MORE</div>
             <div class="business-tagline">Traditional Ornaments • Handcrafted Quality • Quick Delivery</div>
         </div>
 
