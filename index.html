@@ -796,78 +796,257 @@
         }
 
         .product-item {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fc 30%, #ffffff 70%, #f0f2ff 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.1), 
+                        0 8px 25px rgba(0, 0, 0, 0.08),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .product-item::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #667eea, #764ba2, #f093fb, #f5576c, 
+                #4facfe, #00f2fe, #43e97b, #38f9d7,
+                #667eea);
+            border-radius: 23px;
+            z-index: -1;
+            opacity: 0;
+            animation: cardBorderRotate 6s linear infinite;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 0%, 
+                rgba(255, 215, 0, 0.05) 0%, 
+                transparent 50%),
+                radial-gradient(circle at 0% 100%, 
+                rgba(102, 126, 234, 0.03) 0%, 
+                transparent 50%);
+            border-radius: 17px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-item:hover::before {
+            opacity: 1;
+        }
+
+        .product-item:hover::after {
+            opacity: 1;
         }
 
         .product-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.15), 
+                        0 20px 40px rgba(0, 0, 0, 0.1),
+                        0 0 0 1px rgba(255, 215, 0, 0.2);
         }
 
         .product-image {
             width: 100%;
-            height: 200px;
-            background: #f5f5f5;
-            border-radius: 10px;
+            height: 250px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+            border-radius: 15px;
             margin-bottom: 15px;
             overflow: hidden;
             position: relative;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.1), 
+                        0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #ff6b6b 0%, #4ecdc4 12.5%, #45b7d1 25%, 
+                #96ceb4 37.5%, #ffeaa7 50%, #dda0dd 62.5%, 
+                #98d8c8 75%, #a29bfe 87.5%, #ff6b6b 100%);
+            border-radius: 18px;
+            z-index: -1;
+            animation: borderRotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-image:hover::before {
+            opacity: 1;
+        }
+
+        /* Inner decorative border */
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            background: linear-gradient(135deg, 
+                rgba(255, 215, 0, 0.2) 0%, 
+                transparent 25%,
+                rgba(102, 126, 234, 0.1) 50%,
+                transparent 75%,
+                rgba(255, 215, 0, 0.2) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .product-image:hover::after {
+            opacity: 1;
+        }
+
+        .product-image:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2), 
+                        0 15px 30px rgba(0, 0, 0, 0.15),
+                        0 0 0 1px rgba(255, 215, 0, 0.3);
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
+            object-fit: contain;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            position: relative;
+            z-index: 2;
+            padding: 15px;
+            filter: brightness(1) contrast(1.05) saturate(1.1);
         }
 
         .product-image:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            filter: brightness(1.05) contrast(1.1) saturate(1.2);
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes borderRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes cardBorderRotate {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .product-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2c3e50 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            line-height: 1.3;
         }
 
         .product-description {
-            font-size: 14px;
-            color: #666;
+            font-size: 15px;
+            color: #5a6c7d;
+            line-height: 1.6;
             margin-bottom: 15px;
-            line-height: 1.4;
+            font-weight: 400;
         }
 
         .product-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .order-btn {
-            background: linear-gradient(135deg, #25D366, #20c158);
+            background: linear-gradient(135deg, #25D366, #20c158, #1ea74e);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: 600;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
-            font-size: 14px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .order-btn:hover::before {
+            left: 100%;
         }
 
         .order-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(135deg, #20c158, #1ea74e, #1b8f43);
         }
 
         @media (max-width: 768px) {
@@ -1003,16 +1182,34 @@
             ],
             "Laxmi Paula": [
                 {
-                    name: "Traditional Laxmi Paula",
-                    description: "Sacred Laxmi Paula for prosperity rituals",
-                    price: "₹150",
-                    image: "images/Shree-1.png"
+                    name: "Big Laxmi Paule",
+                    description: "Large traditional Laxmi Paula for prosperity rituals",
+                    price: "₹100",
+                    image: "images/Laxmi-Paula/Big Laxmi Paule.jpeg"
                 },
                 {
-                    name: "Decorative Laxmi Paula",
-                    description: "Beautiful decorative Laxmi Paula with golden finish",
-                    price: "₹180",
-                    image: "images/Shree-1.png"
+                    name: "Crystal Laxmi Paule",
+                    description: "Beautiful crystal Laxmi Paula with elegant finish (2 pairs)",
+                    price: "₹200",
+                    image: "images/Laxmi-Paula/Crystal Laxmi Paule.jpeg"
+                },
+                {
+                    name: "Golden Laxmi Paule",
+                    description: "Golden decorative Laxmi Paula for special occasions",
+                    price: "₹50",
+                    image: "images/Laxmi-Paula/Golden Laxmi Paule.jpeg"
+                },
+                {
+                    name: "Small Mix Laxmi Paule",
+                    description: "Compact mixed design Laxmi Paula perfect for daily worship (2 pairs)",
+                    price: "₹80",
+                    image: "images/Laxmi-Paula/Small Mix Laxmi Paule.jpeg"
+                },
+                {
+                    name: "Swastic Laxmi Paule",
+                    description: "Auspicious Swastik design Laxmi Paula for good fortune",
+                    price: "₹100",
+                    image: "images/Laxmi-Paula/Swastic Laxmi Paule.jpeg"
                 }
             ],
             "Gopadma": [
