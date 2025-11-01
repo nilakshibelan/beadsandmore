@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEADS & MORE - Link in Bio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .profile-section {
+            margin-bottom: 30px;
+        }
+
+        .business-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+            font-weight: bold;
+        }
+
+        .business-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .business-tagline {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .links-section {
+            margin: 30px 0;
+        }
+
+        .link-button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .link-button.primary {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+
+        .link-button.catalog {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .link-button.whatsapp {
+            background: linear-gradient(135deg, #25d366, #20bf6b);
+        }
+
+        .link-button i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .recent-products {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .recent-products h3 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .product-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(45deg, #ddd, #f1f1f1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .product-name {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #25d366;
+            font-weight: 700;
+        }
+
+        .stats-section {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1565c0;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .contact-item i {
+            margin-right: 10px;
+            color: #25d366;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <div class="business-logo">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="business-name">BEADS & MORE</div>
+            <div class="business-tagline">Traditional Ornaments • Handcrafted Quality • Quick Delivery</div>
+        </div>
+
+        <div class="links-section">
+            <a href="index.html" class="link-button primary">
+                <i class="fas fa-shopping-bag"></i>
+                Browse Full Catalog
+            </a>
+            
+            <button class="link-button whatsapp" onclick="orderNow()">
+                <i class="fab fa-whatsapp"></i>
+                Order via WhatsApp
+            </button>
+            
+            <a href="tel:+918432254327" class="link-button">
+                <i class="fas fa-phone"></i>
+                Call Us: +91 8432254327
+            </a>
+            
+            <button class="link-button catalog" onclick="showToday()">
+                <i class="fas fa-star"></i>
+                Today's Featured Items
+            </button>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">40+</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+        </div>
+
+        <div class="recent-products">
+            <h3><i class="fas fa-fire"></i> Today's Specials</h3>
+            <div class="product-grid">
+                <div class="product-card" onclick="orderProduct('Golden Kalash Set', '₹299')">
+                    <div class="product-image">Kalash Image</div>
+                    <div class="product-name">Golden Kalash Set</div>
+                    <div class="product-price">₹299</div>
+                </div>
+                <div class="product-card" onclick="orderProduct('Laxmi Paula Traditional', '₹125')">
+                    <div class="product-image">Paula Image</div>
+                    <div class="product-name">Laxmi Paula</div>
+                    <div class="product-price">₹125</div>
+                </div>
+                <div class="product-card" onclick="orderProduct('Silver Deepak Set', '₹199')">
+                    <div class="product-image">Deepak Image</div>
+                    <div class="product-name">Silver Deepak</div>
+                    <div class="product-price">₹199</div>
+                </div>
+                <div class="product-card" onclick="orderProduct('Decorative Kandil', '₹175')">
+                    <div class="product-image">Kandil Image</div>
+                    <div class="product-name">Decorative Kandil</div>
+                    <div class="product-price">₹175</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <span>Mon-Sat: 9 AM - 8 PM</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Free Delivery Above ₹500</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Quality Guaranteed</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function orderNow() {
+            const message = encodeURIComponent("🙏 Hello BEADS & MORE! I'm interested in placing an order. Could you please help me with:\n\n📋 Available products and pricing\n🚚 Delivery details\n💳 Payment options\n\nThank you!");
+            window.location.href = `https://wa.me/918432254327?text=${message}`;
+        }
+
+        function orderProduct(productName, price) {
+            const message = encodeURIComponent(`Hi! I'm interested in ordering ${productName} (${price}). Could you please provide more details?`);
+            window.location.href = `https://wa.me/918432254327?text=${message}`;
+        }
+
+        function showToday() {
+            alert("Today's featured items are displayed below! Tap any product to order via WhatsApp.");
+        }
+
+        // Track visits from different sources
+        const urlParams = new URLSearchParams(window.location.search);
+        const source = urlParams.get('source') || 'direct';
+        
+        // You can add analytics tracking here
+        console.log('Visitor source:', source);
+    </script>
+</body>
+</html>

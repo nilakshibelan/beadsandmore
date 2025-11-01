@@ -1276,9 +1276,50 @@
             localStorage.setItem('lastWhatsAppTime', new Date().getTime());
         }
 
+        // Detect visitors from WhatsApp Status QR codes
+        function detectStatusVisitor() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmSource = urlParams.get('utm_source');
+            const utmMedium = urlParams.get('utm_medium');
+            const product = urlParams.get('product');
+
+            if (utmSource === 'whatsapp' && utmMedium === 'status') {
+                // Show special welcome message for status visitors
+                setTimeout(() => {
+                    showStatusWelcome(product);
+                }, 1000);
+            }
+        }
+
+        function showStatusWelcome(product) {
+            const notification = document.getElementById('welcomeBackNotification');
+            const notificationText = notification.querySelector('span');
+            
+            if (product) {
+                notificationText.innerHTML = `<i class="fab fa-whatsapp"></i> Welcome from WhatsApp Status! Looking for <strong>${product}</strong>?`;
+            } else {
+                notificationText.innerHTML = `<i class="fab fa-whatsapp"></i> Welcome from WhatsApp Status! Browse our beautiful collection below`;
+            }
+            
+            notification.classList.add('show');
+            
+            // Auto-hide after 8 seconds for status visitors
+            setTimeout(() => {
+                hideWelcomeNotification();
+            }, 8000);
+
+            // If product specified, try to open that category
+            if (product) {
+                setTimeout(() => {
+                    openModal(product);
+                }, 3000);
+            }
+        }
+
         // Initialize
         renderCategories();
         detectReturnFromWhatsApp();
+        detectStatusVisitor();
     </script>
 </body>
 </html>
