@@ -1179,92 +1179,7 @@
             flex-direction: column;
         }
 
-        /* Mobile zoom container */
-        .zoom-container {
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            position: relative;
-            touch-action: none;
-            border-radius: 15px;
-        }
-
-        .zoom-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-            cursor: grab;
-            user-select: none;
-        }
-
-        .zoom-image:active {
-            cursor: grabbing;
-        }
-
-        .zoom-image.zoomed {
-            cursor: grab;
-        }
-
-        /* Mobile zoom controls */
-        .zoom-controls {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .zoom-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(102, 126, 234, 0.9);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        .zoom-btn:hover, .zoom-btn:active {
-            background: rgba(102, 126, 234, 1);
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Mobile specific adjustments - Larger touch targets */
-        @media (max-width: 768px) {
-            .zoom-container {
-                height: 300px;
-            }
-            
-            .modal-content {
-                padding: 15px;
-                border-radius: 15px;
-                margin: 10px;
-            }
-            
-            .zoom-controls {
-                bottom: 15px;
-                right: 15px;
-                gap: 15px;
-            }
-            
-            .zoom-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 22px;
-                border-width: 3px;
-            }
-        }
+        /* Zoom functionality CSS removed for better mobile compatibility */
 
         .product-modal.active .modal-content {
             transform: scale(1);
@@ -1483,22 +1398,6 @@
             z-index: 2;
             padding: 15px;
             filter: brightness(1.05) contrast(1.1) saturate(1.15);
-            transition: transform 0.3s ease;
-        }
-
-        /* Zoom indicator styles */
-        .product-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .product-image:hover .zoom-indicator {
-            opacity: 1 !important;
-            transform: scale(1.1);
-            background: rgba(102,126,234,1) !important;
-        }
-
-        .zoom-indicator {
-            transition: all 0.3s ease;
         }
 
         @keyframes shimmer {
@@ -1877,7 +1776,6 @@
                         <i class="fas fa-expand-arrows-alt"></i>
                     </button>
                 </div>
-            </div>
         </div>
     </div>
 
@@ -1995,14 +1893,8 @@
                         <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                             ${products.map((product, index) => `
                                 <div style="border: 2px solid #667eea; border-radius: 10px; padding: 15px; background: #f9f9f9;">
-                                    <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0; cursor: pointer; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s ease;" 
-                                         onclick="openImageZoom('${product.image}', '${product.name}')"
-                                         onmouseover="this.style.boxShadow='0 4px 15px rgba(102,126,234,0.3)'; this.querySelector('img').style.transform='scale(1.05)'"
-                                         onmouseout="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'; this.querySelector('img').style.transform='scale(1)'">
-                                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; transition: transform 0.3s ease;">
-                                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(102,126,234,0.9); color: white; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 14px; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-                                            🔍
-                                        </div>
+                                    <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;">
                                     </div>
                                     <h3 style="color: #333; font-size: 20px; margin: 10px 0; font-weight: bold;">${product.name}</h3>
                                     <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
@@ -2074,11 +1966,8 @@
                     // Normal rendering for other categories
                     productsGrid.innerHTML = products.map(product => `
                         <div class="product-item">
-                            <div class="product-image" onclick="openImageZoom('${product.image}', '${product.name}')" style="cursor: pointer; position: relative;">
+                            <div class="product-image">
                                 <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
-                                <div class="zoom-indicator" style="position: absolute; top: 8px; right: 8px; background: rgba(102,126,234,0.9); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; opacity: 0.8; transition: opacity 0.3s ease;">
-                                    🔍
-                                </div>
                             </div>
                             <div class="product-name">${product.name}</div>
                             <div class="product-description">${product.description}</div>
@@ -2101,53 +1990,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Mobile Image Zoom Functions - Simple & Universal
-        let currentZoom = 1;
-        let translateX = 0, translateY = 0;
-
-        function openImageZoom(imageSrc, productName) {
-            const modal = document.getElementById('imageZoomModal');
-            const zoomImage = document.getElementById('zoomImage');
-            const zoomTitle = document.getElementById('zoomModalTitle');
-            
-            zoomImage.src = imageSrc;
-            zoomTitle.textContent = productName;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Reset zoom to default
-            resetZoom();
-        }
-
-        function closeImageZoom() {
-            const modal = document.getElementById('imageZoomModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function zoomIn() {
-            currentZoom = Math.min(currentZoom * 1.5, 4);
-            updateImageTransform();
-        }
-
-        function zoomOut() {
-            currentZoom = Math.max(currentZoom / 1.5, 0.5);
-            updateImageTransform();
-        }
-
-        function resetZoom() {
-            currentZoom = 1;
-            translateX = 0;
-            translateY = 0;
-            updateImageTransform();
-        }
-
-        function updateImageTransform() {
-            const zoomImage = document.getElementById('zoomImage');
-            if (zoomImage) {
-                zoomImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
-            }
-        }
+        // Zoom functionality removed for better mobile compatibility
 
         function orderProduct(productName, price) {
             const message = encodeURIComponent(`Hi! I'm interested in ordering ${productName} (${price}). Could you please provide more details?`);
