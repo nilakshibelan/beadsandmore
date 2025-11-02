@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>BEADS & MORE - Traditional Ornaments Catalog</title>
+    <title>BEADS & MORE - Traditional Ornaments Catalog - v2.0</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1166,14 +1166,17 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 30px;
+            padding: 0;
             max-width: 90vw;
             max-height: 90vh;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             transform: scale(0.7);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Mobile zoom container */
@@ -1264,9 +1267,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            margin-bottom: 20px;
+            padding: 30px 30px 20px 30px;
             border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-radius: 20px 20px 0 0;
         }
 
         .modal-title {
@@ -1302,6 +1310,8 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin-top: 20px;
+            padding: 0 30px 30px 30px;
+            min-height: 200px;
         }
 
         .product-item {
@@ -1501,18 +1511,14 @@
         .product-name {
             font-size: 20px;
             font-weight: 700;
-            background: linear-gradient(135deg, #2c3e50 0%, #667eea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #2c3e50 !important;
             margin-bottom: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
             line-height: 1.3;
         }
 
         .product-description {
             font-size: 15px;
-            color: #5a6c7d;
+            color: #5a6c7d !important;
             line-height: 1.6;
             margin-bottom: 15px;
             font-weight: 400;
@@ -1521,12 +1527,8 @@
         .product-price {
             font-size: 24px;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #667eea !important;
             margin-bottom: 20px;
-            text-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .order-btn {
@@ -1583,7 +1585,7 @@
         @media (max-width: 768px) {
             /* Modal mobile optimizations */
             .modal-content {
-                padding: 20px 15px;
+                padding: 0;
                 margin: 10px;
                 max-width: 95vw;
                 max-height: 95vh;
@@ -1591,11 +1593,12 @@
             }
 
             .modal-header {
-                margin-bottom: 20px;
-                padding-bottom: 15px;
+                margin-bottom: 0;
+                padding: 20px 15px 15px 15px;
                 flex-direction: column;
                 gap: 10px;
                 text-align: center;
+                border-radius: 15px 15px 0 0;
             }
 
             .modal-title {
@@ -1616,6 +1619,7 @@
             .products-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+                padding: 0 20px 20px 20px;
             }
 
             /* Product items in modal - mobile optimized */
@@ -1681,6 +1685,7 @@
 
             .products-grid {
                 gap: 15px;
+                padding: 0 15px 15px 15px;
             }
 
             .product-item {
@@ -1914,6 +1919,10 @@
             // Add more categories and products as needed
         };
 
+        // Debug: Check if productData loaded correctly
+        console.log('ProductData loaded:', productData);
+        console.log('Laxmi Paula products:', productData["Laxmi Paula"]);
+
         // Modal functions
         function openModal(categoryName) {
             const modal = document.getElementById('productModal');
@@ -1924,6 +1933,77 @@
             
             // Get products for this category
             const products = productData[categoryName] || [];
+            
+            // Special debugging for Laxmi Paula
+            if (categoryName === 'Laxmi Paula') {
+                console.log('=== LAXMI PAULA DEBUG ===');
+                console.log('Category name:', categoryName);
+                console.log('Products found:', products.length);
+                console.log('First product:', products[0]);
+                
+                // Create a completely custom modal for Laxmi Paula
+                const customModal = document.createElement('div');
+                customModal.id = 'laxmiPaulaCustomModal';
+                customModal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0,0,0,0.8);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                `;
+                
+                customModal.innerHTML = `
+                    <div style="background: white; border-radius: 10px; padding: 20px; max-width: 90vw; max-height: 90vh; overflow-y: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px;">
+                            <h2 style="margin: 0; color: #333; font-size: 24px;">Laxmi Paula Products</h2>
+                            <button onclick="closeLaxmiModal()" style="background: #ff5555; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 18px;">×</button>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                            ${products.map((product, index) => `
+                                <div style="border: 2px solid #667eea; border-radius: 10px; padding: 15px; background: #f9f9f9;">
+                                    <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0;">
+                                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;">
+                                    </div>
+                                    <h3 style="color: #333; font-size: 20px; margin: 10px 0; font-weight: bold;">${product.name}</h3>
+                                    <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
+                                    <div style="color: #667eea; font-size: 22px; font-weight: bold; margin: 15px 0;">${product.price}</div>
+                                    <button onclick="orderProduct('${product.name}', '${product.price}'); closeLaxmiModal();" style="background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%;">
+                                        🟢 Order Now via WhatsApp
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                // Add close function to window
+                window.closeLaxmiModal = function() {
+                    const modal = document.getElementById('laxmiPaulaCustomModal');
+                    if (modal) {
+                        modal.remove();
+                    }
+                    document.body.style.overflow = 'auto';
+                };
+                
+                // Remove any existing custom modal
+                const existingModal = document.getElementById('laxmiPaulaCustomModal');
+                if (existingModal) {
+                    existingModal.remove();
+                }
+                
+                // Add to body and show
+                document.body.appendChild(customModal);
+                document.body.style.overflow = 'hidden';
+                
+                // Don't show the regular modal
+                return;
+            }
             
             if (products.length === 0) {
                 productsGrid.innerHTML = `
@@ -1937,22 +2017,41 @@
                     </div>
                 `;
             } else {
-                productsGrid.innerHTML = products.map(product => `
-                    <div class="product-item">
-                        <div class="product-image" onclick="openImageZoom('${product.image}', '${product.name}')" style="cursor: pointer; position: relative;">
-                            <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
-                            <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 8px; border-radius: 15px; font-size: 12px; pointer-events: none;">
-                                <i class="fas fa-expand"></i> Tap to zoom
+                // Special handling for Laxmi Paula
+                if (categoryName === 'Laxmi Paula') {
+                    console.log('Rendering Laxmi Paula with special handling...');
+                    productsGrid.innerHTML = products.map((product, index) => {
+                        console.log(`Rendering product ${index}:`, product.name);
+                        return `
+                        <div class="product-item" style="border: 2px solid red; padding: 20px; margin: 10px; background: white;">
+                            <div class="product-image" style="margin-bottom: 15px;">
+                                <img src="${product.image}" alt="${product.name}" style="width: 100%; max-height: 200px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
                             </div>
+                            <h3 style="color: #ff0000 !important; font-size: 22px !important; font-weight: bold !important; margin: 10px 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important;">${product.name}</h3>
+                            <p style="color: #000000 !important; font-size: 16px !important; margin: 10px 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important;">${product.description}</p>
+                            <div style="color: #0000ff !important; font-size: 24px !important; font-weight: bold !important; margin: 15px 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important;">${product.price}</div>
+                            <button onclick="orderProduct('${product.name}', '${product.price}')" style="background: #25D366 !important; color: white !important; border: none !important; padding: 12px 24px !important; border-radius: 8px !important; font-size: 16px !important; cursor: pointer !important; display: inline-block !important; visibility: visible !important; opacity: 1 !important; margin-top: 10px !important;">
+                                🟢 Order Now
+                            </button>
                         </div>
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-description">${product.description}</div>
-                        <div class="product-price">${product.price}</div>
-                        <button class="order-btn" onclick="orderProduct('${product.name}', '${product.price}')">
-                            <i class="fab fa-whatsapp"></i> Order Now
-                        </button>
-                    </div>
-                `).join('');
+                    `;
+                    }).join('');
+                } else {
+                    // Normal rendering for other categories
+                    productsGrid.innerHTML = products.map(product => `
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
+                            </div>
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-description">${product.description}</div>
+                            <div class="product-price">${product.price}</div>
+                            <button class="order-btn" onclick="orderProduct('${product.name}', '${product.price}')">
+                                <i class="fab fa-whatsapp"></i> Order Now
+                            </button>
+                        </div>
+                    `).join('');
+                }
             }
             
             modal.classList.add('active');
