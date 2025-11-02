@@ -2,15 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>BEADS & MORE - Traditional Ornaments Catalog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Mobile-first optimizations */
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        /* Better mobile scrolling */
+        body, html {
+            overflow-x: hidden;
         }
 
         body {
@@ -20,6 +33,11 @@
             animation: gradientShift 8s ease infinite;
             min-height: 100vh;
             color: #333;
+            font-size: 16px; /* Mobile-friendly base font size */
+            line-height: 1.5; /* Better readability */
+            -webkit-text-size-adjust: 100%; /* Prevent text scaling on iOS */
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+            touch-action: manipulation; /* Improve touch responsiveness */
         }
 
         @keyframes gradientShift {
@@ -75,43 +93,248 @@
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ffffff, #f8f9fa, #ffffff, #e9ecef);
-            background-size: 300% 300%;
-            animation: logoShine 4s ease infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-main {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ff6b35);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 20px rgba(255,255,255,0.8);
+            letter-spacing: 2px;
+        }
+
+        .logo-tagline {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: -2px;
+            letter-spacing: 1px;
+        }
+
+        /* Enhanced Dark Text Logo for Index Page */
+        .enhanced-text-logo {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
             position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c, #1a1a1a);
+            padding: 25px 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), 
+                        inset 0 2px 6px rgba(255,255,255,0.1),
+                        0 0 0 1px rgba(255,215,0,0.4);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            overflow: hidden;
+            margin: 0;
+            max-width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .logo:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
-        }
-
-        .logo::after {
-            content: '✨';
+        .enhanced-text-logo::before {
+            content: '';
             position: absolute;
-            top: -10px;
-            right: -20px;
-            font-size: 16px;
-            animation: sparkle 2s ease infinite;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #daa520, #b8860b, #ffd700, #daa520);
+            border-radius: 17px;
+            z-index: -1;
+            animation: borderRotate 6s linear infinite;
         }
 
-        @keyframes logoShine {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .enhanced-text-logo::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: linear-gradient(135deg, 
+                rgba(255,215,0,0.08) 0%, 
+                rgba(255,255,255,0.03) 50%, 
+                rgba(218,165,32,0.08) 100%);
+            border-radius: 11px;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
+        .enhanced-text-logo .main-text {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #daa520, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 6px rgba(255,215,0,0.3);
+            animation: gradientShift 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            margin: 0;
+        }
+
+        .enhanced-text-logo .sub-text {
+            display: none; /* Hide tagline in header for compact design */
+        }
+
+        /* Decorative beads for dark logo */
+        .enhanced-logo-beads {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .enhanced-bead {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2), 
+                        inset -2px -2px 4px rgba(0,0,0,0.6),
+                        0 2px 8px rgba(0,0,0,0.4),
+                        0 0 12px rgba(255,215,0,0.15);
+            animation: beadFloat 6s infinite ease-in-out;
+        }
+
+        .enhanced-bead::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 25%;
+            height: 25%;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+        }
+
+        .enhanced-bead::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12%;
+            height: 12%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .enhanced-bead1 {
+            width: 6px;
+            height: 6px;
+            top: 8px;
+            left: 12px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c, #c0392b);
+            animation-delay: 0s;
+        }
+
+        .enhanced-bead2 {
+            width: 5px;
+            height: 5px;
+            top: 10px;
+            right: 15px;
+            background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db, #2980b9);
+            animation-delay: 1s;
+        }
+
+        .enhanced-bead3 {
+            width: 7px;
+            height: 7px;
+            bottom: 8px;
+            left: 10px;
+            background: radial-gradient(circle at 30% 30%, #55efc4, #2ecc71, #27ae60);
+            animation-delay: 2s;
+        }
+
+        .enhanced-bead4 {
+            width: 4px;
+            height: 4px;
+            bottom: 10px;
+            right: 12px;
+            background: radial-gradient(circle at 30% 30%, #a29bfe, #9b59b6, #8e44ad);
+            animation-delay: 3s;
+        }
+
+        .enhanced-bead5 {
+            width: 5px;
+            height: 5px;
+            top: 20px;
+            left: 4px;
+            background: radial-gradient(circle at 30% 30%, #fff7e6, #ffd700, #daa520);
+            animation-delay: 1.5s;
+        }
+
+        .enhanced-bead6 {
+            width: 4px;
+            height: 4px;
+            top: 25px;
+            right: 6px;
+            background: radial-gradient(circle at 30% 30%, #f8f9fa, #bdc3c7, #95a5a6);
+            animation-delay: 2.5s;
+        }
+
+        /* Animations for enhanced dark logo */
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes beadFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-1px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(0.5px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-0.5px) rotate(270deg);
+            }
         }
 
         .contact-info {
@@ -322,6 +545,15 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 30px;
+            padding: 0 20px;
+        }
+
+        /* Mobile-first approach for categories */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
         }
 
         .category-card {
@@ -333,7 +565,7 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            border: 2px solid transparent;
+            border: 2px solid #2c3e50;
             animation: cardFloat 6s ease-in-out infinite;
         }
 
@@ -361,7 +593,8 @@
         .category-card:hover {
             transform: translateY(-15px) scale(1.02);
             box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-            border-color: #ff6b6b;
+            border-color: #1a252f;
+            border-width: 3px;
         }
 
         .category-card::after {
@@ -397,6 +630,14 @@
             box-shadow: 0 8px 20px rgba(255,107,107,0.3);
             transform: rotate(0deg);
             transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .category-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
         }
 
         .category-card:hover .category-icon {
@@ -615,30 +856,205 @@
         }
 
         @media (max-width: 768px) {
+            /* Header optimizations for mobile */
+            .header {
+                padding: 15px 0;
+            }
+            
             .header-content {
                 flex-direction: column;
+                gap: 12px;
+                padding: 0 15px;
+            }
+
+            .logo img {
+                height: 40px;
+                max-width: 280px;
+                width: auto;
+            }
+
+            .enhanced-text-logo {
+                height: 40px;
+                padding: 15px 20px;
+                max-width: 280px;
+            }
+
+            .enhanced-text-logo .main-text {
+                font-size: 14px;
+                letter-spacing: 0.5px;
+            }
+
+            .logo-main {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+
+            .logo-tagline {
+                font-size: 0.7rem;
+            }
+
+            .contact-info {
+                flex-direction: row;
+                gap: 8px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .contact-info > div {
+                padding: 10px 12px;
+                font-size: 13px;
+                min-height: 44px; /* Touch-friendly minimum */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Page title mobile optimization */
+            .page-title {
+                padding: 30px 15px;
+            }
+
+            .page-title h1 {
+                font-size: 32px;
+                line-height: 1.2;
+            }
+
+            .page-title p {
+                font-size: 16px;
+                margin-top: 8px;
+            }
+
+            /* Categories grid - single column for mobile */
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-top: 25px;
+                padding: 0 15px;
+            }
+
+            /* Category cards mobile optimization */
+            .category-card {
+                padding: 20px;
+                border-radius: 15px;
+                min-height: 200px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .category-card h3 {
+                font-size: 22px;
+                margin-bottom: 8px;
+            }
+
+            .category-card p {
+                font-size: 14px;
+                line-height: 1.4;
+            }
+
+            /* Filter tabs mobile optimization */
+            .filter-tabs {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 0 15px;
+            }
+
+            .filter-tab {
+                padding: 10px 16px;
+                font-size: 14px;
+                min-height: 44px; /* Touch-friendly */
+                border-radius: 25px;
+            }
+
+            /* Stats section mobile */
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
+                padding: 0 15px;
+            }
+
+            .stat-card {
+                padding: 20px 15px;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .stat-label {
+                font-size: 13px;
+            }
+        }
+
+        /* Additional mobile-first optimizations */
+        @media (max-width: 480px) {
+            /* Small mobile devices */
+            .header-content {
+                padding: 0 10px;
+            }
+
+            .logo img {
+                height: 35px;
+                max-width: 250px;
+                width: auto;
+            }
+
+            .enhanced-text-logo {
+                height: 35px;
+                padding: 12px 15px;
+                max-width: 250px;
+            }
+
+            .enhanced-text-logo .main-text {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+            }
+
+            .logo-main {
+                font-size: 1.2rem;
+                letter-spacing: 0.5px;
+            }
+
+            .logo-tagline {
+                font-size: 0.6rem;
             }
 
             .contact-info {
                 flex-direction: column;
-                gap: 10px;
+                gap: 6px;
+            }
+
+            .contact-info > div {
+                width: 100%;
+                max-width: 280px;
             }
 
             .page-title h1 {
-                font-size: 36px;
+                font-size: 28px;
             }
 
             .categories-grid {
-                grid-template-columns: 1fr;
+                padding: 0 10px;
+                gap: 15px;
+            }
+
+            .category-card {
+                padding: 15px;
+                min-height: 180px;
+            }
+
+            .category-card h3 {
+                font-size: 20px;
             }
 
             .filter-tabs {
-                justify-content: center;
+                padding: 0 10px;
             }
 
             .stats-section {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                padding: 0 10px;
             }
         }
 
@@ -802,7 +1218,7 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.1), 
                         0 8px 25px rgba(0, 0, 0, 0.08),
                         inset 0 1px 0 rgba(255, 255, 255, 0.9);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 3px solid transparent;
             position: relative;
             overflow: hidden;
@@ -848,7 +1264,7 @@
         }
 
         .product-item:hover::before {
-            opacity: 1;
+            opacity: 0.8;
         }
 
         .product-item:hover::after {
@@ -856,25 +1272,49 @@
         }
 
         .product-item:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.15), 
-                        0 20px 40px rgba(0, 0, 0, 0.1),
-                        0 0 0 1px rgba(255, 215, 0, 0.2);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.08), 
+                        0 15px 25px rgba(0, 0, 0, 0.08),
+                        0 0 0 1px rgba(255, 215, 0, 0.25),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* Improve text readability on hover - direct text color changes */
+        .product-item:hover .product-name {
+            color: #1a1a1a !important;
+            background: none !important;
+            -webkit-text-fill-color: #1a1a1a !important;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+            font-weight: 800;
+        }
+
+        .product-item:hover .product-description {
+            color: #2c3e50 !important;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+        }
+
+        .product-item:hover .product-price {
+            color: #B8860B !important;
+            background: none !important;
+            -webkit-text-fill-color: #B8860B !important;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+            font-weight: 900;
         }
 
         .product-image {
             width: 100%;
             height: 250px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%);
             border-radius: 15px;
             margin-bottom: 15px;
             overflow: hidden;
             position: relative;
             border: 3px solid transparent;
             background-clip: padding-box;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.1), 
-                        0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 
+                        0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .product-image::before {
@@ -885,18 +1325,17 @@
             right: -3px;
             bottom: -3px;
             background: linear-gradient(45deg, 
-                #ff6b6b 0%, #4ecdc4 12.5%, #45b7d1 25%, 
-                #96ceb4 37.5%, #ffeaa7 50%, #dda0dd 62.5%, 
-                #98d8c8 75%, #a29bfe 87.5%, #ff6b6b 100%);
+                #FFD700 0%, #FFA500 20%, #FF8C00 40%, 
+                #DAA520 60%, #B8860B 80%, #FFD700 100%);
             border-radius: 18px;
             z-index: -1;
-            animation: borderRotate 4s linear infinite;
+            animation: borderRotate 8s linear infinite;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .product-image:hover::before {
-            opacity: 1;
+            opacity: 0.6;
         }
 
         /* Inner decorative border */
@@ -910,11 +1349,11 @@
             border: 1px solid transparent;
             border-radius: 10px;
             background: linear-gradient(135deg, 
-                rgba(255, 215, 0, 0.2) 0%, 
-                transparent 25%,
-                rgba(102, 126, 234, 0.1) 50%,
-                transparent 75%,
-                rgba(255, 215, 0, 0.2) 100%);
+                rgba(255, 215, 0, 0.4) 0%, 
+                rgba(255, 255, 255, 0.15) 25%,
+                rgba(218, 165, 32, 0.3) 50%,
+                rgba(255, 255, 255, 0.15) 75%,
+                rgba(255, 215, 0, 0.4) 100%);
             z-index: 1;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -922,31 +1361,18 @@
         }
 
         .product-image:hover::after {
-            opacity: 1;
-        }
-
-        .product-image:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2), 
-                        0 15px 30px rgba(0, 0, 0, 0.15),
-                        0 0 0 1px rgba(255, 215, 0, 0.3);
+            opacity: 0.7;
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: transparent;
             position: relative;
             z-index: 2;
             padding: 15px;
-            filter: brightness(1) contrast(1.05) saturate(1.1);
-        }
-
-        .product-image:hover img {
-            transform: scale(1.08);
-            filter: brightness(1.05) contrast(1.1) saturate(1.2);
+            filter: brightness(1.05) contrast(1.1) saturate(1.15);
         }
 
         @keyframes shimmer {
@@ -1044,24 +1470,157 @@
         }
 
         .order-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
-            background: linear-gradient(135deg, #20c158, #1ea74e, #1b8f43);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 24px rgba(37, 211, 102, 0.3);
+            background: linear-gradient(135deg, #22d368, #20c158, #1ea74e);
+        }
+
+        /* Medium mobile devices optimization */
+        @media (max-width: 600px) {
+            .order-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                border-radius: 20px;
+                min-height: 40px;
+                font-weight: 600;
+                letter-spacing: 0.2px;
+            }
         }
 
         @media (max-width: 768px) {
+            /* Modal mobile optimizations */
             .modal-content {
-                padding: 20px;
-                margin: 20px;
+                padding: 20px 15px;
+                margin: 10px;
+                max-width: 95vw;
+                max-height: 95vh;
+                border-radius: 15px;
             }
 
+            .modal-header {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .modal-title {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            .modal-close {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
+
+            /* Products grid in modal */
             .products-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
 
+            /* Product items in modal - mobile optimized */
+            .product-item {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .product-image {
+                height: 200px;
+                margin-bottom: 12px;
+            }
+
+            .product-info h3 {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .product-info p {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            .product-price {
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .order-btn {
+                padding: 10px 18px;
+                font-size: 13px;
+                min-height: 42px; /* Touch-friendly but smaller */
+                border-radius: 22px;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        /* Small mobile devices - Enhanced for one-handed use */
+        @media (max-width: 480px) {
+            .modal-content {
+                padding: 15px 10px;
+                margin: 5px;
+                border-radius: 12px;
+            }
+
+            .modal-header {
+                margin-bottom: 15px;
+                padding-bottom: 12px;
+            }
+
             .modal-title {
-                font-size: 24px;
+                font-size: 20px;
+            }
+
+            .modal-close {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .products-grid {
+                gap: 15px;
+            }
+
+            .product-item {
+                padding: 12px;
+            }
+
+            .product-image {
+                height: 180px;
+                margin-bottom: 10px;
+            }
+
+            .product-info h3 {
+                font-size: 16px;
+            }
+
+            .product-info p {
+                font-size: 13px;
+                line-height: 1.3;
+            }
+
+            .product-price {
+                font-size: 16px;
+            }
+
+            .order-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+                width: 100%;
+                margin-top: 8px;
+                min-height: 40px;
+                border-radius: 20px;
+                font-weight: 600;
+                letter-spacing: 0.2px;
             }
         }
     </style>
@@ -1069,7 +1628,20 @@
 <body>
     <header class="header">
         <div class="header-content">
-            <div class="logo">BEADS & MORE</div>
+            <div class="logo">
+                <div class="enhanced-text-logo">
+                    <div class="enhanced-logo-beads">
+                        <div class="enhanced-bead enhanced-bead1"></div>
+                        <div class="enhanced-bead enhanced-bead2"></div>
+                        <div class="enhanced-bead enhanced-bead3"></div>
+                        <div class="enhanced-bead enhanced-bead4"></div>
+                        <div class="enhanced-bead enhanced-bead5"></div>
+                        <div class="enhanced-bead enhanced-bead6"></div>
+                    </div>
+                    <div class="main-text">BEADS & MORE</div>
+                    <div class="sub-text">Traditional Craftsmanship</div>
+                </div>
+            </div>
             <div class="contact-info">
                 <div><i class="fas fa-phone"></i> <a href="tel:+918432254327">+91 8432254327</a></div>
                 <div><i class="fas fa-envelope"></i> <a href="mailto:nilakshibelan@gmail.com">nilakshibelan@gmail.com</a></div>
@@ -1346,6 +1918,61 @@
             { name: "Chourang Mahirap", type: "religious", icon: "fas fa-border-style", description: "Traditional square border decorations" }
         ];
 
+        // Function to convert category name to folder name
+        function getCategoryFolderName(categoryName) {
+            // Create a mapping for special cases
+            const folderMapping = {
+                "Laxmi Paula": "Laxmi-Paula",
+                "Kalash Stand": "Kalash-Stand",
+                "Name Patti": "Name-Patti",
+                "Belache Paan": "Belache-Paan",
+                "Small Moti Aasan": "Small-Moti-Aasan",
+                "Beaded Keychain": "Beaded-Keychain",
+                "Mango Leaf": "Mango-Leaf",
+                "Haar (Frame/Idol)": "Haar",
+                "Rangoli (Big)": "Rangoli-Full-Set",
+                "Rangoli (Small)": "Rangoli-3-Vari",
+                "Laxmi Sets": "Laxmi-Set",
+                "Saraswati Rangoli": "Rangoli-Full-Set",
+                "Kuber Rangoli": "Rangoli-Full-Set",
+                "Laxmi Aasan": "Laxmi-Aasan",
+                "Saree and Khan Set": "Saree-Khan-Set",
+                "Moti Paat": "Moti-Paat",
+                "Moti Chourang": "Moti-Chourang",
+                "Devi Combo Set": "Devi-Combo-Set",
+                "Vidyache Paan": "Vidyache-Paan",
+                "Aaptyache Paan": "Aaptyache-Paan",
+                "Tulshi Vrundavan": "Tulshi-Vrundavan",
+                "Tea Coaster": "Tea-Coaster",
+                "Thali Mahirap": "Thali-Mahirap",
+                "Kalash Mahirap": "Kalash-Mahirap",
+                "Samai Mahirap": "Samai-Mahirap",
+                "Niranjan Mahirap": "Niranjan-Mahirap",
+                "Chourang Mahirap": "Chourang-Mahirap"
+            };
+            
+            return folderMapping[categoryName] || categoryName;
+        }
+
+        // Function to get representative image for a category
+        function getCategoryImage(categoryName) {
+            const folderName = getCategoryFolderName(categoryName);
+            
+            // For known categories with images, return the actual image path
+            const knownImages = {
+                "Laxmi-Paula": "images/Laxmi-Paula/Big Laxmi Paule.jpeg",
+                "Gopadma": "images/Gopadma/Moti-Har-1.png",
+                // Add more as we discover them
+            };
+            
+            if (knownImages[folderName]) {
+                return knownImages[folderName];
+            }
+            
+            // For categories without images, return null to use icon fallback
+            return null;
+        }
+
         function renderCategories(categoriesToShow = categories) {
             const grid = document.getElementById('categoriesGrid');
             const noResults = document.getElementById('noResults');
@@ -1358,10 +1985,16 @@
             
             noResults.classList.add('hidden');
             
-            grid.innerHTML = categoriesToShow.map(category => `
+            grid.innerHTML = categoriesToShow.map(category => {
+                const categoryImage = getCategoryImage(category.name);
+                return `
                 <div class="category-card fade-in" onclick="selectCategory('${category.name}')">
                     <div class="category-icon">
-                        <i class="${category.icon}"></i>
+                        ${categoryImage ? 
+                            `<img src="${categoryImage}" alt="${category.name}" 
+                                 style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">` : 
+                            `<i class="${category.icon}"></i>`
+                        }
                     </div>
                     <div class="category-title">${category.name}</div>
                     <div class="category-description">${category.description}</div>
@@ -1372,7 +2005,7 @@
                         </button>
                     </div>
                 </div>
-            `).join('');
+            `;}).join('');
         }
 
         function filterCategories(type) {
