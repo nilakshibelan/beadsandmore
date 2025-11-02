@@ -858,13 +858,20 @@
         @media (max-width: 768px) {
             /* Header optimizations for mobile */
             .header {
-                padding: 15px 0;
+                padding: 25px 0;
             }
             
             .header-content {
                 flex-direction: column;
-                gap: 12px;
+                gap: 0;
                 padding: 0 15px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Hide contact info on mobile to save space */
+            .contact-info {
+                display: none;
             }
 
             .logo img {
@@ -874,28 +881,26 @@
             }
 
             .enhanced-text-logo {
-                height: 40px;
-                padding: 15px 20px;
-                max-width: 280px;
+                height: 80px;
+                padding: 25px 35px;
+                max-width: 90%;
+                margin: 0 auto;
+                border-radius: 18px;
             }
 
             .enhanced-text-logo .main-text {
-                font-size: 14px;
-                letter-spacing: 0.5px;
+                font-size: 22px;
+                letter-spacing: 1.5px;
+                margin-bottom: 5px;
             }
 
-            .logo-main {
-                font-size: 1.4rem;
-                letter-spacing: 1px;
+            .enhanced-text-logo .sub-text {
+                display: block;
+                font-size: 10px;
+                letter-spacing: 2.5px;
+                margin-top: 3px;
+                color: #bdc3c7;
             }
-
-            .logo-tagline {
-                font-size: 0.7rem;
-            }
-
-            .contact-info {
-                flex-direction: row;
-                gap: 8px;
                 justify-content: center;
                 flex-wrap: wrap;
             }
@@ -990,8 +995,19 @@
         /* Additional mobile-first optimizations */
         @media (max-width: 480px) {
             /* Small mobile devices */
+            .header {
+                padding: 20px 0;
+            }
+
             .header-content {
                 padding: 0 10px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Keep contact info hidden on small mobile too */
+            .contact-info {
+                display: none;
             }
 
             .logo img {
@@ -1001,28 +1017,25 @@
             }
 
             .enhanced-text-logo {
-                height: 35px;
-                padding: 12px 15px;
-                max-width: 250px;
+                height: 70px;
+                padding: 20px 30px;
+                max-width: 95%;
+                margin: 0 auto;
+                border-radius: 15px;
             }
 
             .enhanced-text-logo .main-text {
-                font-size: 12px;
-                letter-spacing: 0.5px;
+                font-size: 18px;
+                letter-spacing: 1px;
+                margin-bottom: 4px;
             }
 
-            .logo-main {
-                font-size: 1.2rem;
-                letter-spacing: 0.5px;
-            }
-
-            .logo-tagline {
-                font-size: 0.6rem;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 6px;
+            .enhanced-text-logo .sub-text {
+                display: block;
+                font-size: 9px;
+                letter-spacing: 2px;
+                margin-top: 2px;
+                color: #bdc3c7;
             }
 
             .contact-info > div {
