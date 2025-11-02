@@ -1181,6 +1181,11 @@
 
         /* Zoom functionality CSS removed for better mobile compatibility */
 
+        /* Hide any remaining zoom elements */
+        #imageZoomModal {
+            display: none !important;
+        }
+
         .product-modal.active .modal-content {
             transform: scale(1);
         }
@@ -1943,41 +1948,20 @@
                     </div>
                 `;
             } else {
-                // Special handling for Laxmi Paula
-                if (categoryName === 'Laxmi Paula') {
-                    console.log('Rendering Laxmi Paula with special handling...');
-                    productsGrid.innerHTML = products.map((product, index) => {
-                        console.log(`Rendering product ${index}:`, product.name);
-                        return `
-                        <div class="product-item" style="border: 2px solid red; padding: 20px; margin: 10px; background: white;">
-                            <div class="product-image" style="margin-bottom: 15px;">
-                                <img src="${product.image}" alt="${product.name}" style="width: 100%; max-height: 200px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
-                            </div>
-                            <h3 style="color: #ff0000 !important; font-size: 22px !important; font-weight: bold !important; margin: 10px 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important;">${product.name}</h3>
-                            <p style="color: #000000 !important; font-size: 16px !important; margin: 10px 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important;">${product.description}</p>
-                            <div style="color: #0000ff !important; font-size: 24px !important; font-weight: bold !important; margin: 15px 0 !important; display: block !important; visibility: visible !important; opacity: 1 !important;">${product.price}</div>
-                            <button onclick="orderProduct('${product.name}', '${product.price}')" style="background: #25D366 !important; color: white !important; border: none !important; padding: 12px 24px !important; border-radius: 8px !important; font-size: 16px !important; cursor: pointer !important; display: inline-block !important; visibility: visible !important; opacity: 1 !important; margin-top: 10px !important;">
-                                🟢 Order Now
-                            </button>
+                // All categories use consistent simple rendering
+                productsGrid.innerHTML = products.map(product => `
+                    <div style="border: 2px solid #667eea; border-radius: 10px; padding: 15px; background: #f9f9f9; margin: 10px;">
+                        <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
                         </div>
-                    `;
-                    }).join('');
-                } else {
-                    // Normal rendering for other categories
-                    productsGrid.innerHTML = products.map(product => `
-                        <div class="product-item">
-                            <div class="product-image">
-                                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
-                            </div>
-                            <div class="product-name">${product.name}</div>
-                            <div class="product-description">${product.description}</div>
-                            <div class="product-price">${product.price}</div>
-                            <button class="order-btn" onclick="orderProduct('${product.name}', '${product.price}')">
-                                <i class="fab fa-whatsapp"></i> Order Now
-                            </button>
-                        </div>
-                    `).join('');
-                }
+                        <h3 style="color: #333; font-size: 20px; margin: 10px 0; font-weight: bold;">${product.name}</h3>
+                        <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
+                        <div style="color: #667eea; font-size: 22px; font-weight: bold; margin: 15px 0;">${product.price}</div>
+                        <button onclick="orderProduct('${product.name}', '${product.price}')" style="background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%;">
+                            <i class="fab fa-whatsapp"></i> Order Now
+                        </button>
+                    </div>
+                `).join('');
             }
             
             modal.classList.add('active');
