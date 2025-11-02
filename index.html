@@ -1785,7 +1785,9 @@
     </div>
 
     <script>
-        // Sample product data - you'll replace this with your actual product data
+        // Product data - All products within each category MUST be sorted by price in ASCENDING order
+        // This ensures customers see budget-friendly options first and can easily compare prices
+        // Example: ₹40, ₹50, ₹80, ₹100, ₹200 (lowest to highest)
         const productData = {
             "Kalash Mahirap": [
                 {
@@ -1831,13 +1833,13 @@
                 {
                     name: "Simple Gopadma",
                     description: "Elegant simple Gopadma design perfect for daily worship",
-                    price: "₹40",
+                    price: "₹30",
                     image: "images/Gopadma/Simple Gopadma.jpeg"
                 },
                 {
                     name: "White and Red Gopadma",
                     description: "Traditional white and red colored Gopadma design",
-                    price: "₹50",
+                    price: "₹35",
                     image: "images/Gopadma/White and Red Gopadma.jpeg"
                 },
                 {
@@ -1845,6 +1847,56 @@
                     description: "Large beautiful Gopadma design for special occasions",
                     price: "₹80",
                     image: "images/Gopadma/Big Gopadma.jpeg"
+                }
+            ],
+            "Swastik": [
+                {
+                    name: "Simple Swastik",
+                    description: "Elegant simple swastik design for daily worship",
+                    price: "₹30",
+                    image: "images/Swastik/Simple Swastik.jpeg"
+                },
+                {
+                    name: "White and Red Swastik",
+                    description: "Traditional white and red colored swastik design",
+                    price: "₹30",
+                    image: "images/Swastik/White and Red Swastik.jpeg"
+                },
+                {
+                    name: "White and Golden Swastik",
+                    description: "Beautiful white and golden swastik for auspicious occasions",
+                    price: "₹40",
+                    image: "images/Swastik/White and Golden Swastik.jpeg"
+                },
+                {
+                    name: "Double Layer Swastik",
+                    description: "Unique double layer swastik design with enhanced depth",
+                    price: "₹50",
+                    image: "images/Swastik/Double Layer Swastik.jpeg"
+                },
+                {
+                    name: "Bhariv Swastik",
+                    description: "Traditional bhariv style swastik with intricate patterns",
+                    price: "₹100",
+                    image: "images/Swastik/Bhariv Swastik.jpeg"
+                },
+                {
+                    name: "Cream and Red Bhariv Swastik",
+                    description: "Premium bhariv swastik in cream and red colors",
+                    price: "₹100",
+                    image: "images/Swastik/Cream and Red Bhariv Swastik.jpeg"
+                },
+                {
+                    name: "Multi Colour Bhariv Swastik",
+                    description: "Vibrant multi-colored bhariv swastik for festive occasions",
+                    price: "₹100",
+                    image: "images/Swastik/Multi Colour Bhariv Swastik.jpeg"
+                },
+                {
+                    name: "White and Red Bhariv Swastik",
+                    description: "Classic white and red bhariv swastik design",
+                    price: "₹100",
+                    image: "images/Swastik/White and Red Bhariv Swastik.jpeg"
                 }
             ]
             // Add more categories and products as needed
@@ -2096,6 +2148,7 @@
                 "Laxmi-Paula": "images/Laxmi-Paula/Big Laxmi Paule.jpeg",
                 "Gopadma": "images/Gopadma/Big Gopadma.jpeg",
                 "Kalash-Mahirap": "images/Kalash-Mahirap/KalashMahirap-2.png",
+                "Swastik": "images/Swastik/Multi Colour Bhariv Swastik.jpeg",
                 // Add more as we discover them
             };
             
