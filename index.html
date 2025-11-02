@@ -1736,7 +1736,7 @@
 
     <div class="whatsapp-float" onclick="openWhatsApp()">
         <i class="fab fa-whatsapp"></i>
-        <span class="order-text">Order Now!</span>
+        <span class="order-text">Enquiry!</span>
     </div>
 
     <!-- Product Modal -->
@@ -2086,7 +2086,7 @@
                                     <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
                                     <div style="color: #667eea; font-size: 22px; font-weight: bold; margin: 15px 0;">${product.price}</div>
                                     <button onclick="orderProduct('${product.name}', '${product.price}'); closeLaxmiModal();" style="background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%;">
-                                        🟢 Order Now via WhatsApp
+                                        🟢 Enquiry via WhatsApp
                                     </button>
                                 </div>
                             `).join('')}
@@ -2124,7 +2124,7 @@
                         <h3>Coming Soon!</h3>
                         <p>Products for ${categoryName} will be available soon.</p>
                         <button class="order-btn" onclick="openWhatsApp()" style="margin-top: 20px; max-width: 200px;">
-                            <i class="fab fa-whatsapp"></i> Ask About Products
+                            <i class="fab fa-whatsapp"></i> Enquiry
                         </button>
                     </div>
                 `;
@@ -2139,7 +2139,7 @@
                         <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
                         <div style="color: #667eea; font-size: 22px; font-weight: bold; margin: 15px 0;">${product.price}</div>
                         <button onclick="orderProduct('${product.name}', '${product.price}')" style="background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%;">
-                            <i class="fab fa-whatsapp"></i> Order Now
+                            <i class="fab fa-whatsapp"></i> Enquiry
                         </button>
                     </div>
                 `).join('');
@@ -2158,7 +2158,7 @@
         // Zoom functionality removed for better mobile compatibility
 
         function orderProduct(productName, price) {
-            const message = encodeURIComponent(`Hi! I'm interested in ordering ${productName} (${price}). Could you please provide more details?`);
+            const message = encodeURIComponent(`Hi! I'm interested in enquiring about ${productName} (${price}). Could you please provide more details about availability, customization options, and delivery?`);
             
             // Mark that user is going to WhatsApp
             markWhatsAppRedirect();
@@ -2353,7 +2353,7 @@
         }
 
         function openWhatsApp() {
-            const message = encodeURIComponent("🙏 Hello BEADS & MORE! I'm interested in placing an order for your beautiful traditional ornaments. Could you please help me with:\n\n📋 Available products and pricing\n🚚 Delivery details\n💳 Payment options\n\nThank you!");
+            const message = encodeURIComponent("🙏 Hello BEADS & MORE! I'm interested in enquiring about your beautiful traditional ornaments. Could you please help me with:\n\n📋 Available products and pricing\n🚚 Delivery details\n💳 Payment options\n📞 More information\n\nThank you!");
             
             // Mark that user is going to WhatsApp
             markWhatsAppRedirect();
