@@ -1717,10 +1717,10 @@
             <div class="filter-tabs">
                 <div class="filter-tab active" data-filter="all">All Categories</div>
                 <div class="filter-tab" data-filter="religious">Religious Items</div>
-                <div class="filter-tab" data-filter="festival">Festival Specials</div>
-                <div class="filter-tab" data-filter="decorative">Decorative</div>
                 <div class="filter-tab" data-filter="accessories">Accessories</div>
                 <div class="filter-tab" data-filter="sets">Complete Sets</div>
+                <div class="filter-tab" data-filter="decorative">Decorative</div>
+                <div class="filter-tab" data-filter="festival">Festival Specials</div>
             </div>
 
             <div class="categories-grid" id="categoriesGrid">
@@ -2389,17 +2389,20 @@
         });
 
         const categories = [
+            // Categories with products and images (9 categories) - Displayed first for better customer experience
             { name: "Laxmi Paula", type: "religious", icon: "fas fa-om", description: "Traditional Laxmi Paula for worship and prosperity rituals" },
             { name: "Gopadma", type: "religious", icon: "fas fa-lotus", description: "Sacred lotus design for spiritual ceremonies" },
             { name: "Swastik", type: "religious", icon: "fas fa-dharma-wheel", description: "Auspicious Swastik symbol for good fortune" },
-            { name: "Thali Mahirap", type: "religious", icon: "fas fa-circle", description: "Complete thali decoration set for worship" },
             { name: "Kalash Mahirap", type: "religious", icon: "fas fa-vase", description: "Decorative Kalash ornaments for ceremonies" },
             { name: "Samai Mahirap", type: "religious", icon: "fas fa-leaf", description: "Traditional Samai decorations for rituals" },
             { name: "Niranjan Mahirap", type: "religious", icon: "fas fa-fire", description: "Niranjan ornamental pieces for aarti" },
             { name: "Kalash", type: "religious", icon: "fas fa-wine-bottle", description: "Sacred water pot decorations" },
             { name: "Kalash Stand", type: "accessories", icon: "fas fa-stand", description: "Elegant stands for Kalash placement" },
-            { name: "Toran", type: "decorative", icon: "fas fa-garland", description: "Beautiful door hangings for entrances" },
             { name: "Name Patti", type: "religious", icon: "fas fa-font", description: "Shreeram, Shree, Om, Shree Mahalaxmi Prasanna" },
+            
+            // Categories coming soon (without products yet) - Displayed after available products
+            { name: "Thali Mahirap", type: "religious", icon: "fas fa-circle", description: "Complete thali decoration set for worship" },
+            { name: "Toran", type: "decorative", icon: "fas fa-garland", description: "Beautiful door hangings for entrances" },
             { name: "Niranjan", type: "religious", icon: "fas fa-flame", description: "Traditional lamp decorations" },
             { name: "Samai", type: "religious", icon: "fas fa-seedling", description: "Sacred grain decorative items" },
             { name: "Durva", type: "religious", icon: "fas fa-grass", description: "Sacred grass ornamental pieces" },
