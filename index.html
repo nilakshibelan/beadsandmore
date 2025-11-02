@@ -1217,45 +1217,52 @@
         }
 
         .zoom-btn {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(102, 126, 234, 0.9);
             color: white;
-            border: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
-        .zoom-btn:hover {
-            background: rgba(0, 0, 0, 0.9);
+        .zoom-btn:hover, .zoom-btn:active {
+            background: rgba(102, 126, 234, 1);
             transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
-        /* Mobile specific adjustments */
+        /* Mobile specific adjustments - Larger touch targets */
         @media (max-width: 768px) {
             .zoom-container {
                 height: 300px;
             }
             
             .modal-content {
-                padding: 20px;
+                padding: 15px;
                 border-radius: 15px;
+                margin: 10px;
             }
             
             .zoom-controls {
-                bottom: 10px;
-                right: 10px;
+                bottom: 15px;
+                right: 15px;
+                gap: 15px;
             }
             
             .zoom-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+                border-width: 3px;
             }
         }
 
@@ -1476,6 +1483,22 @@
             z-index: 2;
             padding: 15px;
             filter: brightness(1.05) contrast(1.1) saturate(1.15);
+            transition: transform 0.3s ease;
+        }
+
+        /* Zoom indicator styles */
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-image:hover .zoom-indicator {
+            opacity: 1 !important;
+            transform: scale(1.1);
+            background: rgba(102,126,234,1) !important;
+        }
+
+        .zoom-indicator {
+            transition: all 0.3s ease;
         }
 
         @keyframes shimmer {
@@ -1831,7 +1854,12 @@
     <div class="product-modal" id="imageZoomModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="zoomModalTitle">Product Image</h2>
+                <div>
+                    <h2 class="modal-title" id="zoomModalTitle">Product Image</h2>
+                    <p style="font-size: 12px; color: #666; margin: 5px 0 0 0; display: block;">
+                        � Use + and - buttons to zoom • � Reset button to fit image
+                    </p>
+                </div>
                 <button class="modal-close" onclick="closeImageZoom()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -1967,8 +1995,14 @@
                         <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                             ${products.map((product, index) => `
                                 <div style="border: 2px solid #667eea; border-radius: 10px; padding: 15px; background: #f9f9f9;">
-                                    <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0;">
-                                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;">
+                                    <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0; cursor: pointer; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s ease;" 
+                                         onclick="openImageZoom('${product.image}', '${product.name}')"
+                                         onmouseover="this.style.boxShadow='0 4px 15px rgba(102,126,234,0.3)'; this.querySelector('img').style.transform='scale(1.05)'"
+                                         onmouseout="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'; this.querySelector('img').style.transform='scale(1)'">
+                                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; transition: transform 0.3s ease;">
+                                        <div style="position: absolute; top: 10px; right: 10px; background: rgba(102,126,234,0.9); color: white; border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 14px; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+                                            🔍
+                                        </div>
                                     </div>
                                     <h3 style="color: #333; font-size: 20px; margin: 10px 0; font-weight: bold;">${product.name}</h3>
                                     <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
@@ -2040,8 +2074,11 @@
                     // Normal rendering for other categories
                     productsGrid.innerHTML = products.map(product => `
                         <div class="product-item">
-                            <div class="product-image">
+                            <div class="product-image" onclick="openImageZoom('${product.image}', '${product.name}')" style="cursor: pointer; position: relative;">
                                 <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
+                                <div class="zoom-indicator" style="position: absolute; top: 8px; right: 8px; background: rgba(102,126,234,0.9); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; opacity: 0.8; transition: opacity 0.3s ease;">
+                                    🔍
+                                </div>
                             </div>
                             <div class="product-name">${product.name}</div>
                             <div class="product-description">${product.description}</div>
@@ -2064,10 +2101,9 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Mobile Image Zoom Functions
+        // Mobile Image Zoom Functions - Simple & Universal
         let currentZoom = 1;
-        let isDragging = false;
-        let startX, startY, translateX = 0, translateY = 0;
+        let translateX = 0, translateY = 0;
 
         function openImageZoom(imageSrc, productName) {
             const modal = document.getElementById('imageZoomModal');
@@ -2079,18 +2115,14 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // Reset zoom
+            // Reset zoom to default
             resetZoom();
-            
-            // Add touch event listeners for mobile
-            addTouchListeners();
         }
 
         function closeImageZoom() {
             const modal = document.getElementById('imageZoomModal');
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-            removeTouchListeners();
         }
 
         function zoomIn() {
@@ -2112,112 +2144,9 @@
 
         function updateImageTransform() {
             const zoomImage = document.getElementById('zoomImage');
-            zoomImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
-        }
-
-        function addTouchListeners() {
-            const zoomImage = document.getElementById('zoomImage');
-            const zoomContainer = document.getElementById('zoomContainer');
-            
-            // Touch events for mobile pinch zoom
-            let scale = 1;
-            let lastDistance = 0;
-            
-            zoomContainer.addEventListener('touchstart', handleTouchStart, { passive: false });
-            zoomContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
-            zoomContainer.addEventListener('touchend', handleTouchEnd, { passive: false });
-            
-            // Mouse events for desktop
-            zoomImage.addEventListener('mousedown', handleMouseDown);
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseup', handleMouseUp);
-            
-            // Prevent context menu on long press
-            zoomImage.addEventListener('contextmenu', e => e.preventDefault());
-        }
-
-        function removeTouchListeners() {
-            const zoomImage = document.getElementById('zoomImage');
-            const zoomContainer = document.getElementById('zoomContainer');
-            
-            zoomContainer.removeEventListener('touchstart', handleTouchStart);
-            zoomContainer.removeEventListener('touchmove', handleTouchMove);
-            zoomContainer.removeEventListener('touchend', handleTouchEnd);
-            
-            zoomImage.removeEventListener('mousedown', handleMouseDown);
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
-        }
-
-        function getDistance(touches) {
-            const touch1 = touches[0];
-            const touch2 = touches[1];
-            return Math.sqrt(
-                Math.pow(touch2.clientX - touch1.clientX, 2) +
-                Math.pow(touch2.clientY - touch1.clientY, 2)
-            );
-        }
-
-        function handleTouchStart(e) {
-            e.preventDefault();
-            
-            if (e.touches.length === 2) {
-                // Pinch zoom start
-                lastDistance = getDistance(e.touches);
-            } else if (e.touches.length === 1) {
-                // Pan start
-                isDragging = true;
-                startX = e.touches[0].clientX - translateX;
-                startY = e.touches[0].clientY - translateY;
+            if (zoomImage) {
+                zoomImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
             }
-        }
-
-        function handleTouchMove(e) {
-            e.preventDefault();
-            
-            if (e.touches.length === 2 && lastDistance > 0) {
-                // Pinch zoom
-                const currentDistance = getDistance(e.touches);
-                const scale = currentDistance / lastDistance;
-                currentZoom = Math.min(Math.max(currentZoom * scale, 0.5), 4);
-                lastDistance = currentDistance;
-                updateImageTransform();
-            } else if (e.touches.length === 1 && isDragging) {
-                // Pan
-                translateX = e.touches[0].clientX - startX;
-                translateY = e.touches[0].clientY - startY;
-                updateImageTransform();
-            }
-        }
-
-        function handleTouchEnd(e) {
-            if (e.touches.length < 2) {
-                lastDistance = 0;
-            }
-            if (e.touches.length === 0) {
-                isDragging = false;
-            }
-        }
-
-        function handleMouseDown(e) {
-            e.preventDefault();
-            isDragging = true;
-            startX = e.clientX - translateX;
-            startY = e.clientY - translateY;
-            document.getElementById('zoomImage').style.cursor = 'grabbing';
-        }
-
-        function handleMouseMove(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            translateX = e.clientX - startX;
-            translateY = e.clientY - startY;
-            updateImageTransform();
-        }
-
-        function handleMouseUp(e) {
-            isDragging = false;
-            document.getElementById('zoomImage').style.cursor = 'grab';
         }
 
         function orderProduct(productName, price) {
