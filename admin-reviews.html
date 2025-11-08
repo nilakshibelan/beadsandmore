@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Reviews | BEADS & MORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .language-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .language-tab {
+            flex: 1;
+            padding: 10px;
+            background: #f8f9fa;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .language-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .rating-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .rating-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rating-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .rating-item.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .rating-item input {
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #1565C0;
+        }
+
+        .review-preview {
+            background: #f8f9fa;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .review-preview h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .preview-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Main Site
+        </a>
+
+        <div class="header">
+            <h1><i class="fas fa-star"></i> Manage Product Reviews</h1>
+            <p>Admin Panel - Add Customer Reviews & Testimonials</p>
+        </div>
+
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i> 
+            <strong>Note:</strong> This page is for admin use only. Add genuine customer reviews to build trust and showcase product quality.
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i> Review added successfully! The code has been copied to clipboard.
+        </div>
+
+        <form id="reviewForm">
+            <div class="form-group">
+                <label for="productName">Product Name *</label>
+                <select id="productName" required>
+                    <option value="">Select a product...</option>
+                    <option value="Kalash Mahirap">Kalash Mahirap</option>
+                    <option value="Samai Mahirap">Samai Mahirap</option>
+                    <option value="Niranjan Mahirap">Niranjan Mahirap</option>
+                    <option value="Laxmi Paula">Laxmi Paula</option>
+                    <option value="Gopadma">Gopadma</option>
+                    <option value="Swastik">Swastik</option>
+                    <option value="Kalash">Kalash</option>
+                    <option value="Kalash Stand">Kalash Stand</option>
+                    <option value="Name Patti">Name Patti</option>
+                    <option value="Toran">Toran</option>
+                    <option value="Rangoli">Rangoli</option>
+                    <option value="General">General (All Products)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="customerName">Customer Name *</label>
+                <input type="text" id="customerName" placeholder="Enter customer name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location (Optional)</label>
+                <input type="text" id="location" placeholder="e.g., Pune, Maharashtra">
+            </div>
+
+            <div class="form-group">
+                <label>What did they like? *</label>
+                <div class="rating-selector">
+                    <div class="rating-item" onclick="toggleAspect('quality')">
+                        <input type="checkbox" id="quality" value="quality">
+                        <i class="fas fa-gem"></i> Quality
+                    </div>
+                    <div class="rating-item" onclick="toggleAspect('rate')">
+                        <input type="checkbox" id="rate" value="rate">
+                        <i class="fas fa-rupee-sign"></i> Price
+                    </div>
+                    <div class="rating-item" onclick="toggleAspect('delivery')">
+                        <input type="checkbox" id="delivery" value="delivery">
+                        <i class="fas fa-shipping-fast"></i> Delivery
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Review Text (English) *</label>
+                <div class="language-tabs">
+                    <div class="language-tab active" onclick="switchLanguage('english')">
+                        English
+                    </div>
+                    <div class="language-tab" onclick="switchLanguage('marathi')">
+                        मराठी (Marathi)
+                    </div>
+                </div>
+                <textarea id="reviewEnglish" placeholder="Enter review in English..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Review Text (Marathi) - Optional</label>
+                <textarea id="reviewMarathi" placeholder="मराठी मध्ये पुनरावलोकन प्रविष्ट करा..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Rating (Stars) *</label>
+                <div class="rating-selector">
+                    <div class="rating-item" onclick="selectRating(5)">
+                        <input type="radio" name="rating" value="5" required>
+                        <span>⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="rating-item" onclick="selectRating(4)">
+                        <input type="radio" name="rating" value="4">
+                        <span>⭐⭐⭐⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-plus-circle"></i> Add Review & Generate Code
+            </button>
+        </form>
+
+        <div class="review-preview" id="reviewPreview" style="display: none;">
+            <h3><i class="fas fa-code"></i> Generated Review Code</h3>
+            <div class="preview-card">
+                <p style="margin-bottom: 10px; color: #666; font-size: 13px;">
+                    Copy this code and paste it in the reviews.js file:
+                </p>
+                <pre id="generatedCode" style="background: #f0f0f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px;"></pre>
+                <button onclick="copyCode()" style="margin-top: 10px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    <i class="fas fa-copy"></i> Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleAspect(aspectId) {
+            const item = event.currentTarget;
+            const checkbox = document.getElementById(aspectId);
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('selected');
+        }
+
+        function selectRating(stars) {
+            const items = document.querySelectorAll('.rating-selector .rating-item');
+            items.forEach(item => item.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.querySelector(`input[name="rating"][value="${stars}"]`).checked = true;
+        }
+
+        function switchLanguage(lang) {
+            const tabs = document.querySelectorAll('.language-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const customerName = document.getElementById('customerName').value;
+            const location = document.getElementById('location').value;
+            const reviewEnglish = document.getElementById('reviewEnglish').value;
+            const reviewMarathi = document.getElementById('reviewMarathi').value;
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+
+            const aspects = [];
+            if (document.getElementById('quality').checked) aspects.push('quality');
+            if (document.getElementById('rate').checked) aspects.push('rate');
+            if (document.getElementById('delivery').checked) aspects.push('delivery');
+
+            const reviewCode = `{
+    product: "${productName}",
+    customerName: "${customerName}",
+    location: "${location || ''}",
+    rating: ${rating},
+    aspects: ${JSON.stringify(aspects)},
+    reviewEnglish: "${reviewEnglish.replace(/"/g, '\\"').replace(/\n/g, ' ')}",
+    reviewMarathi: "${reviewMarathi.replace(/"/g, '\\"').replace(/\n/g, ' ')}",
+    date: "${new Date().toLocaleDateString('en-IN')}"
+},`;
+
+            document.getElementById('generatedCode').textContent = reviewCode;
+            document.getElementById('reviewPreview').style.display = 'block';
+            document.getElementById('successMessage').classList.add('show');
+
+            // Auto-copy to clipboard
+            copyCode();
+
+            // Scroll to preview
+            document.getElementById('reviewPreview').scrollIntoView({ behavior: 'smooth' });
+
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('show');
+            }, 5000);
+
+            // Reset form
+            this.reset();
+            document.querySelectorAll('.rating-item.selected').forEach(item => {
+                item.classList.remove('selected');
+            });
+        });
+
+        function copyCode() {
+            const code = document.getElementById('generatedCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target;
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                btn.style.background = '#4CAF50';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '#667eea';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

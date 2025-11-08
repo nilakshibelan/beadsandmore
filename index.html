@@ -841,6 +841,32 @@
             }
         }
 
+        /* Customer review star rating */
+        .star-rating {
+            cursor: pointer;
+            opacity: 0.3;
+            transition: all 0.2s ease;
+        }
+
+        .star-rating:hover {
+            transform: scale(1.2);
+            opacity: 0.6;
+        }
+
+        .star-rating.active {
+            opacity: 1;
+            animation: starPulse 0.3s ease;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .customer-aspect {
+            margin-right: 5px;
+        }
+
         /* Mobile responsive styles for price filter */
         @media (max-width: 768px) {
             .price-filter-section {
@@ -2064,6 +2090,7 @@
             }
         }
     </style>
+    <script src="reviews.js"></script>
 </head>
 <body>
     <header class="header">
@@ -2239,6 +2266,9 @@
                 </div>
         </div>
     </div>
+
+    <!-- Customer Review Submission Modal -->
+
 
     <script>
         // Product data - All products within each category MUST be sorted by price in ASCENDING order
@@ -2681,6 +2711,135 @@
                     price: "₹1100",
                     image: "images/Name-Patti/Shree Mahalaxmi Prasanna.jpeg"
                 }
+            ],
+            "Thali Mahirap": [
+                // IMPORTANT: Products must be sorted in ascending order by price (₹150 → ₹500)
+                {
+                    name: "Moti Colour and Golden Mahirap 1",
+                    description: "Beautiful moti colored and golden thali mahirap decoration",
+                    price: "₹150",
+                    image: "images/Thali-Mahirap/Moti Colour and Golden Mahirap 1.jpeg"
+                },
+                {
+                    name: "Pink White Diamond Mahirap",
+                    description: "Elegant pink and white diamond pattern thali mahirap",
+                    price: "₹180",
+                    image: "images/Thali-Mahirap/Pink White Diamond Mahirap.jpeg"
+                },
+                {
+                    name: "Small Flowers Mahirap",
+                    description: "Delicate small flowers thali mahirap for worship ceremonies",
+                    price: "₹180",
+                    image: "images/Thali-Mahirap/Small Flowers Mahirap.jpeg"
+                },
+                {
+                    name: "Star Mahirap",
+                    description: "Decorative star design thali mahirap for special occasions",
+                    price: "₹180",
+                    image: "images/Thali-Mahirap/Star Mahirap.jpeg"
+                },
+                {
+                    name: "White Purple Mahirap",
+                    description: "Beautiful white and purple thali mahirap combination",
+                    price: "₹180",
+                    image: "images/Thali-Mahirap/White Purple Mahirap.jpeg"
+                },
+                {
+                    name: "Maroon White Flowers Mahirap",
+                    description: "Traditional maroon and white flowers thali mahirap design",
+                    price: "₹200",
+                    image: "images/Thali-Mahirap/Maroon White Flowers Mahirap.jpeg"
+                },
+                {
+                    name: "Moti Colour and Golden Mahirap 2",
+                    description: "Premium moti colored and golden thali mahirap decoration",
+                    price: "₹200",
+                    image: "images/Thali-Mahirap/Moti Colour and Golden Mahirap 2.jpeg"
+                },
+                {
+                    name: "Modak Mahirap",
+                    description: "Unique modak design thali mahirap for Ganesh worship",
+                    price: "₹225",
+                    image: "images/Thali-Mahirap/Modak Mahirap.jpeg"
+                },
+                {
+                    name: "Moti Golden Latkan Mahirap",
+                    description: "Elegant moti golden latkan thali mahirap with hanging design",
+                    price: "₹225",
+                    image: "images/Thali-Mahirap/Moti Golden Latkan Mahirap.jpeg"
+                },
+                {
+                    name: "Single Line Diamond Mahirap",
+                    description: "Simple single line diamond thali mahirap decoration",
+                    price: "₹225",
+                    image: "images/Thali-Mahirap/Single Line Diamond Mahirap.jpeg"
+                },
+                {
+                    name: "U Shape Latkan Mahirap",
+                    description: "Decorative U-shaped latkan thali mahirap design",
+                    price: "₹225",
+                    image: "images/Thali-Mahirap/U Shape Latkan Mahirap.jpeg"
+                },
+                {
+                    name: "Zigzag Mahirap",
+                    description: "Creative zigzag pattern thali mahirap for worship thali",
+                    price: "₹225",
+                    image: "images/Thali-Mahirap/Zigzag Mahirap.jpeg"
+                },
+                {
+                    name: "Big Flowers Mahirap",
+                    description: "Grand big flowers thali mahirap for special ceremonies",
+                    price: "₹250",
+                    image: "images/Thali-Mahirap/Big Flowers Mahirap.jpeg"
+                },
+                {
+                    name: "Patang Mahirap",
+                    description: "Unique kite (patang) design thali mahirap decoration",
+                    price: "₹250",
+                    image: "images/Thali-Mahirap/Patang Mahirap.jpeg"
+                },
+                {
+                    name: "Diamond Mahirap",
+                    description: "Classic diamond pattern thali mahirap for worship",
+                    price: "₹300",
+                    image: "images/Thali-Mahirap/Diamond Mahirap.jpeg"
+                },
+                {
+                    name: "Double Layer Diamond Mahirap",
+                    description: "Premium double layer diamond thali mahirap design",
+                    price: "₹350",
+                    image: "images/Thali-Mahirap/Double Layer Diamond Mahirap.jpeg"
+                },
+                {
+                    name: "Half Diamond Mahirap",
+                    description: "Semi-circular diamond thali mahirap decoration",
+                    price: "₹350",
+                    image: "images/Thali-Mahirap/Half Diamond Mahirap.jpeg"
+                },
+                {
+                    name: "White Maroon Mahirap",
+                    description: "Elegant white and maroon thali mahirap for auspicious occasions",
+                    price: "₹350",
+                    image: "images/Thali-Mahirap/White Maroon Mahirap.jpeg"
+                },
+                {
+                    name: "Flowers and Leaf Mahirap",
+                    description: "Natural flowers and leaf design thali mahirap decoration",
+                    price: "₹400",
+                    image: "images/Thali-Mahirap/Flowers and Leaf Mahirap.jpeg"
+                },
+                {
+                    name: "Flowers and Mango Leaves Mahirap",
+                    description: "Traditional flowers and mango leaves thali mahirap for festivals",
+                    price: "₹400",
+                    image: "images/Thali-Mahirap/Flowers and Mango Leaves Mahirap.jpeg"
+                },
+                {
+                    name: "Kamal Mahirap",
+                    description: "Exquisite lotus (kamal) design thali mahirap for worship ceremonies",
+                    price: "₹500",
+                    image: "images/Thali-Mahirap/Kamal Mahirap.jpeg"
+                }
             ]
             // Add more categories and products as needed
         };
@@ -2867,7 +3026,6 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closeModal() {
             const modal = document.getElementById('productModal');
             modal.classList.remove('active');
@@ -2948,6 +3106,7 @@ Thank you!`);
             }
         }
 
+        // Customer review modal functions
         // Close modal when clicking outside
         document.getElementById('productModal').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -2975,7 +3134,7 @@ Thank you!`);
             { name: "Name Patti", type: "religious", icon: "fas fa-font", description: "Shreeram, Shree, Om, Shree Mahalaxmi Prasanna" },
             
             // Categories coming soon (without products yet) - Displayed after available products
-            { name: "Thali Mahirap", type: "religious", icon: "fas fa-circle", description: "Complete thali decoration set for worship" },
+            { name: "Thali Mahirap", type: "religious", icon: "fas fa-box", description: "Complete thali decoration set for worship" },
             { name: "Toran", type: "decorative", icon: "fas fa-garland", description: "Beautiful door hangings for entrances" },
             { name: "Niranjan", type: "religious", icon: "fas fa-flame", description: "Traditional lamp decorations" },
             { name: "Samai", type: "religious", icon: "fas fa-seedling", description: "Sacred grain decorative items" },
@@ -3059,6 +3218,7 @@ Thank you!`);
                 "Kalash": "images/Kalash/Big Kalash.jpeg",
                 "Kalash-Stand": "images/Kalash-Stand/Red Kalash Stand.jpeg",
                 "Name-Patti": "images/Name-Patti/Om.jpeg",
+                "Thali-Mahirap": "images/Thali-Mahirap/Kamal Mahirap.jpeg",
                 // Add more as we discover them
             };
             
