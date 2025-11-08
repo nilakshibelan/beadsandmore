@@ -2178,18 +2178,18 @@
                     <div class="price-range-slider">
                         <div class="price-range-track" id="priceRangeTrack"></div>
                     </div>
-                    <input type="range" min="0" max="500" value="0" class="range-slider" id="minPriceRange">
-                    <input type="range" min="0" max="500" value="500" class="range-slider" id="maxPriceRange">
+                    <input type="range" min="0" max="1200" value="0" class="range-slider" id="minPriceRange">
+                    <input type="range" min="0" max="1200" value="1200" class="range-slider" id="maxPriceRange">
                 </div>
 
                 <div class="price-inputs">
                     <div class="price-input-group">
                         <label class="price-input-label">Minimum Price</label>
-                        <input type="number" class="price-input" id="minPriceInput" value="0" min="0" max="500" placeholder="Min">
+                        <input type="number" class="price-input" id="minPriceInput" value="0" min="0" max="1200" placeholder="Min">
                     </div>
                     <div class="price-input-group">
                         <label class="price-input-label">Maximum Price</label>
-                        <input type="number" class="price-input" id="maxPriceInput" value="500" min="0" max="500" placeholder="Max">
+                        <input type="number" class="price-input" id="maxPriceInput" value="1200" min="0" max="1200" placeholder="Max">
                     </div>
                 </div>
 
@@ -2840,6 +2840,99 @@
                     price: "₹500",
                     image: "images/Thali-Mahirap/Kamal Mahirap.jpeg"
                 }
+            ],
+            "Toran": [
+                // IMPORTANT: Products must be sorted in ascending order by price (₹300 → ₹600)
+                {
+                    name: "Latkan Yellow Red Flowers Toran",
+                    description: "Beautiful latkan style toran with yellow and red flowers for doorway decoration",
+                    price: "₹300",
+                    image: "images/Toran/Latkan Yellow Red Flowers Toran.jpeg"
+                },
+                {
+                    name: "Small Latkan Toran",
+                    description: "Compact latkan toran perfect for small doorways and windows",
+                    price: "₹300",
+                    image: "images/Toran/Small Latkan Toran.jpeg"
+                },
+                {
+                    name: "Pink Pompom Toran",
+                    description: "Charming pink pompom toran for festive decoration",
+                    price: "₹450",
+                    image: "images/Toran/Pink Pompom Toran.jpeg"
+                },
+                {
+                    name: "Mango Leaves Toran",
+                    description: "Traditional mango leaves toran for auspicious occasions",
+                    price: "₹500",
+                    image: "images/Toran/Mango Leaves Toran.jpeg"
+                },
+                {
+                    name: "Paan and Flowers Toran",
+                    description: "Beautiful combination of paan (betel leaves) and flowers toran",
+                    price: "₹500",
+                    image: "images/Toran/Paan and Flowers Toran.jpeg"
+                },
+                {
+                    name: "V Shape Pink Flowers Toran",
+                    description: "Elegant V-shaped toran with pink flowers for doorway decoration",
+                    price: "₹500",
+                    image: "images/Toran/V Shape Pink Flowers Toran.jpeg"
+                },
+                {
+                    name: "V shape Red Flowers Toran",
+                    description: "Traditional V-shaped toran with red flowers for festive occasions",
+                    price: "₹500",
+                    image: "images/Toran/V shape Red Flowers Toran.jpeg"
+                },
+                {
+                    name: "Zigzag Red Flower Toran",
+                    description: "Creative zigzag pattern toran with red flowers",
+                    price: "₹500",
+                    image: "images/Toran/Zigzag Red Flower Toran.jpeg"
+                },
+                {
+                    name: "Latkan Toran",
+                    description: "Classic latkan style toran for grand doorway decoration",
+                    price: "₹550",
+                    image: "images/Toran/Latkan Toran.jpeg"
+                },
+                {
+                    name: "Red White Red Pompom Toran",
+                    description: "Festive red and white pompom toran for celebrations",
+                    price: "₹550",
+                    image: "images/Toran/Red White Red Pompom Toran.jpeg"
+                },
+                {
+                    name: "Red and White U Shape Multi Layer Toran",
+                    description: "Multi-layered U-shaped toran in red and white combination",
+                    price: "₹550",
+                    image: "images/Toran/Red and White U Shape Multi Layer Toran.jpeg"
+                },
+                {
+                    name: "U Shape Multi layer Toran",
+                    description: "Premium multi-layered U-shaped toran for elegant decoration",
+                    price: "₹550",
+                    image: "images/Toran/U Shape Multi layer Toran.jpeg"
+                },
+                {
+                    name: "U Shape and Latkan Toran",
+                    description: "Combination of U-shape and latkan style toran for grand entrance",
+                    price: "₹550",
+                    image: "images/Toran/U Shape and Latkan Toran.jpeg"
+                },
+                {
+                    name: "White Golden U Shape Toran",
+                    description: "Elegant white and golden U-shaped toran for special occasions",
+                    price: "₹550",
+                    image: "images/Toran/White Golden U Shape Toran.jpeg"
+                },
+                {
+                    name: "Mango Leaves with Kalash Toran",
+                    description: "Premium toran with mango leaves and kalash design for prosperity",
+                    price: "₹600",
+                    image: "images/Toran/Mango Leaves with Kalash Toran.jpeg"
+                }
             ]
             // Add more categories and products as needed
         };
@@ -2952,7 +3045,7 @@
                 const originalProducts = productData[categoryName] || [];
                 const hasProducts = originalProducts.length > 0;
                 
-                if (hasProducts && (currentMinPrice > 0 || currentMaxPrice < 500)) {
+                if (hasProducts && (currentMinPrice > 0 || currentMaxPrice < 1200)) {
                     // Products exist but filtered out by price
                     productsGrid.innerHTML = `
                         <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
@@ -2981,13 +3074,13 @@
             } else {
                 // Add price filter indicator if active
                 let priceFilterBanner = '';
-                if (currentMinPrice > 0 || currentMaxPrice < 500) {
+                if (currentMinPrice > 0 || currentMaxPrice < 1200) {
                     const totalProducts = (productData[categoryName] || []).length;
                     priceFilterBanner = `
                         <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 20px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; grid-column: 1 / -1;">
                             <div>
                                 <i class="fas fa-filter"></i>
-                                <strong>Price Filter Active:</strong> ₹${currentMinPrice} - ₹${currentMaxPrice}${currentMaxPrice >= 500 ? '+' : ''}
+                                <strong>Price Filter Active:</strong> ₹${currentMinPrice} - ₹${currentMaxPrice}${currentMaxPrice >= 1200 ? '+' : ''}
                                 <span style="margin-left: 10px; opacity: 0.9;">(Showing ${products.length} of ${totalProducts} products)</span>
                             </div>
                             <button onclick="resetPriceFilter(); closeModal(); setTimeout(() => openModal('${categoryName}'), 300);" style="background: white; color: #667eea; border: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 600;">
@@ -3219,6 +3312,7 @@ Thank you!`);
                 "Kalash-Stand": "images/Kalash-Stand/Red Kalash Stand.jpeg",
                 "Name-Patti": "images/Name-Patti/Om.jpeg",
                 "Thali-Mahirap": "images/Thali-Mahirap/Kamal Mahirap.jpeg",
+                "Toran": "images/Toran/Mango Leaves with Kalash Toran.jpeg",
                 // Add more as we discover them
             };
             
@@ -3405,7 +3499,7 @@ Thank you!`);
 
         // Price Filter Functions
         let currentMinPrice = 0;
-        let currentMaxPrice = 500;
+        let currentMaxPrice = 1200;
         let currentActiveFilter = 'all';
 
         // Helper function to extract numeric price from string like "₹125"
@@ -3438,14 +3532,14 @@ Thank you!`);
                 currentMaxPrice = max;
                 
                 // Update display
-                const displayText = max >= 500 ? 
+                const displayText = max >= 1200 ? 
                     `₹${min} - ₹${max}+` : 
                     `₹${min} - ₹${max}`;
                 priceDisplay.textContent = displayText;
                 
                 // Update track visual
-                const percentMin = (min / 500) * 100;
-                const percentMax = (max / 500) * 100;
+                const percentMin = (min / 1200) * 100;
+                const percentMax = (max / 1200) * 100;
                 priceTrack.style.left = percentMin + '%';
                 priceTrack.style.width = (percentMax - percentMin) + '%';
                 
@@ -3464,14 +3558,14 @@ Thank you!`);
             // Input field events
             minInput.addEventListener('change', function() {
                 let value = parseInt(this.value) || 0;
-                value = Math.max(0, Math.min(500, value));
+                value = Math.max(0, Math.min(1200, value));
                 minRange.value = value;
                 updatePriceDisplay();
             });
             
             maxInput.addEventListener('change', function() {
-                let value = parseInt(this.value) || 500;
-                value = Math.max(0, Math.min(500, value));
+                let value = parseInt(this.value) || 1200;
+                value = Math.max(0, Math.min(1200, value));
                 maxRange.value = value;
                 updatePriceDisplay();
             });
@@ -3499,15 +3593,15 @@ Thank you!`);
 
         function resetPriceFilter() {
             document.getElementById('minPriceRange').value = 0;
-            document.getElementById('maxPriceRange').value = 500;
+            document.getElementById('maxPriceRange').value = 1200;
             document.getElementById('minPriceInput').value = 0;
-            document.getElementById('maxPriceInput').value = 500;
+            document.getElementById('maxPriceInput').value = 1200;
             
             currentMinPrice = 0;
-            currentMaxPrice = 500;
+            currentMaxPrice = 1200;
             
             // Update display
-            document.getElementById('priceDisplay').textContent = '₹0 - ₹500+';
+            document.getElementById('priceDisplay').textContent = '₹0 - ₹1200+';
             document.getElementById('priceRangeTrack').style.left = '0%';
             document.getElementById('priceRangeTrack').style.width = '100%';
             
