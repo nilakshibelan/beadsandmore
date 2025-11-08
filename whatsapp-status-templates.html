@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Status Templates - BEADS & MORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .template {
+            width: 320px;
+            height: 568px;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Enhanced Dark Text Logo for Templates */
+        .enhanced-text-logo {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c, #1a1a1a);
+            padding: 25px 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), 
+                        inset 0 2px 6px rgba(255,255,255,0.1),
+                        0 0 0 1px rgba(255,215,0,0.4);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            max-width: 280px;
+        }
+
+        .enhanced-text-logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #daa520, #b8860b, #ffd700, #daa520);
+            border-radius: 17px;
+            z-index: -1;
+            animation: borderRotate 6s linear infinite;
+        }
+
+        .enhanced-text-logo::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: linear-gradient(135deg, 
+                rgba(255,215,0,0.08) 0%, 
+                rgba(255,255,255,0.03) 50%, 
+                rgba(218,165,32,0.08) 100%);
+            border-radius: 10px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .enhanced-text-logo .main-text {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #daa520, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 6px rgba(255,215,0,0.3);
+            animation: gradientShift 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .enhanced-text-logo .sub-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 10px;
+            color: #bdc3c7;
+            letter-spacing: 2px;
+            font-weight: 500;
+            font-style: italic;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Decorative beads for logo */
+        .enhanced-logo-beads {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .enhanced-bead {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2), 
+                        inset -2px -2px 4px rgba(0,0,0,0.6),
+                        0 2px 8px rgba(0,0,0,0.4),
+                        0 0 12px rgba(255,215,0,0.15);
+            animation: beadFloat 6s infinite ease-in-out;
+        }
+
+        .enhanced-bead::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 25%;
+            height: 25%;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+        }
+
+        .enhanced-bead::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12%;
+            height: 12%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .enhanced-bead1 {
+            width: 8px;
+            height: 8px;
+            top: 8px;
+            left: 12px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c, #c0392b);
+            animation-delay: 0s;
+        }
+
+        .enhanced-bead2 {
+            width: 6px;
+            height: 6px;
+            top: 10px;
+            right: 14px;
+            background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db, #2980b9);
+            animation-delay: 1s;
+        }
+
+        .enhanced-bead3 {
+            width: 9px;
+            height: 9px;
+            bottom: 8px;
+            left: 10px;
+            background: radial-gradient(circle at 30% 30%, #55efc4, #2ecc71, #27ae60);
+            animation-delay: 2s;
+        }
+
+        .enhanced-bead4 {
+            width: 5px;
+            height: 5px;
+            bottom: 10px;
+            right: 12px;
+            background: radial-gradient(circle at 30% 30%, #a29bfe, #9b59b6, #8e44ad);
+            animation-delay: 3s;
+        }
+
+        .enhanced-bead5 {
+            width: 7px;
+            height: 7px;
+            top: 25px;
+            left: 4px;
+            background: radial-gradient(circle at 30% 30%, #fff7e6, #ffd700, #daa520);
+            animation-delay: 1.5s;
+        }
+
+        .enhanced-bead6 {
+            width: 4px;
+            height: 4px;
+            top: 28px;
+            right: 6px;
+            background: radial-gradient(circle at 30% 30%, #f8f9fa, #bdc3c7, #95a5a6);
+            animation-delay: 2.5s;
+        }
+
+        .enhanced-bead7 {
+            width: 6px;
+            height: 6px;
+            bottom: 25px;
+            left: 6px;
+            background: radial-gradient(circle at 30% 30%, #ffb347, #ff7675, #e17055);
+            animation-delay: 0.5s;
+        }
+
+        .enhanced-bead8 {
+            width: 4px;
+            height: 4px;
+            bottom: 28px;
+            right: 9px;
+            background: radial-gradient(circle at 30% 30%, #ffb3d9, #fd79a8, #e84393);
+            animation-delay: 3.5s;
+        }
+
+        /* Animations for enhanced logo */
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes beadFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-2px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(1px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-1px) rotate(270deg);
+            }
+        }
+
+        /* Template 1: Welcome */
+        .template1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .template1 .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .template1 .features {
+            font-size: 16px;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+        
+        .template1 .contact {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .template1 .url {
+            font-size: 14px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            word-break: break-all;
+        }
+        
+        /* Template 2: Product Showcase */
+        .template2 {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .template2 .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .template2 .products {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .template2 .cta {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        /* Template 3: Offers */
+        .template3 {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+        }
+        
+        .template3 .offer-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .template3 .offer-details {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .download-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 WhatsApp Status Templates - BEADS & MORE</h1>
+        
+        <div class="instructions">
+            <h3>📋 How to Use These Templates:</h3>
+            <ol>
+                <li><strong>Screenshot:</strong> Take a screenshot of any template below</li>
+                <li><strong>Crop:</strong> Crop to WhatsApp status size (9:16 ratio)</li>
+                <li><strong>Post:</strong> Upload to your WhatsApp status</li>
+                <li><strong>Add Text:</strong> Add your contact number and website URL as caption</li>
+            </ol>
+            <p><strong>💡 Pro Tip:</strong> Post these at peak times (8-10 AM, 6-8 PM) for maximum visibility!</p>
+        </div>
+        
+        <div class="grid">
+            <!-- Template 1: Welcome -->
+            <div class="template template1">
+                <div class="enhanced-text-logo">
+                    <div class="enhanced-logo-beads">
+                        <div class="enhanced-bead enhanced-bead1"></div>
+                        <div class="enhanced-bead enhanced-bead2"></div>
+                        <div class="enhanced-bead enhanced-bead3"></div>
+                        <div class="enhanced-bead enhanced-bead4"></div>
+                        <div class="enhanced-bead enhanced-bead5"></div>
+                        <div class="enhanced-bead enhanced-bead6"></div>
+                        <div class="enhanced-bead enhanced-bead7"></div>
+                        <div class="enhanced-bead enhanced-bead8"></div>
+                    </div>
+                    <div class="main-text">BEADS & MORE</div>
+                    <div class="sub-text">Traditional Craftsmanship</div>
+                </div>
+                <div class="features">
+                    ✨ Handcrafted Quality<br>
+                    🚚 Quick Delivery<br>
+                    💰 Best Prices<br>
+                    🕉️ 40+ Categories<br>
+                    📦 500+ Products
+                </div>
+            </div>
+            
+            <!-- Template 2: Product Showcase -->
+            <div class="template template2">
+                <div class="enhanced-text-logo">
+                    <div class="enhanced-logo-beads">
+                        <div class="enhanced-bead enhanced-bead1"></div>
+                        <div class="enhanced-bead enhanced-bead2"></div>
+                        <div class="enhanced-bead enhanced-bead3"></div>
+                        <div class="enhanced-bead enhanced-bead4"></div>
+                        <div class="enhanced-bead enhanced-bead5"></div>
+                        <div class="enhanced-bead enhanced-bead6"></div>
+                        <div class="enhanced-bead enhanced-bead7"></div>
+                        <div class="enhanced-bead enhanced-bead8"></div>
+                    </div>
+                    <div class="main-text">BEADS & MORE</div>
+                    <div class="sub-text">Traditional Craftsmanship</div>
+                </div>
+                <div class="title">🔥 NEW ARRIVALS! 🔥</div>
+                <div class="products">
+                    🕉️ Laxmi Paula - ₹200-₹450<br>
+                    🏺 Kalash Sets - ₹125-₹350<br>
+                    📝 Name Patti - ₹100-₹1100<br>
+                    ⚡ Swastik Designs - ₹40-₹225<br>
+                    🎨 Custom Orders Available
+                </div>
+                <div class="cta">
+                    🌟 Traditional Craftsmanship<br>
+                    � Custom Orders Available
+                </div>
+            </div>
+            
+            <!-- Template 3: Special Offers -->
+            <div class="template template3">
+                <div class="enhanced-text-logo">
+                    <div class="enhanced-logo-beads">
+                        <div class="enhanced-bead enhanced-bead1"></div>
+                        <div class="enhanced-bead enhanced-bead2"></div>
+                        <div class="enhanced-bead enhanced-bead3"></div>
+                        <div class="enhanced-bead enhanced-bead4"></div>
+                        <div class="enhanced-bead enhanced-bead5"></div>
+                        <div class="enhanced-bead enhanced-bead6"></div>
+                        <div class="enhanced-bead enhanced-bead7"></div>
+                        <div class="enhanced-bead enhanced-bead8"></div>
+                    </div>
+                    <div class="main-text">BEADS & MORE</div>
+                    <div class="sub-text">Traditional Craftsmanship</div>
+                </div>
+                <div class="offer-title">🎉 SPECIAL OFFER! 🎉</div>
+                <div class="offer-details">
+                    🆓 FREE DELIVERY<br>
+                    Above ₹500 Orders<br><br>
+                    ⏰ Mon-Sat: 9 AM - 8 PM<br>
+                    🎁 Gift Wrapping Available<br>
+                    ⭐ 1000+ Happy Customers
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📱 Ready-to-Copy Status Messages:</h3>
+            
+            <div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                <strong>Message 1 (Copy & Paste):</strong><br>
+                <code>🌟 BEADS & MORE - Traditional Ornaments 🌟<br><br>
+                ✨ Handcrafted Quality<br>
+                🚚 Quick Delivery<br>
+                💰 Best Prices<br>
+                🕉️ 40+ Categories<br>
+                📦 500+ Products<br><br>
+                #TraditionalOrnaments #BeadsAndMore</code>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                <strong>Message 2 (Copy & Paste):</strong><br>
+                <code>🕉️ NEW ARRIVALS! 🕉️<br><br>
+                ✅ Laxmi Paula - ₹200-₹450<br>
+                ✅ Kalash Sets - ₹125-₹350<br>
+                ✅ Name Patti - ₹100-₹1100<br>
+                ✅ Swastik Designs - ₹40-₹225<br>
+                🎨 Custom Orders Available<br><br>
+                #ReligiousOrnaments #FestivalSpecial</code>
+            </div>
+            
+            <div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                <strong>Message 3 (Copy & Paste):</strong><br>
+                <code>🔥 TODAY'S SPECIALS! 🔥<br><br>
+                🆓 Free Delivery Above ₹500<br>
+                ⏰ Mon-Sat: 9 AM - 8 PM<br>
+                ✨ Custom Orders Available<br>
+                ⭐ 1000+ Happy Customers<br>
+                🎁 Gift Wrapping Available<br><br>
+                #TodaysSpecial #FreeDelivery</code>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>🎯 Weekly Posting Schedule:</h3>
+            <ul>
+                <li><strong>Monday:</strong> Welcome message (builds trust)</li>
+                <li><strong>Tuesday:</strong> Product showcase (drives sales)</li>
+                <li><strong>Wednesday:</strong> Customer testimonials (social proof)</li>
+                <li><strong>Thursday:</strong> Special offers (creates urgency)</li>
+                <li><strong>Friday:</strong> Festival/seasonal content</li>
+                <li><strong>Weekend:</strong> Behind-the-scenes/casual content</li>
+            </ul>
+        </div>
+        
+        <div class="instructions">
+            <h3>💡 Additional Tips:</h3>
+            <ul>
+                <li><strong>DP Strategy:</strong> Use your logo image as WhatsApp DP (keep it consistent)</li>
+                <li><strong>About Section:</strong> "BEADS & MORE - Traditional Ornaments • Quick Delivery • Premium Quality"</li>
+                <li><strong>Business Hours:</strong> Set in WhatsApp Business: Mon-Sat 9 AM - 8 PM</li>
+                <li><strong>Auto-Reply:</strong> "Thanks for contacting BEADS & MORE! We'll respond soon with our latest collection!"</li>
+                <li><strong>Hashtag Strategy:</strong> Use #BeadsAndMore #TraditionalOrnaments for better reach</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Function to download template as image (if needed in future)
+        function downloadTemplate(templateNumber) {
+            alert(`Template ${templateNumber} ready! Take a screenshot and crop for WhatsApp status use.`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp DP - BEADS & MORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        /* WhatsApp DP Container - High Quality 640x640 */
+        .dp-container {
+            width: 640px;
+            height: 640px;
+            margin: 20px auto;
+            border: 3px solid #25d366;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            position: relative;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+        
+        /* Enhanced Dark Text Logo for DP - Optimized for 640x640 */
+        .enhanced-text-logo {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c, #1a1a1a);
+            padding: 45px 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), 
+                        inset 0 2px 6px rgba(255,255,255,0.1),
+                        0 0 0 1px rgba(255,215,0,0.4);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            overflow: hidden;
+            margin: 0 auto 25px;
+            max-width: 450px;
+        }
+
+        .enhanced-text-logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #daa520, #b8860b, #ffd700, #daa520);
+            border-radius: 17px;
+            z-index: -1;
+            animation: borderRotate 6s linear infinite;
+        }
+
+        .enhanced-text-logo::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: linear-gradient(135deg, 
+                rgba(255,215,0,0.08) 0%, 
+                rgba(255,255,255,0.03) 50%, 
+                rgba(218,165,32,0.08) 100%);
+            border-radius: 10px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .enhanced-text-logo .main-text {
+            font-family: 'Cinzel', serif;
+            font-size: 42px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #daa520, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 6px rgba(255,215,0,0.3);
+            animation: gradientShift 4s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            line-height: 1.1;
+        }
+
+        .enhanced-text-logo .sub-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: #bdc3c7;
+            letter-spacing: 3px;
+            font-weight: 500;
+            font-style: italic;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        .website-url {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-top: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            line-height: 1.2;
+        }
+
+        /* Decorative beads for DP logo - Same as Status Templates */
+        .enhanced-logo-beads {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .enhanced-bead {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: inset 2px 2px 4px rgba(255,255,255,0.2), 
+                        inset -2px -2px 4px rgba(0,0,0,0.6),
+                        0 2px 8px rgba(0,0,0,0.4),
+                        0 0 12px rgba(255,215,0,0.15);
+            animation: beadFloat 6s infinite ease-in-out;
+        }
+
+        .enhanced-bead::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 25%;
+            height: 25%;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+        }
+
+        .enhanced-bead::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12%;
+            height: 12%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .enhanced-bead1 {
+            width: 18px;
+            height: 18px;
+            top: 18px;
+            left: 26px;
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #e74c3c, #c0392b);
+            animation-delay: 0s;
+        }
+
+        .enhanced-bead2 {
+            width: 14px;
+            height: 14px;
+            top: 22px;
+            right: 30px;
+            background: radial-gradient(circle at 30% 30%, #74b9ff, #3498db, #2980b9);
+            animation-delay: 1s;
+        }
+
+        .enhanced-bead3 {
+            width: 20px;
+            height: 20px;
+            bottom: 18px;
+            left: 22px;
+            background: radial-gradient(circle at 30% 30%, #55efc4, #2ecc71, #27ae60);
+            animation-delay: 2s;
+        }
+
+        .enhanced-bead4 {
+            width: 12px;
+            height: 12px;
+            bottom: 22px;
+            right: 26px;
+            background: radial-gradient(circle at 30% 30%, #a29bfe, #9b59b6, #8e44ad);
+            animation-delay: 3s;
+        }
+
+        .enhanced-bead5 {
+            width: 16px;
+            height: 16px;
+            top: 55px;
+            left: 10px;
+            background: radial-gradient(circle at 30% 30%, #fff7e6, #ffd700, #daa520);
+            animation-delay: 1.5s;
+        }
+
+        .enhanced-bead6 {
+            width: 10px;
+            height: 10px;
+            top: 60px;
+            right: 14px;
+            background: radial-gradient(circle at 30% 30%, #f8f9fa, #bdc3c7, #95a5a6);
+            animation-delay: 2.5s;
+        }
+
+        .enhanced-bead7 {
+            width: 14px;
+            height: 14px;
+            bottom: 55px;
+            left: 14px;
+            background: radial-gradient(circle at 30% 30%, #ffb347, #ff7675, #e17055);
+            animation-delay: 0.5s;
+        }
+
+        .enhanced-bead8 {
+            width: 10px;
+            height: 10px;
+            bottom: 60px;
+            right: 20px;
+            background: radial-gradient(circle at 30% 30%, #ffb3d9, #fd79a8, #e84393);
+            animation-delay: 3.5s;
+        }
+
+        /* Animations for enhanced DP logo - Same as Status Templates */
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes beadFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-2px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(1px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-1px) rotate(270deg);
+            }
+        }
+
+        /* Instructions section */
+        .instructions {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .instructions h3 {
+            color: #25d366;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .instructions ol {
+            text-align: left;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(37,211,102,0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(37,211,102,0.4);
+        }
+        
+        .size-info {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #25d366;
+        }
+        
+        .size-info h4 {
+            color: #25d366;
+            margin-bottom: 10px;
+        }
+        
+        /* Alternative sizes */
+        .size-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .size-option {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .size-sample {
+            width: 150px;
+            height: 150px;
+            margin: 10px auto;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #25d366;
+        }
+        
+        .size-sample .mini-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffd700, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .size-sample .mini-url {
+            font-size: 8px;
+            color: #ffd700;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        /* Mobile responsiveness - High Quality */
+        @media (max-width: 768px) {
+            .dp-container {
+                width: 640px;
+                height: 640px;
+                padding: 60px;
+                transform: scale(0.5);
+                transform-origin: center;
+                margin: 10px auto;
+            }
+            
+            .enhanced-text-logo {
+                padding: 45px 35px;
+                max-width: 450px;
+            }
+            
+            .enhanced-text-logo .main-text {
+                font-size: 42px;
+                letter-spacing: 2.5px;
+            }
+            
+            .enhanced-text-logo .sub-text {
+                font-size: 16px;
+                letter-spacing: 3px;
+            }
+            
+            .website-url {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 WhatsApp Display Picture - BEADS & MORE</h1>
+        
+        <!-- Main DP Design -->
+        <div class="dp-container">
+            <div class="enhanced-text-logo">
+                <div class="enhanced-logo-beads">
+                    <div class="enhanced-bead enhanced-bead1"></div>
+                    <div class="enhanced-bead enhanced-bead2"></div>
+                    <div class="enhanced-bead enhanced-bead3"></div>
+                    <div class="enhanced-bead enhanced-bead4"></div>
+                    <div class="enhanced-bead enhanced-bead5"></div>
+                    <div class="enhanced-bead enhanced-bead6"></div>
+                    <div class="enhanced-bead enhanced-bead7"></div>
+                    <div class="enhanced-bead enhanced-bead8"></div>
+                </div>
+                <div class="main-text">BEADS & MORE</div>
+                <div class="sub-text">Traditional Craftsmanship</div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 How to Set as WhatsApp DP:</h3>
+            <ol>
+                <li><strong>Screenshot:</strong> Take a screenshot of the circular design above</li>
+                <li><strong>Crop:</strong> Crop it to a perfect square (1:1 ratio)</li>
+                <li><strong>Open WhatsApp:</strong> Go to your WhatsApp profile settings</li>
+                <li><strong>Change DP:</strong> Tap on your current profile picture</li>
+                <li><strong>Upload:</strong> Select the cropped image from your gallery</li>
+                <li><strong>Adjust:</strong> Position and crop as needed in WhatsApp</li>
+            </ol>
+            
+            <div class="size-info">
+                <h4>📐 WhatsApp High Quality Specifications:</h4>
+                <p><strong>Recommended:</strong> 640x640 pixels (Perfect Circle)<br>
+                <strong>Format:</strong> JPG or PNG<br>
+                <strong>File Size:</strong> Under 16MB<br>
+                <strong>Shape:</strong> Perfect Circle (Instagram/WhatsApp Standard)<br>
+                <strong>Quality:</strong> Maximum resolution for crystal clear display<br>
+                <strong>Visibility:</strong> All text elements optimized for small profile view</p>
+            </div>
+            
+            <button class="download-btn" onclick="downloadInstructions()">
+                📥 Download Instructions
+            </button>
+            
+            <button class="download-btn" onclick="takeScreenshot()">
+                📸 Ready to Screenshot
+            </button>
+        </div>
+        
+        <div class="instructions">
+            <h3>🔄 Alternative Sizes:</h3>
+            <div class="size-options">
+                <div class="size-option">
+                    <h4>Standard Size</h4>
+                    <div class="size-sample">
+                        <div class="mini-logo">BEADS<br>& MORE</div>
+                        <div class="mini-url">nilakshibelan.github.io</div>
+                    </div>
+                    <p>320x320 pixels<br>Perfect for most devices</p>
+                </div>
+                
+                <div class="size-option">
+                    <h4>High Quality</h4>
+                    <div class="size-sample">
+                        <div class="mini-logo">BEADS<br>& MORE</div>
+                        <div class="mini-url">nilakshibelan.github.io</div>
+                    </div>
+                    <p>640x640 pixels<br>Crystal clear quality</p>
+                </div>
+                
+                <div class="size-option">
+                    <h4>Compact Size</h4>
+                    <div class="size-sample">
+                        <div class="mini-logo">BEADS<br>& MORE</div>
+                        <div class="mini-url">nilakshibelan.github.io</div>
+                    </div>
+                    <p>192x192 pixels<br>Smaller file size</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>💡 Pro Tips for Best Results:</h3>
+            <ul style="text-align: left; line-height: 1.8;">
+                <li><strong>🌅 Timing:</strong> Change your DP during peak hours (8-10 AM, 6-8 PM)</li>
+                <li><strong>👀 Visibility:</strong> The golden text and website URL are clearly visible</li>
+                <li><strong>🔄 Consistency:</strong> Keep this DP for at least a week for brand recognition</li>
+                <li><strong>📱 Test View:</strong> Check how it looks in different chat views</li>
+                <li><strong>💾 Backup:</strong> Save the image to use again later</li>
+                <li><strong>🎯 Impact:</strong> This DP will make people curious about your business</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        function downloadInstructions() {
+            const instructions = `
+WhatsApp DP Setup Instructions - BEADS & MORE
+
+1. Take a screenshot of the circular logo design
+2. Crop to perfect square (1:1 ratio)
+3. Open WhatsApp → Profile Settings
+4. Tap current profile picture
+5. Upload cropped image
+6. Adjust position in WhatsApp editor
+
+Optimal Settings:
+- Size: 640x640 pixels
+- Format: JPG or PNG
+- File size: Under 16MB
+
+Best Practices:
+- Change DP during peak hours (8-10 AM, 6-8 PM)
+- Keep consistent for brand recognition
+- Test visibility in different chat views
+
+Website: nilakshibelan.github.io/beadsandmore
+Contact: 8432254327
+            `;
+            
+            const blob = new Blob([instructions], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'WhatsApp-DP-Instructions-BeadsAndMore.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function takeScreenshot() {
+            alert('📸 Perfect! Now take a screenshot of the circular design above.\n\n✅ Make sure to capture the entire circle\n✅ Crop to square ratio\n✅ Upload to WhatsApp\n\nYour professional DP is ready! 🌟');
+        }
+        
+        // Add subtle animation on page load
+        window.addEventListener('load', function() {
+            document.querySelector('.dp-container').style.animation = 'fadeInScale 1s ease-out';
+        });
+        
+        // Add CSS for fade in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInScale {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
