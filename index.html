@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BEADS & MORE - Traditional Ornaments Catalog - v2.0</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /*
+        ============================================
+        CROSS-BROWSER COMPATIBILITY
+        ============================================
+        This website is optimized for:
+        - Chrome/Edge (latest + last 3 versions)
+        - Firefox (latest + last 3 versions)
+        - Safari (latest + last 3 versions)
+        - Safari iOS (12+)
+        - Chrome Android (latest)
+        - Samsung Internet (latest)
+        - Opera (latest)
+        - UC Browser (latest)
+        
+        All vendor prefixes included for maximum compatibility
+        ============================================
+        */
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
         }
 
         /* Mobile-first optimizations */
@@ -51,11 +72,12 @@
             background: linear-gradient(135deg, rgba(255,107,107,0.95), rgba(78,205,196,0.95), rgba(69,183,209,0.95), rgba(253,121,168,0.95));
             background-size: 400% 400%;
             animation: headerGradient 6s ease infinite;
-            backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
             padding: 15px 0;
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
             position: sticky;
+            position: -webkit-sticky;
             top: 0;
             z-index: 100;
             border-bottom: 2px solid rgba(255,255,255,0.3);
@@ -351,8 +373,8 @@
             padding: 8px 15px;
             background: rgba(255,255,255,0.2);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.3);
             transition: all 0.3s ease;
             cursor: pointer;
@@ -430,6 +452,7 @@
 
         .search-filter-section {
             background: rgba(255,255,255,0.95);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 20px;
@@ -1126,6 +1149,7 @@
 
         .stats-section {
             background: linear-gradient(135deg, rgba(255,107,107,0.9), rgba(78,205,196,0.9), rgba(69,183,209,0.9), rgba(253,121,168,0.9));
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 15px;
@@ -1588,8 +1612,8 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             opacity: 0;
             transition: all 0.3s ease;
@@ -1604,8 +1628,8 @@
 
         .modal-content {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 0;
             max-width: 90vw;
