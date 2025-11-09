@@ -510,6 +510,26 @@
             font-size: 18px;
         }
 
+        .search-hint {
+            text-align: center;
+            color: #667eea;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 500;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .filter-tabs {
             display: flex;
             gap: 8px;
@@ -1526,6 +1546,11 @@
                 font-size: 14px;
             }
 
+            .search-hint {
+                font-size: 12px;
+                padding: 0 10px;
+            }
+
             .container {
                 padding: 15px 10px;
             }
@@ -1677,6 +1702,66 @@
             margin: 0;
         }
 
+        .product-count-indicator {
+            margin: 8px 0 0 0;
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .product-count-indicator i {
+            color: #ff6b6b;
+            animation: iconBounce 2s ease infinite;
+        }
+
+        .scroll-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #ff6b6b, #fd79a8);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255,107,107,0.3);
+            animation: pulseGlow 2s ease infinite;
+        }
+
+        .scroll-hint i {
+            color: white;
+            animation: pointDown 1.5s ease infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes pointDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 2px 8px rgba(255,107,107,0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 4px 12px rgba(255,107,107,0.5);
+                transform: scale(1.02);
+            }
+        }
+
+        .modal-header > div {
+            flex: 1;
+        }
+
         .modal-close {
             background: #ff6b6b;
             color: white;
@@ -1704,6 +1789,51 @@
             margin-top: 20px;
             padding: 0 30px 30px 30px;
             min-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Visible scrollbar styling for product grid */
+        .products-grid::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .products-grid::-webkit-scrollbar-track {
+            background: linear-gradient(180deg, #f0f0f0, #e0e0e0);
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .products-grid::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 10px;
+            border: 2px solid #f0f0f0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .products-grid::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #764ba2, #667eea);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Firefox scrollbar styling */
+        .products-grid {
+            scrollbar-width: thin;
+            scrollbar-color: #667eea #f0f0f0;
+        }
+
+        /* Scroll indicator for mobile - shows when more content is available */
+        .products-grid::after {
+            content: '';
+            position: sticky;
+            bottom: -30px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, rgba(255,107,107,0.15), transparent);
+            pointer-events: none;
+            display: block;
+            margin-top: -40px;
         }
 
         .product-item {
@@ -1998,6 +2128,33 @@
                 line-height: 1.2;
             }
 
+            .product-count-indicator {
+                font-size: 13px;
+                justify-content: center;
+                text-align: center;
+                margin: 10px 0 0 0;
+            }
+
+            .scroll-hint {
+                width: 100%;
+                justify-content: center;
+                margin-top: 6px;
+                padding: 6px 12px;
+                font-size: 11px;
+                animation: pulseGlowMobile 2s ease infinite;
+            }
+
+            @keyframes pulseGlowMobile {
+                0%, 100% { 
+                    box-shadow: 0 3px 10px rgba(255,107,107,0.4);
+                    transform: scale(1);
+                }
+                50% { 
+                    box-shadow: 0 5px 15px rgba(255,107,107,0.6);
+                    transform: scale(1.03);
+                }
+            }
+
             .modal-close {
                 width: 44px;
                 height: 44px;
@@ -2012,6 +2169,34 @@
                 grid-template-columns: 1fr;
                 gap: 20px;
                 padding: 0 20px 20px 20px;
+                max-height: calc(95vh - 100px); /* Ensure scrolling is enabled on mobile */
+            }
+
+            /* Enhanced scrollbar visibility on mobile */
+            .products-grid::-webkit-scrollbar {
+                width: 14px; /* Wider scrollbar on mobile */
+            }
+
+            .products-grid::-webkit-scrollbar-track {
+                background: linear-gradient(180deg, #e8e8e8, #d0d0d0);
+                border-radius: 12px;
+                margin: 8px 0;
+                border: 1px solid #c0c0c0;
+            }
+
+            .products-grid::-webkit-scrollbar-thumb {
+                background: linear-gradient(180deg, #ff6b6b, #fd79a8);
+                border-radius: 12px;
+                border: 3px solid #e8e8e8;
+                box-shadow: 0 3px 10px rgba(255,107,107,0.4), 
+                           inset 0 1px 0 rgba(255,255,255,0.4);
+                min-height: 50px; /* Ensure thumb is large enough to grab */
+            }
+
+            .products-grid::-webkit-scrollbar-thumb:active {
+                background: linear-gradient(180deg, #ff5252, #fd5a8a);
+                box-shadow: 0 4px 12px rgba(255,107,107,0.6),
+                           inset 0 2px 4px rgba(0,0,0,0.2);
             }
 
             /* Product items in modal - mobile optimized */
@@ -2175,9 +2360,12 @@
 
         <div class="search-filter-section">
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search for ornaments, categories, or items..." id="searchInput">
+                <input type="text" class="search-input" placeholder="Search categories and products (e.g., Kalash, Paula, Rangoli)..." id="searchInput">
                 <i class="fas fa-search search-icon"></i>
             </div>
+            <p class="search-hint">
+                <i class="fas fa-info-circle"></i> Type 2+ characters to search across all 200 products
+            </p>
 
             <div class="filter-tabs">
                 <div class="filter-tab active" data-filter="all">All Categories</div>
@@ -2250,7 +2438,13 @@
     <div class="product-modal" id="productModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Category Products</h2>
+                <div>
+                    <h2 class="modal-title" id="modalTitle">Category Products</h2>
+                    <p class="product-count-indicator" id="productCount">
+                        <i class="fas fa-box-open"></i> <span id="countText">Loading products...</span>
+                        <span class="scroll-hint"><i class="fas fa-hand-point-down"></i> Scroll down to see all items</span>
+                    </p>
+                </div>
                 <button class="modal-close" onclick="closeModal()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -3526,11 +3720,13 @@
             const modal = document.getElementById('productModal');
             const modalTitle = document.getElementById('modalTitle');
             const productsGrid = document.getElementById('productsGrid');
+            const countText = document.getElementById('countText');
             
             modalTitle.textContent = categoryName;
             
             // Get products for this category
             let products = productData[categoryName] || [];
+            const totalProducts = products.length;
             
             // Filter products by current price range
             products = products.filter(product => {
@@ -3538,87 +3734,15 @@
                 return price >= currentMinPrice && price <= currentMaxPrice;
             });
             
-            // Special debugging for Laxmi Paula
-            if (categoryName === 'Laxmi Paula') {
-                console.log('=== LAXMI PAULA DEBUG ===');
-                console.log('Category name:', categoryName);
-                console.log('Products found:', products.length);
-                console.log('Filtered products:', products.length);
-                console.log('Price range:', currentMinPrice, '-', currentMaxPrice);
-                console.log('First product:', products[0]);
-                
-                // Create a completely custom modal for Laxmi Paula
-                const customModal = document.createElement('div');
-                customModal.id = 'laxmiPaulaCustomModal';
-                customModal.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100vw;
-                    height: 100vh;
-                    background: rgba(0,0,0,0.8);
-                    z-index: 9999;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 20px;
-                `;
-                
-                customModal.innerHTML = `
-                    <div style="background: white; border-radius: 10px; padding: 20px; max-width: 90vw; max-height: 90vh; overflow-y: auto;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px;">
-                            <h2 style="margin: 0; color: #333; font-size: 24px;">Laxmi Paula Products</h2>
-                            <button onclick="closeLaxmiModal()" style="background: #ff5555; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 18px;">×</button>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
-                            ${products.map((product, index) => `
-                                <div style="border: 2px solid #667eea; border-radius: 10px; padding: 15px; background: #f9f9f9;">
-                                    <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;">
-                                    </div>
-                                    <h3 style="color: #333; font-size: 20px; margin: 10px 0; font-weight: bold;">${product.name}</h3>
-                                    <p style="color: #666; font-size: 16px; line-height: 1.4; margin: 10px 0;">${product.description}</p>
-                                    <div style="color: #667eea; font-size: 22px; font-weight: bold; margin: 15px 0;">${product.price}</div>
-                                    
-                                    <div class="quantity-selector">
-                                        <span class="quantity-label">Quantity:</span>
-                                        <div class="quantity-controls">
-                                            <button class="quantity-btn" onclick="decreaseQuantity('laxmi-${index}')">−</button>
-                                            <input type="number" class="quantity-input" id="quantity-laxmi-${index}" value="1" min="1" max="999" onchange="validateQuantity('laxmi-${index}')">
-                                            <button class="quantity-btn" onclick="increaseQuantity('laxmi-${index}')">+</button>
-                                        </div>
-                                    </div>
-                                    
-                                    <button onclick="orderProductWithQuantity('${product.name}', '${product.price}', 'laxmi-${index}'); closeLaxmiModal();" style="background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%;">
-                                        <i class="fab fa-whatsapp"></i> Enquiry via WhatsApp
-                                    </button>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-                
-                // Add close function to window
-                window.closeLaxmiModal = function() {
-                    const modal = document.getElementById('laxmiPaulaCustomModal');
-                    if (modal) {
-                        modal.remove();
-                    }
-                    document.body.style.overflow = 'auto';
-                };
-                
-                // Remove any existing custom modal
-                const existingModal = document.getElementById('laxmiPaulaCustomModal');
-                if (existingModal) {
-                    existingModal.remove();
+            // Update product count indicator
+            if (products.length > 0) {
+                if (products.length === totalProducts) {
+                    countText.innerHTML = `<strong>${products.length}</strong> product${products.length > 1 ? 's' : ''} available`;
+                } else {
+                    countText.innerHTML = `<strong>${products.length}</strong> of <strong>${totalProducts}</strong> products in price range`;
                 }
-                
-                // Add to body and show
-                document.body.appendChild(customModal);
-                document.body.style.overflow = 'hidden';
-                
-                // Don't show the regular modal
-                return;
+            } else {
+                countText.innerHTML = `No products in selected price range`;
             }
             
             if (products.length === 0) {
@@ -3981,13 +4105,111 @@ Thank you!`);
         }
 
         function searchCategories() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = categories.filter(cat => 
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            // If search is empty, show all categories
+            if (!searchTerm) {
+                renderCategories(categories);
+                return;
+            }
+            
+            // First, filter categories that match
+            const filteredCategories = categories.filter(cat => 
                 cat.name.toLowerCase().includes(searchTerm) ||
                 cat.description.toLowerCase().includes(searchTerm) ||
                 cat.type.toLowerCase().includes(searchTerm)
             );
-            renderCategories(filtered);
+            
+            // Also search through all products across all categories
+            let matchingProducts = [];
+            let productCategoryMap = {}; // Track which category each product belongs to
+            
+            Object.keys(productData).forEach(categoryName => {
+                const products = productData[categoryName] || [];
+                products.forEach(product => {
+                    if (product.name.toLowerCase().includes(searchTerm) ||
+                        product.description.toLowerCase().includes(searchTerm) ||
+                        product.price.toLowerCase().includes(searchTerm)) {
+                        matchingProducts.push(product);
+                        productCategoryMap[product.name] = categoryName;
+                    }
+                });
+            });
+            
+            // If we have matching products but no matching categories, show products in modal
+            if (matchingProducts.length > 0 && searchTerm.length >= 2) {
+                // Show search results in modal
+                openSearchResultsModal(searchTerm, matchingProducts);
+                // Still show filtered categories if any
+                renderCategories(filteredCategories);
+            } else {
+                // Just show filtered categories
+                renderCategories(filteredCategories);
+            }
+        }
+
+        function openSearchResultsModal(searchTerm, products) {
+            const modal = document.getElementById('productModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const productsGrid = document.getElementById('productsGrid');
+            const countText = document.getElementById('countText');
+            
+            modalTitle.innerHTML = `<i class="fas fa-search"></i> Search Results`;
+            
+            // Filter products by current price range
+            const filteredProducts = products.filter(product => {
+                const price = extractPrice(product.price);
+                return price >= currentMinPrice && price <= currentMaxPrice;
+            });
+            
+            // Update product count indicator
+            if (filteredProducts.length > 0) {
+                if (filteredProducts.length === products.length) {
+                    countText.innerHTML = `Found <strong>${filteredProducts.length}</strong> product${filteredProducts.length > 1 ? 's' : ''} matching "<strong>${searchTerm}</strong>"`;
+                } else {
+                    countText.innerHTML = `<strong>${filteredProducts.length}</strong> of <strong>${products.length}</strong> results in price range`;
+                }
+            } else {
+                countText.innerHTML = `No products match your search in the selected price range`;
+            }
+            
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                        <i class="fas fa-search" style="font-size: 48px; color: #667eea; margin-bottom: 20px;"></i>
+                        <h3>No Search Results Found</h3>
+                        <p>No products matching "<strong>${searchTerm}</strong>" were found in your price range (₹${currentMinPrice} - ₹${currentMaxPrice}).</p>
+                        <p style="color: #666; margin-top: 10px;">Try adjusting your search term or price range.</p>
+                    </div>
+                `;
+            } else {
+                productsGrid.innerHTML = filteredProducts.map((product, index) => `
+                    <div class="product-item">
+                        <div class="product-image" onclick="return false;">
+                            <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x250/667eea/white?text=${encodeURIComponent(product.name)}'">
+                        </div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price}</div>
+                        
+                        <div class="quantity-selector">
+                            <span class="quantity-label">Quantity:</span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity(${index})">−</button>
+                                <input type="number" class="quantity-input" id="quantity-${index}" value="1" min="1" max="999" onchange="validateQuantity(${index})">
+                                <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
+                            </div>
+                        </div>
+                        
+                        <button class="order-btn" onclick="orderProductWithQuantity('${product.name.replace(/'/g, "\\'")}', '${product.price}', ${index})">
+                            <i class="fab fa-whatsapp"></i> Enquiry via WhatsApp
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function selectCategory(categoryName) {
