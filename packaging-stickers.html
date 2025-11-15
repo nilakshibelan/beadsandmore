@@ -160,8 +160,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px;
+            justify-content: flex-start;
+            padding: 6px 10px 18px 10px;
             color: white;
             margin: 0 auto;
             border-radius: 15px;
@@ -228,11 +228,19 @@
 
         .medium-rect .contact {
             font-family: 'Inter', sans-serif;
-            font-size: 6.5px;
+            font-size: 8px;
             line-height: 1.2;
-            font-weight: 400;
+            font-weight: 700;
             text-align: center;
             margin-top: 2px;
+            margin-bottom: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .medium-rect .contact::after {
+            content: '';
+            display: block;
+            height: 12px;
         }
 
         .medium-rect .qr-mini {
@@ -482,10 +490,13 @@
             .medium-rect {
                 width: 170px;  /* Reduced for better A4 fit */
                 height: 102px; /* Adjusted for better proportion */
-                padding: 6px 8px;
+                padding: 4px 8px 14px 8px;
                 overflow: hidden;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
             }
 
             .medium-rect .qr-mini {
@@ -500,9 +511,20 @@
             }
 
             .medium-rect .contact {
-                font-size: 5.5px;
+                font-size: 8px;
                 margin-top: 2px;
                 text-align: center;
+                color: white !important;
+                font-weight: 700;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            }
+
+            .medium-rect .contact::after {
+                content: '';
+                display: block;
+                height: 10px;
             }
 
             /* Remove dark background from logo box in print */
@@ -555,7 +577,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -570,7 +592,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -585,7 +607,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -600,7 +622,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -615,7 +637,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -630,7 +652,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -645,7 +667,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -660,7 +682,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -675,7 +697,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -690,7 +712,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -705,7 +727,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -720,7 +742,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -735,7 +757,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -750,7 +772,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -765,7 +787,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -780,7 +802,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -795,7 +817,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -810,7 +832,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -825,7 +847,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -840,7 +862,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -855,7 +877,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -870,7 +892,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
@@ -885,7 +907,7 @@
                 <div class="qr-mini">
                     <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
-                <div class="contact">📱 +91 8432254327</div>
+                <div class="contact">+91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
