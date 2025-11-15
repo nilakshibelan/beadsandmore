@@ -92,6 +92,35 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
+        .small-circle .logo-img {
+            width: 90px;
+            height: auto;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            background: white;
+            padding: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .small-circle .logo-box {
+            background: #2c3e50;
+            padding: 6px 12px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 3px solid #ffd700;
+        }
+
+        .small-circle .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
         .small-circle .tagline {
             font-size: 6px;
             text-align: center;
@@ -129,9 +158,10 @@
             height: 120px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 10px;
+            padding: 10px;
             color: white;
             margin: 0 auto;
             border-radius: 15px;
@@ -140,7 +170,10 @@
         }
 
         .medium-rect .left {
-            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .medium-rect .brand {
@@ -153,37 +186,72 @@
             white-space: nowrap;
         }
 
+        .medium-rect .logo-img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            background: white;
+            padding: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .medium-rect .logo-box {
+            background: #2c3e50;
+            padding: 5px 20px;
+            border-radius: 10px;
+            margin-bottom: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            border: 2px solid #ffd700;
+            width: auto;
+            min-width: 160px;
+        }
+
+        .medium-rect .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
         .medium-rect .tagline {
             font-family: 'Inter', sans-serif;
             font-size: 9px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             font-weight: 500;
             letter-spacing: 0.5px;
+            text-align: center;
         }
 
         .medium-rect .contact {
             font-family: 'Inter', sans-serif;
-            font-size: 7px;
+            font-size: 6.5px;
             line-height: 1.2;
             font-weight: 400;
+            text-align: center;
+            margin-top: 2px;
         }
 
         .medium-rect .qr-mini {
-            width: 55px;
-            height: 55px;
+            width: 48px;
+            height: 48px;
             background: white;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: 10px;
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 2px solid rgba(255,255,255,0.9);
+            flex-shrink: 0;
+            margin-bottom: 1px;
         }
 
         .medium-rect .qr-mini img {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
         }
 
         /* Small Square - 1.2 x 1.2 inch */
@@ -407,11 +475,47 @@
             .small-circle {
                 width: 144px;  /* 1.5 inches at 96 DPI */
                 height: 144px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .medium-rect {
                 width: 192px;  /* 2 inches at 96 DPI */
                 height: 115px; /* Adjusted for better proportion */
+                padding: 8px 10px;
+                overflow: hidden;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .medium-rect .qr-mini {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 1px;
+            }
+
+            .medium-rect .qr-mini img {
+                width: 42px;
+                height: 42px;
+            }
+
+            .medium-rect .contact {
+                font-size: 6px;
+                margin-top: 1px;
+            }
+
+            /* Remove dark background from logo box in print */
+            .medium-rect .logo-box,
+            .small-circle .logo-box {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .medium-rect .logo-text,
+            .small-circle .logo-text {
+                color: #ffd700 !important;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             }
 
             /* Ensure page breaks work properly */
@@ -438,31 +542,19 @@
     </div>
 
     <div class="stickers-grid">
-        <!-- Small Circle Sticker -->
-        <div class="sticker">
-            <div class="small-circle">
-                <div class="brand">BEADS & MORE</div>
-                <div class="tagline">Beautiful Handcrafted Ornaments</div>
-                <div class="contact">+91 8432254327</div>
-                <div class="qr-code">
-                    <img src="images/BEADSANDMORE-professional-qr.png" alt="QR">
-                </div>
-            </div>
-            <div class="sticker-label">1.5" Circle - Perfect for small bags</div>
-        </div>
-
         <!-- Medium Rectangle with QR -->
         <div class="sticker">
             <div class="medium-rect">
                 <div class="left">
-                    <div class="brand">BEADS & MORE</div>
+                    <div class="logo-box">
+                        <div class="logo-text">BEADS & MORE</div>
+                    </div>
                     <div class="tagline">Traditional Ornaments</div>
-                    <div class="contact">📱 +91 8432254327</div>
-                    <div class="contact">📍 Karve Nagar, Pune</div>
                 </div>
                 <div class="qr-mini">
-                    <img src="images/BEADSANDMORE-professional-qr.png" alt="QR">
+                    <img src="images/beadsandmore-new-qr.png" alt="QR">
                 </div>
+                <div class="contact">📱 +91 8432254327</div>
             </div>
             <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
         </div>
