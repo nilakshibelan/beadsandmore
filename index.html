@@ -3707,6 +3707,22 @@
                     price: "₹500",
                     image: "images/Tulshi-Vrundavan/Tulsi Vrindavan.jpeg"
                 }
+            ],
+            "Pardi": [
+                {
+                    name: "Pardi",
+                    description: "Traditional beaded Pardi with red/pink, white beads [8\" (H) x 8\" (W)]",
+                    price: "₹600",
+                    image: "images/Pardi/pardi.jpeg"
+                }
+            ],
+            "Deep Maal": [
+                {
+                    name: "Deep Maal",
+                    description: "Traditional beaded deep maal decoration with red, white, and golden beads [16\" (H) x 2\" (W)] (each deepmaal)",
+                    price: "₹125",
+                    image: "images/Deep-Maal/Deep-Maal.jpeg"
+                }
             ]
             // Add more categories and products as needed
         };
@@ -3745,13 +3761,31 @@
                 countText.innerHTML = `No products in selected price range`;
             }
             
+            // Add special message for Toran category
+            let categoryMessage = '';
+            if (categoryName === 'Toran') {
+                categoryMessage = `
+                    <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 5px solid #667eea; border-radius: 8px; padding: 20px; margin-bottom: 25px; grid-column: 1 / -1; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);">
+                        <div style="display: flex; align-items: flex-start; gap: 15px;">
+                            <div style="font-size: 28px;">📏</div>
+                            <div>
+                                <p style="font-size: 14px; color: #333; margin: 0; line-height: 1.6;">
+                                    <strong style="font-size: 16px; color: #667eea; display: block; margin-bottom: 8px;">Standard Size Information</strong>
+                                    All toran designs come in a standard size of <strong>3 feet 2 inches</strong>. If you need a custom size, please mention your specific requirements while placing your order.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
             if (products.length === 0) {
                 const originalProducts = productData[categoryName] || [];
                 const hasProducts = originalProducts.length > 0;
                 
                 if (hasProducts && (currentMinPrice > 0 || currentMaxPrice < 1200)) {
                     // Products exist but filtered out by price
-                    productsGrid.innerHTML = `
+                    productsGrid.innerHTML = categoryMessage + `
                         <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
                             <i class="fas fa-filter" style="font-size: 48px; color: #667eea; margin-bottom: 20px;"></i>
                             <h3>No Products in Selected Price Range</h3>
@@ -3764,7 +3798,7 @@
                     `;
                 } else {
                     // No products in category at all
-                    productsGrid.innerHTML = `
+                    productsGrid.innerHTML = categoryMessage + `
                         <div style="text-align: center; padding: 40px; grid-column: 1 / -1;">
                             <i class="fas fa-box-open" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
                             <h3>Coming Soon!</h3>
@@ -3795,7 +3829,7 @@
                 }
                 
                 // All categories use consistent simple rendering
-                productsGrid.innerHTML = priceFilterBanner + products.map((product, index) => `
+                productsGrid.innerHTML = categoryMessage + priceFilterBanner + products.map((product, index) => `
                     <div style="border: 2px solid #667eea; border-radius: 10px; padding: 15px; background: #f9f9f9; margin: 10px;">
                         <div style="width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; margin-bottom: 15px; background: #f0f0f0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                             <img src="${product.image}" alt="${product.name}" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/300x200/667eea/white?text=${encodeURIComponent(product.name)}'">
@@ -3951,7 +3985,9 @@ Thank you!`);
             { name: "Rangoli (Small)", type: "festival", icon: "fas fa-circle-nodes", description: "Small rangoli designs for daily use" },
             { name: "Saree and Khan Set", type: "sets", icon: "fas fa-tshirt", description: "Complete clothing decoration sets" },
             { name: "Vidyache Paan", type: "religious", icon: "fas fa-graduation-cap", description: "Traditional betel leaf decorations for ceremonies" },
-            { name: "Tulshi Vrundavan", type: "religious", icon: "fas fa-home", description: "Sacred basil plant decorations" }
+            { name: "Tulshi Vrundavan", type: "religious", icon: "fas fa-home", description: "Sacred basil plant decorations" },
+            { name: "Pardi", type: "religious", icon: "fas fa-snowflake", description: "Traditional beaded Pardi decorations" },
+            { name: "Deep Maal", type: "religious", icon: "fas fa-lightbulb", description: "Traditional beaded deep maal decorations" }
         ];
 
         // Function to convert category name to folder name
@@ -3979,7 +4015,9 @@ Thank you!`);
                 "Kalash Mahirap": "Kalash-Mahirap",
                 "Samai Mahirap": "Samai-Mahirap",
                 "Niranjan Mahirap": "Niranjan-Mahirap",
-                "Saraswati Rangoli": "Saraswati Rangoli"
+                "Saraswati Rangoli": "Saraswati Rangoli",
+                "Pardi": "Pardi",
+                "Deep Maal": "Deep-Maal"
             };
             
             return folderMapping[categoryName] || categoryName;
@@ -4023,6 +4061,8 @@ Thank you!`);
                 "Rangoli (Big)": "images/Rangoli (Big)/Big Star Rangoli.jpeg",
                 "Beaded-Keychain": "images/Beaded-Keychain/Multicolour Star Keychain.jpeg",
                 "Tulshi-Vrundavan": "images/Tulshi-Vrundavan/Tulsi Vrindavan.jpeg",
+                "Pardi": "images/Pardi/pardi.jpeg",
+                "Deep-Maal": "images/Deep-Maal/Deep-Maal.jpeg",
                 // Add more as we discover them
             };
             
