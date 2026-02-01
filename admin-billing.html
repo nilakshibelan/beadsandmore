@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Billing System | BEADS & MORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .form-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section h2 i {
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .search-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .search-bar button {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .product-card.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 120px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .product-card.selected .product-price {
+            color: #fff;
+        }
+
+        .quantity-input {
+            width: 60px;
+            padding: 5px;
+            margin-top: 8px;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .cart-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .cart-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-section h2 i {
+            color: #667eea;
+        }
+
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-category {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .qty-btn:hover {
+            background: #5568d3;
+        }
+
+        .remove-btn {
+            padding: 8px 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .remove-btn:hover {
+            background: #ff5252;
+        }
+
+        .billing-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #667eea;
+            margin-bottom: 30px;
+        }
+
+        .billing-summary h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .summary-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .summary-row.header {
+            font-weight: 600;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-bottom: none;
+        }
+
+        .summary-col {
+            text-align: right;
+        }
+
+        .summary-col:first-child {
+            text-align: left;
+        }
+
+        .totals-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .total-item.grand-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+            padding-top: 10px;
+            border-top: 2px solid #ddd;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .no-items {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .no-items i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles for PDF */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .search-section, .form-section, .action-buttons {
+                display: none;
+            }
+
+            .main-grid {
+                display: block;
+            }
+
+            .form-section {
+                display: block;
+                background: white;
+                border: none;
+                padding: 0;
+                margin-bottom: 20px;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-invoice-dollar"></i> Billing System</h1>
+            <p>Create and manage customer bills with ease</p>
+        </div>
+
+        <!-- Customer Details Section -->
+        <div class="main-grid">
+            <div class="form-section">
+                <h2><i class="fas fa-user"></i> Customer Details</h2>
+                <div class="form-group">
+                    <label for="customerName">Customer Name *</label>
+                    <input type="text" id="customerName" placeholder="Enter customer name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number *</label>
+                    <input type="tel" id="contactNumber" placeholder="Enter phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address *</label>
+                    <textarea id="address" placeholder="Enter complete address" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2><i class="fas fa-calendar"></i> Order Details</h2>
+                <div class="form-group">
+                    <label for="orderDate">Order Date *</label>
+                    <input type="date" id="orderDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="deliveryDate">Estimated Delivery Date *</label>
+                    <input type="date" id="deliveryDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="shippingAmount">Shipping Amount (₹)</label>
+                    <input type="number" id="shippingAmount" placeholder="0" step="0.01" min="0" value="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Search Section -->
+        <div class="search-section">
+            <h2><i class="fas fa-search"></i> Search & Add Items</h2>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products by name, category...">
+                <button onclick="searchProducts()"><i class="fas fa-search"></i> Search</button>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="filterByCategory('All')">All</button>
+                <button class="filter-btn" onclick="filterByCategory('Kalash')">Kalash</button>
+                <button class="filter-btn" onclick="filterByCategory('Kalash Mahirap')">Kalash Mahirap</button>
+                <button class="filter-btn" onclick="filterByCategory('Kalash Stand')">Kalash Stand</button>
+                <button class="filter-btn" onclick="filterByCategory('Laxmi Paula')">Laxmi Paula</button>
+                <button class="filter-btn" onclick="filterByCategory('Laxmi Sets')">Laxmi Sets</button>
+                <button class="filter-btn" onclick="filterByCategory('Swastik')">Swastik</button>
+                <button class="filter-btn" onclick="filterByCategory('Samai')">Samai</button>
+                <button class="filter-btn" onclick="filterByCategory('Samai Mahirap')">Samai Mahirap</button>
+                <button class="filter-btn" onclick="filterByCategory('Khan')">Khan</button>
+                <button class="filter-btn" onclick="filterByCategory('Gopadma')">Gopadma</button>
+                <button class="filter-btn" onclick="filterByCategory('Niranjan')">Niranjan</button>
+                <button class="filter-btn" onclick="filterByCategory('Niranjan Mahirap')">Niranjan Mahirap</button>
+                <button class="filter-btn" onclick="filterByCategory('Rangoli (Big)')">Rangoli Big</button>
+                <button class="filter-btn" onclick="filterByCategory('Rangoli (Small)')">Rangoli Small</button>
+                <button class="filter-btn" onclick="filterByCategory('Toran')">Toran</button>
+                <button class="filter-btn" onclick="filterByCategory('Thali Mahirap')">Thali Mahirap</button>
+                <button class="filter-btn" onclick="filterByCategory('Kuber Rangoli')">Kuber Rangoli</button>
+                <button class="filter-btn" onclick="filterByCategory('Panati')">Panati</button>
+                <button class="filter-btn" onclick="filterByCategory('Supari')">Supari</button>
+                <button class="filter-btn" onclick="filterByCategory('Flowers')">Flowers</button>
+                <button class="filter-btn" onclick="filterByCategory('Mango Leaf')">Mango Leaf</button>
+                <button class="filter-btn" onclick="filterByCategory('Moti Aasan Small')">Moti Aasan</button>
+                <button class="filter-btn" onclick="filterByCategory('Beaded Keychain')">Keychains</button>
+                <button class="filter-btn" onclick="filterByCategory('Tulshi Vrundavan')">Tulsi Vrundavan</button>
+                <button class="filter-btn" onclick="filterByCategory('Name Patti')">Name Patti</button>
+                <button class="filter-btn" onclick="filterByCategory('Saraswati Rangoli')">Saraswati Rangoli</button>
+                <button class="filter-btn" onclick="filterByCategory('Moti Paat')">Moti Paat</button>
+                <button class="filter-btn" onclick="filterByCategory('Pardi')">Pardi</button>
+                <button class="filter-btn" onclick="filterByCategory('Deep Maal')">Deep Maal</button>
+            </div>
+
+            <div id="productsGrid" class="products-grid">
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>Click search or filter to load products</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart/Selected Items Section -->
+        <div class="cart-section">
+            <h2><i class="fas fa-shopping-cart"></i> Selected Items</h2>
+            <div id="cartItems" class="cart-items">
+                <div class="no-items">
+                    <i class="fas fa-box-open"></i>
+                    <p>No items selected yet. Search and add items above.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Billing Summary Section -->
+        <div class="billing-summary">
+            <h2><i class="fas fa-calculator"></i> Billing Summary</h2>
+            <div class="summary-table">
+                <div class="summary-row header">
+                    <div class="summary-col">Category / Item</div>
+                    <div class="summary-col">Quantity</div>
+                    <div class="summary-col">Amount</div>
+                </div>
+                <div id="summaryRows"></div>
+            </div>
+
+            <div class="totals-section">
+                <div class="total-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="total-item">
+                    <span>Shipping:</span>
+                    <span id="shippingDisplay">₹0.00</span>
+                </div>
+                <div class="total-item grand-total">
+                    <span>Grand Total:</span>
+                    <span id="grandTotal">₹0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-redo"></i> Reset</button>
+            <button class="btn btn-primary" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Download PDF Bill</button>
+        </div>
+    </div>
+
+    <!-- Hidden PDF Template -->
+    <div id="pdfTemplate" style="display: none;">
+        <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
+            <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 20px;">
+                <h1 style="margin: 0; color: #667eea; font-size: 32px;">BEADS & MORE</h1>
+                <p style="margin: 5px 0; color: #666; font-size: 13px;">Traditional Ornaments & Jewelry</p>
+                <p style="margin: 5px 0; color: #999; font-size: 12px;">📞 +91 8432254327 | 📧 nilakshibelan@gmail.com | Pune, Maharashtra</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                <div>
+                    <h3 style="color: #333; font-size: 14px; margin-bottom: 10px;">BILL TO:</h3>
+                    <p style="margin: 5px 0; font-weight: bold; color: #333;" id="pdfCustomerName">-</p>
+                    <p style="margin: 5px 0; color: #666; font-size: 13px;" id="pdfAddress">-</p>
+                    <p style="margin: 5px 0; color: #666; font-size: 13px;" id="pdfContact">-</p>
+                </div>
+                <div>
+                    <p style="margin: 5px 0; color: #666; font-size: 13px;"><strong>Order Date:</strong> <span id="pdfOrderDate">-</span></p>
+                    <p style="margin: 5px 0; color: #666; font-size: 13px;"><strong>Delivery Date:</strong> <span id="pdfDeliveryDate">-</span></p>
+                    <p style="margin: 5px 0; color: #666; font-size: 13px;"><strong>Bill Date:</strong> <span id="pdfBillDate">-</span></p>
+                </div>
+            </div>
+
+            <div id="pdfItemsContainer" style="margin-bottom: 30px;"></div>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="border-bottom: 2px solid #667eea;">
+                        <td style="padding: 10px; font-weight: bold; color: #667eea; text-align: left;">Description</td>
+                        <td style="padding: 10px; font-weight: bold; color: #667eea; text-align: right;">Qty</td>
+                        <td style="padding: 10px; font-weight: bold; color: #667eea; text-align: right;">Amount</td>
+                    </tr>
+                    <tbody id="pdfBillingRows"></tbody>
+                </table>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 300px; gap: 20px; margin-top: 20px;">
+                <div id="pdfItemImages" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 15px;"></div>
+                <div style="background: white; padding: 15px; border: 2px solid #667eea; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
+                        <span style="color: #666;">Subtotal:</span>
+                        <span style="font-weight: bold; color: #333;" id="pdfSubtotal">₹0.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
+                        <span style="color: #666;">Shipping:</span>
+                        <span style="font-weight: bold; color: #333;" id="pdfShipping">₹0.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0; font-size: 16px; font-weight: bold; color: #667eea;">
+                        <span>Grand Total:</span>
+                        <span id="pdfGrandTotal">₹0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center; color: #999; font-size: 12px; border-top: 1px solid #e0e0e0; padding-top: 20px;">
+                <p>Thank you for your business! 💝</p>
+                <p>Made with ❤️ by Beads & More</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product data from main index.html - All categories
+        const productCategories = {
+            "Kalash Mahirap": [
+                { name: "Blue Round Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/Blue Round Kalash Mahirap.jpeg" },
+                { name: "Moti and Golden Kalash Mahirap - Kalash", price: "125", image: "images/Kalash-Mahirap/Moti and Golden Kalash Mahirap - Kalash.jpeg" },
+                { name: "Moti and Golden Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/Moti and Golden Kalash Mahirap.jpeg" },
+                { name: "Multi Colour Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/Multi Colour Kalash Mahirap.jpeg" },
+                { name: "Red and Golden Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/Red and Golden Kalash Mahirap.jpeg" },
+                { name: "Round Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/Round Kalash Mahirap.jpeg" },
+                { name: "White and Rani Colour Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/White and Rani Colour Kalash Mahirap.jpeg" },
+                { name: "White and Red Kalash Mahirap", price: "125", image: "images/Kalash-Mahirap/White and Red Kalash Mahirap.jpeg" },
+                { name: "Multi Colour Straight Line Kalash Mahirap", price: "150", image: "images/Kalash-Mahirap/Multi Colour Straight Line Kalash Mahirap.jpeg" },
+                { name: "Swastik Kalash Mahirap", price: "150", image: "images/Kalash-Mahirap/Swastik Kalash Mahirap.jpeg" },
+                { name: "Double Colour Kalash Mahirap", price: "150", image: "images/Kalash-Mahirap/Double Colour Kalash Mahirap.jpeg" }
+            ],
+            "Laxmi Paula": [
+                { name: "Golden Laxmi Paule", price: "50", image: "images/Laxmi-Paula/Golden Laxmi Paule.jpeg" },
+                { name: "Small Mix Laxmi Paule", price: "80", image: "images/Laxmi-Paula/Small Mix Laxmi Paule.jpeg" },
+                { name: "Big Laxmi Paule", price: "100", image: "images/Laxmi-Paula/Big Laxmi Paule.jpeg" },
+                { name: "Swastic Laxmi Paule", price: "100", image: "images/Laxmi-Paula/Swastic Laxmi Paule.jpeg" },
+                { name: "Crystal Laxmi Paule", price: "200", image: "images/Laxmi-Paula/Crystal Laxmi Paule.jpeg" }
+            ],
+            "Gopadma": [
+                { name: "Simple Gopadma", price: "30", image: "images/Gopadma/Simple Gopadma.jpeg" },
+                { name: "White and Red Gopadma", price: "35", image: "images/Gopadma/White and Red Gopadma.jpeg" },
+                { name: "Big Gopadma", price: "80", image: "images/Gopadma/Big Gopadma.jpeg" }
+            ],
+            "Swastik": [
+                { name: "Simple Swastik", price: "30", image: "images/Swastik/Simple Swastik.jpeg" },
+                { name: "White and Red Swastik", price: "30", image: "images/Swastik/White and Red Swastik.jpeg" },
+                { name: "White and Golden Swastik", price: "40", image: "images/Swastik/White and Golden Swastik.jpeg" },
+                { name: "Double Layer Swastik", price: "50", image: "images/Swastik/Double Layer Swastik.jpeg" },
+                { name: "Bhariv Swastik", price: "100", image: "images/Swastik/Bhariv Swastik.jpeg" },
+                { name: "Cream and Red Bhariv Swastik", price: "100", image: "images/Swastik/Cream and Red Bhariv Swastik.jpeg" },
+                { name: "Multi Colour Bhariv Swastik", price: "100", image: "images/Swastik/Multi Colour Bhariv Swastik.jpeg" },
+                { name: "White and Red Bhariv Swastik", price: "100", image: "images/Swastik/White and Red Bhariv Swastik.jpeg" }
+            ],
+            "Samai Mahirap": [
+                { name: "Simple Samai Mahirap", price: "100", image: "images/Samai-Mahirap/Simple Samai Mahirap.jpeg" },
+                { name: "Simple Samai Mahirap 2", price: "100", image: "images/Samai-Mahirap/Simple Samai Mahirap 2.jpeg" },
+                { name: "Blue White Samai Mahirap", price: "125", image: "images/Samai-Mahirap/Blue White Samai Mahirap.jpeg" },
+                { name: "Green White Samai Mahirap", price: "125", image: "images/Samai-Mahirap/Green White Samai Mahirap.jpeg" },
+                { name: "Orange White Samai Mahirap", price: "125", image: "images/Samai-Mahirap/Orange White Samai Mahirap.jpeg" },
+                { name: "Pink and White Samai Mahirap", price: "125", image: "images/Samai-Mahirap/Pink and White Samai Mahirap.jpeg" },
+                { name: "White and Blue Samai Mahirap", price: "125", image: "images/Samai-Mahirap/White and Blue Samai Mahirap.jpeg" },
+                { name: "Yellow Red Samai Mahirap", price: "125", image: "images/Samai-Mahirap/Yellow Red Samai Mahirap.jpeg" },
+                { name: "Flower Samai Mahirap", price: "150", image: "images/Samai-Mahirap/Flower Samai Mahirap.jpeg" },
+                { name: "Double Layer Samai Mahirap", price: "175", image: "images/Samai-Mahirap/Double Layer Samai Mahirap.jpeg" },
+                { name: "Kamal Samai Mahirap", price: "350", image: "images/Samai-Mahirap/Kamal Samai Mahirap.jpeg" }
+            ],
+            "Niranjan Mahirap": [
+                { name: "Bhariv Niranjan Mahirap", price: "25", image: "images/Niranjan-Mahirap/Bhariv Niranjan Mahirap.jpeg" },
+                { name: "Green Yellow Niranjan Mahirap", price: "40", image: "images/Niranjan-Mahirap/Green Yellow Niranjan Mahirap.jpeg" },
+                { name: "Maroon White Niranjan Mahirap", price: "40", image: "images/Niranjan-Mahirap/Maroon White Niranjan Mahirap.jpeg" },
+                { name: "Multi Colour Niranjan Mahirap", price: "40", image: "images/Niranjan-Mahirap/Multi Colour Niranjan Mahirap.jpeg" },
+                { name: "Rani and Green Niranjan Mahirap", price: "40", image: "images/Niranjan-Mahirap/Rani and Green Niranjan Mahirap.jpeg" },
+                { name: "Multi Colour V Design Niranjan Mahirap", price: "50", image: "images/Niranjan-Mahirap/Multi Colour V Design Niranjan Mahirap.jpeg" },
+                { name: "Different Colours Niranjan Mahirap", price: "60", image: "images/Niranjan-Mahirap/Different Colours Niranjan Mahirap.jpeg" },
+                { name: "Flower Niranjan Mahirap", price: "60", image: "images/Niranjan-Mahirap/Flower Niranjan Mahirap.jpeg" },
+                { name: "White Red Niranjan Mahirap", price: "60", image: "images/Niranjan-Mahirap/White Red Niranjan Mahirap.jpeg" },
+                { name: "Yellow Niranjan Mahirap", price: "60", image: "images/Niranjan-Mahirap/Yellow Niranjan Mahirap.jpeg" },
+                { name: "Multi Colour Big Niranjan Mahirap", price: "80", image: "images/Niranjan-Mahirap/Multi Colour Big Niranjan Mahirap.jpeg" },
+                { name: "Star Shape Niranjan Mahirap", price: "80", image: "images/Niranjan-Mahirap/Star Shape Niranjan Mahirap.jpeg" }
+            ],
+            "Kalash": [
+                { name: "Kalash with Coconut", price: "50", image: "images/Kalash/Kalash with Coconut.jpeg" },
+                { name: "Simple Kalash", price: "50", image: "images/Kalash/Simple Kalash.jpeg" },
+                { name: "Hanging Swastik Kalash", price: "70", image: "images/Kalash/Hanging Swastik Kalash.jpeg" },
+                { name: "Multi Colour Kalash", price: "70", image: "images/Kalash/Multi Colour Kalash.jpeg" },
+                { name: "Swastik Kalash", price: "70", image: "images/Kalash/Swastik Kalash.jpeg" },
+                { name: "New Desing Kalash", price: "100", image: "images/Kalash/New Desing Kalash.jpeg" },
+                { name: "Kalash for hanging Shubha Labha", price: "125", image: "images/Kalash/Kalash for hanging Shubha Labha.jpeg" },
+                { name: "Kalash Pair - for Shubha Labha", price: "125", image: "images/Kalash/Kalash Pair - for Shubha Labha.jpeg" },
+                { name: "Bhariv Swastik Kalash", price: "150", image: "images/Kalash/Bhariv Swastik Kalash.jpeg" },
+                { name: "Big Kalash", price: "150", image: "images/Kalash/Big Kalash.jpeg" }
+            ],
+            "Kalash Stand": [
+                { name: "Moti Colour Kalsh Stand", price: "180", image: "images/Kalash-Stand/Moti Colour Kalsh Stand.jpeg" },
+                { name: "Pink Kalash Stand", price: "180", image: "images/Kalash-Stand/Pink Kalash Stand.jpeg" },
+                { name: "Red Kalash Stand", price: "180", image: "images/Kalash-Stand/Red Kalash Stand.jpeg" }
+            ],
+            "Name Patti": [
+                { name: "Om", price: "100", image: "images/Name-Patti/Om.jpeg" },
+                { name: "Shree", price: "100", image: "images/Name-Patti/Shree.jpeg" },
+                { name: "Shree Ram GC", price: "350", image: "images/Name-Patti/Shree Ram GC.jpeg" },
+                { name: "Shree Ram RC", price: "350", image: "images/Name-Patti/Shree Ram RC.jpeg" },
+                { name: "Shubha Labha", price: "450", image: "images/Name-Patti/Shubha Labha.jpeg" },
+                { name: "Shree Mahalaxmi Prasanna", price: "1100", image: "images/Name-Patti/Shree Mahalaxmi Prasanna.jpeg" }
+            ],
+            "Thali Mahirap": [
+                { name: "Moti Colour and Golden Mahirap 1", price: "150", image: "images/Thali-Mahirap/Moti Colour and Golden Mahirap 1.jpeg" },
+                { name: "Pink White Diamond Mahirap", price: "180", image: "images/Thali-Mahirap/Pink White Diamond Mahirap.jpeg" },
+                { name: "Small Flowers Mahirap", price: "180", image: "images/Thali-Mahirap/Small Flowers Mahirap.jpeg" },
+                { name: "Star Mahirap", price: "180", image: "images/Thali-Mahirap/Star Mahirap.jpeg" },
+                { name: "White Purple Mahirap", price: "180", image: "images/Thali-Mahirap/White Purple Mahirap.jpeg" },
+                { name: "Maroon White Flowers Mahirap", price: "200", image: "images/Thali-Mahirap/Maroon White Flowers Mahirap.jpeg" },
+                { name: "Moti Colour and Golden Mahirap 2", price: "200", image: "images/Thali-Mahirap/Moti Colour and Golden Mahirap 2.jpeg" },
+                { name: "Modak Mahirap", price: "225", image: "images/Thali-Mahirap/Modak Mahirap.jpeg" },
+                { name: "Moti Golden Latkan Mahirap", price: "225", image: "images/Thali-Mahirap/Moti Golden Latkan Mahirap.jpeg" },
+                { name: "Single Line Diamond Mahirap", price: "225", image: "images/Thali-Mahirap/Single Line Diamond Mahirap.jpeg" },
+                { name: "U Shape Latkan Mahirap", price: "225", image: "images/Thali-Mahirap/U Shape Latkan Mahirap.jpeg" },
+                { name: "Zigzag Mahirap", price: "225", image: "images/Thali-Mahirap/Zigzag Mahirap.jpeg" },
+                { name: "Big Flowers Mahirap", price: "250", image: "images/Thali-Mahirap/Big Flowers Mahirap.jpeg" },
+                { name: "Patang Mahirap", price: "250", image: "images/Thali-Mahirap/Patang Mahirap.jpeg" },
+                { name: "Diamond Mahirap", price: "300", image: "images/Thali-Mahirap/Diamond Mahirap.jpeg" },
+                { name: "Double Layer Diamond Mahirap", price: "350", image: "images/Thali-Mahirap/Double Layer Diamond Mahirap.jpeg" },
+                { name: "Half Diamond Mahirap", price: "350", image: "images/Thali-Mahirap/Half Diamond Mahirap.jpeg" },
+                { name: "White Maroon Mahirap", price: "350", image: "images/Thali-Mahirap/White Maroon Mahirap.jpeg" },
+                { name: "Flowers and Leaf Mahirap", price: "400", image: "images/Thali-Mahirap/Flowers and Leaf Mahirap.jpeg" },
+                { name: "Flowers and Mango Leaves Mahirap", price: "400", image: "images/Thali-Mahirap/Flowers and Mango Leaves Mahirap.jpeg" },
+                { name: "Kamal Mahirap", price: "400", image: "images/Thali-Mahirap/Kamal Mahirap.jpeg" }
+            ],
+            "Laxmi Sets": [
+                { name: "Go Padma Swastik Gopadma Set", price: "125", image: "images/Laxmi-Set/Go Padma Swastik Gopadma Set.jpeg" },
+                { name: "Red Laxmi Paula Swastik Gopadma Set", price: "125", image: "images/Laxmi-Set/Red Laxmi Paula Swastik Gopadma Set.jpeg" },
+                { name: "Red Yellow Swastik Laxmi Paula Set", price: "125", image: "images/Laxmi-Set/Red Yellow Swastik Laxmi Paula Set.jpeg" },
+                { name: "Laxmi Paula Swastik Set", price: "150", image: "images/Laxmi-Set/Laxmi Paula Swastik Set.jpeg" },
+                { name: "Swastik Laxmi Paula Set", price: "150", image: "images/Laxmi-Set/Swastik Laxmi Paula Set.jpeg" },
+                { name: "Red Laxmi Pula and Swastik Set", price: "175", image: "images/Laxmi-Set/Red Laxmi Pula and Swastik Set.jpeg" },
+                { name: "Big Laxmi Paula Swastik Set", price: "250", image: "images/Laxmi-Set/Big Laxmi Paula Swastik Set.jpeg" }
+            ],
+            "Toran": [
+                { name: "Latkan Yellow Red Flowers Toran", price: "300", image: "images/Toran/Latkan Yellow Red Flowers Toran.jpeg" },
+                { name: "Small Latkan Toran", price: "300", image: "images/Toran/Small Latkan Toran.jpeg" },
+                { name: "Pink Pompom Toran", price: "450", image: "images/Toran/Pink Pompom Toran.jpeg" },
+                { name: "Mango Leaves Toran", price: "500", image: "images/Toran/Mango Leaves Toran.jpeg" },
+                { name: "Paan and Flowers Toran", price: "500", image: "images/Toran/Paan and Flowers Toran.jpeg" },
+                { name: "V Shape Pink Flowers Toran", price: "500", image: "images/Toran/V Shape Pink Flowers Toran.jpeg" },
+                { name: "V shape Red Flowers Toran", price: "500", image: "images/Toran/V shape Red Flowers Toran.jpeg" },
+                { name: "Zigzag Red Flower Toran", price: "500", image: "images/Toran/Zigzag Red Flower Toran.jpeg" },
+                { name: "Latkan Toran", price: "550", image: "images/Toran/Latkan Toran.jpeg" },
+                { name: "Red White Red Pompom Toran", price: "550", image: "images/Toran/Red White Red Pompom Toran.jpeg" },
+                { name: "Red and White U Shape Multi Layer Toran", price: "550", image: "images/Toran/Red and White U Shape Multi Layer Toran.jpeg" },
+                { name: "U Shape Multi layer Toran", price: "550", image: "images/Toran/U Shape Multi layer Toran.jpeg" },
+                { name: "U Shape and Latkan Toran", price: "550", image: "images/Toran/U Shape and Latkan Toran.jpeg" },
+                { name: "White Golden U Shape Toran", price: "550", image: "images/Toran/White Golden U Shape Toran.jpeg" },
+                { name: "Mango Leaves with Kalash Toran", price: "600", image: "images/Toran/Mango Leaves with Kalash Toran.jpeg" }
+            ],
+            "Kuber Rangoli": [
+                { name: "Kuber Rangoli", price: "175", image: "images/Kuber Rangoli/Kuber Rangoli.jpeg" },
+                { name: "Kuber Rangoli With Side Line", price: "200", image: "images/Kuber Rangoli/Kuber Rangoli With Side Line.jpeg" }
+            ],
+            "Niranjan": [
+                { name: "Kuber Diwa Niranjan", price: "30", image: "images/Niranjan/Kuber Diwa Niranjan.jpeg" },
+                { name: "Niranjan", price: "50", image: "images/Niranjan/Niranjan.jpeg" }
+            ],
+            "Samai": [
+                { name: "Small Samai", price: "30", image: "images/Samai/Small Samai.jpeg" },
+                { name: "Samai Pair", price: "500", image: "images/Samai/Samai Pair.jpeg" }
+            ],
+            "Panati": [
+                { name: "White Red Panati", price: "30", image: "images/Panati/White Red Panati.jpeg" },
+                { name: "Big Panati", price: "60", image: "images/Panati/Big Panati.jpeg" },
+                { name: "Panati Set", price: "150", image: "images/Panati/Panati Set.jpeg" }
+            ],
+            "Supari": [
+                { name: "Kasaw Supari", price: "25", image: "images/Supari/Kasaw Supari.jpeg" },
+                { name: "Kamal Supari", price: "30", image: "images/Supari/Kamal Supari.jpeg" },
+                { name: "Red and White Simple Supari", price: "30", image: "images/Supari/Red and White Simple Supari.jpeg" }
+            ],
+            "Belache Paan": [
+                { name: "Belache Paan", price: "20", image: "images/Belache-Paan/Belache Paan.jpeg" },
+                { name: "Belachi Paane", price: "220", image: "images/Belache-Paan/Belachi Paane.jpeg" }
+            ],
+            "Durva": [
+                { name: "Durva", price: "10", image: "images/Durva/Durva.jpeg" }
+            ],
+            "Flowers": [
+                { name: "Gokarna Flowers", price: "10", image: "images/Flowers/Gokarna Flowers.jpeg" },
+                { name: "Chafa Flowers", price: "30", image: "images/Flowers/Chafa Flowers.jpeg" },
+                { name: "Jaswand Flower", price: "30", image: "images/Flowers/Jaswand Flower.jpeg" },
+                { name: "Jaswand Flowers (Multi Colour)", price: "30", image: "images/Flowers/Jaswand Flowers (Multi Colour).jpeg" },
+                { name: "Kamal Flower", price: "30", image: "images/Flowers/Kamal Flower.jpeg" },
+                { name: "Mogara Flowers", price: "40", image: "images/Flowers/Mogara Flowers.jpeg" },
+                { name: "Parijatak Flowers Moti Colour", price: "40", image: "images/Flowers/Parijatak Flowers Moti Colour.jpeg" },
+                { name: "Parijatak Flowers White Colour", price: "80", image: "images/Flowers/Parijatak Flowers White Colour.jpeg" }
+            ],
+            "Moti Paat": [
+                { name: "Moti Paat Pair", price: "300", image: "images/Moti-Paat/Moti Paat Pair.jpeg" }
+            ],
+            "Saraswati Rangoli": [
+                { name: "Saraswati Rangoli", price: "400", image: "images/Saraswati Rangoli/Saraswati Rangoli.jpeg" }
+            ],
+            "Aaptyache Paan": [
+                { name: "Aaptyache Paan", price: "50", image: "images/Aaptyache-Paan/Aaptyache Paan.jpeg" }
+            ],
+            "Khan": [
+                { name: "Green and Golden Khan", price: "30", image: "images/Khan/Green and Golden Khan.jpeg" },
+                { name: "Red and Golden Khan", price: "50", image: "images/Khan/Red and Golden Khan.jpeg" },
+                { name: "Green and Orange Khan", price: "60", image: "images/Khan/Green and Orange Khan.jpeg" }
+            ],
+            "Saree and Khan Set": [
+                { name: "Red Colour Saree and Khan Set", price: "150", image: "images/Saree-Khan-Set/Red Colour Saree and Khan Set.jpeg" }
+            ],
+            "Mango Leaf": [
+                { name: "Small Green and White Mango Leaf", price: "25", image: "images/Aambyache-Paan/Small Green and White Mango Leaf.jpeg" },
+                { name: "Small Green and Yellow Mango Leaf", price: "25", image: "images/Aambyache-Paan/Small Green and Yellow Mango Leaf.jpeg" },
+                { name: "Dark Green and Golden Mango Leaf", price: "40", image: "images/Aambyache-Paan/Dark Green and Golden Mango Leaf.jpeg" },
+                { name: "Green and Golden Mango Leaf", price: "40", image: "images/Aambyache-Paan/Green and Golden Mango Leaf.jpeg" },
+                { name: "Green and White Mango Leaf", price: "40", image: "images/Aambyache-Paan/Green and White Mango Leaf.jpeg" },
+                { name: "Green and White Mango Leaves Set", price: "500", image: "images/Aambyache-Paan/Green and White Mango Leaves Set.jpeg" }
+            ],
+            "Vidyache Paan": [
+                { name: "Small Betel Paan", price: "35", image: "images/Vidyache-Paan/Small Betel Paan.jpeg" },
+                { name: "Big Betel Paan", price: "50", image: "images/Vidyache-Paan/Big Betel Paan.jpeg" }
+            ],
+            "Moti Aasan Small": [
+                { name: "White and Golden Aasan", price: "100", image: "images/Moti Aasan Small/White and Golden Aasan.jpeg" },
+                { name: "Red Golden Moti Aasan", price: "125", image: "images/Moti Aasan Small/Red Golden Moti Aasan.jpeg" }
+            ],
+            "Rangoli (Small)": [
+                { name: "Chandani Rangoli", price: "20", image: "images/Rangoli (Small)/Chandani Rangoli.jpeg" },
+                { name: "Medium Multicolour Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Medium Multicolour Flowers Rangoli.jpeg" },
+                { name: "Small Multicolour Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Small Multicolour Flowers Rangoli.jpeg" },
+                { name: "Small Multicolour U Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Small Multicolour U Flowers Rangoli.jpeg" },
+                { name: "Small Star Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Small Star Flowers Rangoli.jpeg" },
+                { name: "Tiny Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Tiny Flowers Rangoli.jpeg" },
+                { name: "Big Multicolour Flowers Rangoli", price: "25", image: "images/Rangoli (Small)/Big Multicolour Flowers Rangoli.jpeg" },
+                { name: "Flowers with leaves Rangoli", price: "30", image: "images/Rangoli (Small)/Flowers with leaves Rangoli.jpeg" },
+                { name: "Star Hanging Flower Rangoli", price: "30", image: "images/Rangoli (Small)/Star Hanging Flower Rangoli.jpeg" },
+                { name: "Star Shape Flower Rangoli", price: "30", image: "images/Rangoli (Small)/Star Shape Flower Rangoli.jpeg" },
+                { name: "White and Rani Colour Flower Rangoli", price: "30", image: "images/Rangoli (Small)/White and Rani Colour Flower Rangoli.jpeg" },
+                { name: "Big Chandani Rangoli", price: "40", image: "images/Rangoli (Small)/Big Chandani Rangoli.jpeg" },
+                { name: "Double Colour Medium Flower Rangoli", price: "40", image: "images/Rangoli (Small)/Double Colour Medium Flower Rangoli.jpeg" },
+                { name: "Joint Petals Flowers Rangoli", price: "40", image: "images/Rangoli (Small)/Joint Petals Flowers Rangoli.jpeg" },
+                { name: "Large Flowers Rangoli", price: "40", image: "images/Rangoli (Small)/Large Flowers Rangoli.jpeg" },
+                { name: "Layered Flowers Rangoli", price: "40", image: "images/Rangoli (Small)/Layered Flowers Rangoli.jpeg" },
+                { name: "Big Petals Flower Rangoli", price: "60", image: "images/Rangoli (Small)/Big Petals Flower Rangoli.jpeg" },
+                { name: "Multi Petal Flowers Rangoli", price: "70", image: "images/Rangoli (Small)/Multi Petal Flowers Rangoli.jpeg" },
+                { name: "Small Rangoli", price: "70", image: "images/Rangoli (Small)/Small Rangoli.jpeg" },
+                { name: "Big Star Flowers Rangoli", price: "350", image: "images/Rangoli (Small)/Big Star Flowers Rangoli.jpeg" }
+            ],
+            "Rangoli (Big)": [
+                { name: "Big Star Rangoli", price: "150", image: "images/Rangoli (Big)/Big Star Rangoli.jpeg" },
+                { name: "Mini Rangoli", price: "200", image: "images/Rangoli (Big)/Mini Rangoli.jpeg" },
+                { name: "Kalash Rangoli with Flower", price: "300", image: "images/Rangoli (Big)/Kalash Rangoli with Flower.jpeg" },
+                { name: "Tulsi Vrindavan Rangoli", price: "300", image: "images/Rangoli (Big)/Tulsi Vrindavan Rangoli.jpeg" },
+                { name: "Kalash Panati and Flowers Rangoli", price: "350", image: "images/Rangoli (Big)/Kalash Panati and Flowers Rangoli.jpeg" },
+                { name: "Pink Star Rangoli with small flowers and Mango Leaves", price: "350", image: "images/Rangoli (Big)/Pink Star Rangoli with small flowers and Mango Leaves.jpeg" },
+                { name: "Red Star Rangoli with leaves and small flowers", price: "350", image: "images/Rangoli (Big)/Red Star Rangoli with leaves and small flowers.jpeg" },
+                { name: "Star Flowers and Mango Leaves Rangoli", price: "350", image: "images/Rangoli (Big)/Star Flowers and Mango Leaves Rangoli.jpeg" },
+                { name: "Yellow Orange Zhendu Flowers Rangoli", price: "350", image: "images/Rangoli (Big)/Yellow Orange Zhendu Flowers Rangoli.jpeg" },
+                { name: "Yellow Zhedu Flowers Rangoli", price: "350", image: "images/Rangoli (Big)/Yellow Zhedu Flowers Rangoli.jpeg" },
+                { name: "Flowers and Small Mango Leaves Rangoli", price: "400", image: "images/Rangoli (Big)/Flowers and Small Mango Leaves Rangoli.jpeg" },
+                { name: "Multi Star Rangoli with Leaves and Flowers", price: "750", image: "images/Rangoli (Big)/Multi Star Rangoli with Leaves and Flowers.jpeg" }
+            ],
+            "Beaded Keychain": [
+                { name: "Multicolour Star Keychain", price: "20", image: "images/Beaded-Keychain/Multicolour Star Keychain.jpeg" },
+                { name: "Square Keychain", price: "20", image: "images/Beaded-Keychain/Square Keychain.jpeg" },
+                { name: "Leaf Keychain", price: "25", image: "images/Beaded-Keychain/Leaf Keychain.jpeg" },
+                { name: "Doll Keychain", price: "35", image: "images/Beaded-Keychain/Doll Keychain.jpeg" }
+            ],
+            "Tulshi Vrundavan": [
+                { name: "Tulsi Vrindavan", price: "500", image: "images/Tulshi-Vrundavan/Tulsi Vrindavan.jpeg" }
+            ],
+            "Belache Paan": [
+                { name: "Belache Paan", price: "20", image: "images/Belache-Paan/Belache Paan.jpeg" },
+                { name: "Belachi Paane", price: "220", image: "images/Belache-Paan/Belachi Paane.jpeg" }
+            ],
+            "Durva": [
+                { name: "Durva", price: "10", image: "images/Durva/Durva.jpeg" }
+            ],
+            "Aaptyache Paan": [
+                { name: "Aaptyache Paan", price: "50", image: "images/Aaptyache-Paan/Aaptyache Paan.jpeg" }
+            ],
+            "Saree and Khan Set": [
+                { name: "Red Colour Saree and Khan Set", price: "150", image: "images/Saree-Khan-Set/Red Colour Saree and Khan Set.jpeg" }
+            ],
+            "Vidyache Paan": [
+                { name: "Small Betel Paan", price: "35", image: "images/Vidyache-Paan/Small Betel Paan.jpeg" },
+                { name: "Big Betel Paan", price: "50", image: "images/Vidyache-Paan/Big Betel Paan.jpeg" }
+            ],
+            "Moti Paat": [
+                { name: "Moti Paat Pair", price: "300", image: "images/Moti-Paat/Moti Paat Pair.jpeg" }
+            ],
+            "Pardi": [
+                { name: "Pardi", price: "600", image: "images/Pardi/pardi.jpeg" }
+            ],
+            "Deep Maal": [
+                { name: "Deep Maal", price: "125", image: "images/Deep-Maal/Deep-Maal.jpeg" }
+            ]
+        };
+
+        let selectedProducts = [];
+        let currentCategory = 'All';
+
+        // Set today's date for order date
+        document.getElementById('orderDate').valueAsDate = new Date();
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            displayProducts(searchTerm);
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            displayProducts();
+        }
+
+        function displayProducts(searchTerm = '') {
+            const productsGrid = document.getElementById('productsGrid');
+            let products = [];
+
+            if (currentCategory === 'All') {
+                Object.values(productCategories).forEach(catProducts => {
+                    products = [...products, ...catProducts.map((p, i) => ({
+                        ...p,
+                        category: Object.keys(productCategories)[Object.values(productCategories).indexOf(productCategories[Object.keys(productCategories)[Object.values(productCategories).findIndex(cp => cp.includes(p))]])]
+                    }))];
+                });
+            } else {
+                products = productCategories[currentCategory].map(p => ({ ...p, category: currentCategory }));
+            }
+
+            if (searchTerm) {
+                products = products.filter(p =>
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.category.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (products.length === 0) {
+                productsGrid.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No products found</p></div>';
+                return;
+            }
+
+            productsGrid.innerHTML = products.map((product, index) => `
+                <div class="product-card" onclick="selectProduct(this, '${product.name}', '${product.category}', ${product.price}, '${product.image}')">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="product-name">${product.name}</div>
+                    <div style="font-size: 11px; color: #999; margin-bottom: 8px;">${product.category}</div>
+                    <div class="product-price">₹${product.price}</div>
+                    <input type="number" class="quantity-input" min="1" value="1" onclick="event.stopPropagation()" required>
+                </div>
+            `).join('');
+        }
+
+        function selectProduct(element, name, category, price, image) {
+            const quantity = parseInt(element.querySelector('.quantity-input').value);
+
+            const existingProduct = selectedProducts.find(p => p.name === name);
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                selectedProducts.push({
+                    name,
+                    category,
+                    price: parseInt(price),
+                    image,
+                    quantity
+                });
+            }
+
+            updateCartDisplay();
+            updateBillingSummary();
+
+            element.classList.add('selected');
+            setTimeout(() => element.classList.remove('selected'), 300);
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+
+            if (selectedProducts.length === 0) {
+                cartItems.innerHTML = '<div class="no-items"><i class="fas fa-box-open"></i><p>No items selected yet.</p></div>';
+                return;
+            }
+
+            cartItems.innerHTML = selectedProducts.map((product, index) => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${product.name}</div>
+                        <div class="cart-item-category">${product.category}</div>
+                        <div class="cart-item-details">₹${product.price} × ${product.quantity} = ₹${product.price * product.quantity}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" onclick="decreaseQuantity(${index})">−</button>
+                        <span style="min-width: 30px; text-align: center;">${product.quantity}</span>
+                        <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
+                        <button class="remove-btn" onclick="removeProduct(${index})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function increaseQuantity(index) {
+            selectedProducts[index].quantity++;
+            updateCartDisplay();
+            updateBillingSummary();
+        }
+
+        function decreaseQuantity(index) {
+            if (selectedProducts[index].quantity > 1) {
+                selectedProducts[index].quantity--;
+                updateCartDisplay();
+                updateBillingSummary();
+            }
+        }
+
+        function removeProduct(index) {
+            selectedProducts.splice(index, 1);
+            updateCartDisplay();
+            updateBillingSummary();
+        }
+
+        function updateBillingSummary() {
+            // Group by category
+            const byCategory = {};
+            selectedProducts.forEach(product => {
+                if (!byCategory[product.category]) {
+                    byCategory[product.category] = [];
+                }
+                byCategory[product.category].push(product);
+            });
+
+            let summaryRows = '';
+            let subtotal = 0;
+
+            Object.keys(byCategory).forEach(category => {
+                const categoryProducts = byCategory[category];
+                let categoryTotal = 0;
+                let categoryQty = 0;
+
+                categoryProducts.forEach(product => {
+                    const itemTotal = product.price * product.quantity;
+                    categoryTotal += itemTotal;
+                    categoryQty += product.quantity;
+                    subtotal += itemTotal;
+
+                    summaryRows += `
+                        <div class="summary-row">
+                            <div class="summary-col">${product.name}</div>
+                            <div class="summary-col">${product.quantity}</div>
+                            <div class="summary-col">₹${itemTotal.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+
+                summaryRows += `
+                    <div class="summary-row" style="background: #f0f0f0; font-weight: 600;">
+                        <div class="summary-col"><strong>${category} Subtotal</strong></div>
+                        <div class="summary-col"><strong>${categoryQty}</strong></div>
+                        <div class="summary-col"><strong>₹${categoryTotal.toFixed(2)}</strong></div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('summaryRows').innerHTML = summaryRows;
+
+            const shipping = parseFloat(document.getElementById('shippingAmount').value) || 0;
+            const grandTotal = subtotal + shipping;
+
+            document.getElementById('subtotal').textContent = '₹' + subtotal.toFixed(2);
+            document.getElementById('shippingDisplay').textContent = '₹' + shipping.toFixed(2);
+            document.getElementById('grandTotal').textContent = '₹' + grandTotal.toFixed(2);
+        }
+
+        // Update billing when shipping changes
+        document.getElementById('shippingAmount').addEventListener('change', updateBillingSummary);
+
+        function resetForm() {
+            document.getElementById('customerName').value = '';
+            document.getElementById('contactNumber').value = '';
+            document.getElementById('address').value = '';
+            document.getElementById('orderDate').valueAsDate = new Date();
+            document.getElementById('deliveryDate').value = '';
+            document.getElementById('shippingAmount').value = '0';
+            selectedProducts = [];
+            document.getElementById('searchInput').value = '';
+            updateCartDisplay();
+            updateBillingSummary();
+        }
+
+        function generatePDF() {
+            if (!document.getElementById('customerName').value || !document.getElementById('contactNumber').value || selectedProducts.length === 0) {
+                alert('Please fill in customer details and select items');
+                return;
+            }
+
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+            btn.disabled = true;
+
+            // Load all images first
+            const imagePromises = selectedProducts.map(product => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        resolve({
+                            base64: canvas.toDataURL('image/jpeg'),
+                            name: product.name,
+                            category: product.category,
+                            price: product.price,
+                            quantity: product.quantity
+                        });
+                    };
+                    img.onerror = function() {
+                        // Create placeholder image
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 200;
+                        canvas.height = 200;
+                        const ctx = canvas.getContext('2d');
+                        const grad = ctx.createLinearGradient(0, 0, 200, 200);
+                        grad.addColorStop(0, '#667eea');
+                        grad.addColorStop(1, '#764ba2');
+                        ctx.fillStyle = grad;
+                        ctx.fillRect(0, 0, 200, 200);
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 14px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(product.name.substring(0, 12), 100, 100);
+                        resolve({
+                            base64: canvas.toDataURL('image/jpeg'),
+                            name: product.name,
+                            category: product.category,
+                            price: product.price,
+                            quantity: product.quantity
+                        });
+                    };
+                    img.src = product.image;
+                });
+            });
+
+            Promise.all(imagePromises).then(imagesWithData => {
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+
+                    let yPosition = 20;
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const margin = 15;
+                    const contentWidth = pageWidth - (margin * 2);
+
+                    // Header - Business Info
+                    pdf.setFontSize(20);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('BEADS & MORE', pageWidth / 2, yPosition, { align: 'center' });
+                    
+                    yPosition += 8;
+                    pdf.setFontSize(9);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.text('Traditional Ornaments & Jewelry', pageWidth / 2, yPosition, { align: 'center' });
+                    
+                    yPosition += 6;
+                    pdf.setFontSize(8);
+                    pdf.text('📞 +91 8432254327 | 📧 nilakshibelan@gmail.com | Pune, Maharashtra', pageWidth / 2, yPosition, { align: 'center' });
+
+                    // Divider line
+                    yPosition += 10;
+                    pdf.setDrawColor(102, 126, 234);
+                    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+                    yPosition += 8;
+
+                    // Customer and Order Details
+                    pdf.setFontSize(10);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('BILL TO:', margin, yPosition);
+                    
+                    yPosition += 6;
+                    pdf.setFontSize(9);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.text(document.getElementById('customerName').value, margin, yPosition);
+                    
+                    yPosition += 6;
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(100, 100, 100);
+                    const addressLines = pdf.splitTextToSize(document.getElementById('address').value, contentWidth);
+                    pdf.text(addressLines, margin, yPosition);
+                    yPosition += (addressLines.length * 4) + 2;
+                    
+                    pdf.text('Contact: ' + document.getElementById('contactNumber').value, margin, yPosition);
+                    
+                    // Order Details on Right
+                    const orderY = 50;
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.setFontSize(8);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.text('Order Date: ' + document.getElementById('orderDate').value, pageWidth - margin - 60, orderY);
+                    pdf.text('Delivery Date: ' + document.getElementById('deliveryDate').value, pageWidth - margin - 60, orderY + 6);
+                    pdf.text('Bill Date: ' + new Date().toISOString().split('T')[0], pageWidth - margin - 60, orderY + 12);
+
+                    yPosition += 15;
+
+                    // Items Table Header
+                    yPosition += 5;
+                    pdf.setFont(undefined, 'bold');
+                    pdf.setFontSize(9);
+                    pdf.setTextColor(102, 126, 234);
+                    pdf.text('Item Description', margin, yPosition);
+                    pdf.text('Qty', pageWidth - margin - 45, yPosition, { align: 'center' });
+                    pdf.text('Amount', pageWidth - margin - 15, yPosition, { align: 'right' });
+
+                    // Table divider
+                    yPosition += 3;
+                    pdf.setDrawColor(200, 200, 200);
+                    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+                    yPosition += 6;
+
+                    // Items
+                    const byCategory = {};
+                    selectedProducts.forEach(product => {
+                        if (!byCategory[product.category]) byCategory[product.category] = [];
+                        byCategory[product.category].push(product);
+                    });
+
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.setFontSize(8);
+                    let subtotal = 0;
+
+                    Object.keys(byCategory).forEach(category => {
+                        byCategory[category].forEach(product => {
+                            const total = product.price * product.quantity;
+                            subtotal += total;
+
+                            // Check if we need a new page
+                            if (yPosition > pageHeight - 50) {
+                                pdf.addPage();
+                                yPosition = 20;
+                            }
+
+                            const itemName = `${product.name} (${category})`;
+                            const itemLines = pdf.splitTextToSize(itemName, 80);
+                            
+                            pdf.text(itemLines, margin, yPosition);
+                            const itemHeight = itemLines.length * 4;
+                            
+                            pdf.text(String(product.quantity), pageWidth - margin - 45, yPosition, { align: 'center' });
+                            pdf.text('₹' + (total).toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+                            
+                            yPosition += itemHeight + 4;
+                        });
+                    });
+
+                    // Summary Section
+                    yPosition += 5;
+                    pdf.setDrawColor(200, 200, 200);
+                    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+                    yPosition += 8;
+
+                    pdf.setFont(undefined, 'normal');
+                    pdf.setFontSize(8);
+                    pdf.text('Subtotal:', pageWidth - margin - 45, yPosition, { align: 'right' });
+                    pdf.text('₹' + subtotal.toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+
+                    yPosition += 6;
+                    const shipping = parseFloat(document.getElementById('shippingAmount').value) || 0;
+                    pdf.text('Shipping:', pageWidth - margin - 45, yPosition, { align: 'right' });
+                    pdf.text('₹' + shipping.toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+
+                    yPosition += 8;
+                    pdf.setFont(undefined, 'bold');
+                    pdf.setFontSize(10);
+                    pdf.setTextColor(102, 126, 234);
+                    const grandTotal = subtotal + shipping;
+                    pdf.text('Grand Total:', pageWidth - margin - 45, yPosition, { align: 'right' });
+                    pdf.text('₹' + grandTotal.toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+
+                    // Add Images Section on same or new page
+                    yPosition += 20;
+                    
+                    if (yPosition > pageHeight - 50 && imagesWithData.length > 0) {
+                        pdf.addPage();
+                        yPosition = 20;
+                    }
+
+                    if (imagesWithData.length > 0) {
+                        pdf.setFontSize(12);
+                        pdf.setFont(undefined, 'bold');
+                        pdf.setTextColor(102, 126, 234);
+                        pdf.text('Product Images', margin, yPosition);
+                        yPosition += 10;
+
+                        const imgWidth = 30;
+                        const imgHeight = 30;
+                        const imgsPerRow = 3;
+                        let imgXPos = margin;
+                        let imgRowY = yPosition;
+                        let imgCountInRow = 0;
+
+                        imagesWithData.forEach((imgData, index) => {
+                            // Check if we need a new page
+                            if (imgRowY > pageHeight - 50) {
+                                pdf.addPage();
+                                imgRowY = 20;
+                                imgXPos = margin;
+                                imgCountInRow = 0;
+                            }
+
+                            // Add image with border
+                            pdf.setDrawColor(200, 200, 200);
+                            pdf.rect(imgXPos, imgRowY, imgWidth, imgHeight);
+                            pdf.addImage(imgData.base64, 'JPEG', imgXPos, imgRowY, imgWidth, imgHeight);
+
+                            // Add label below image
+                            pdf.setFontSize(7);
+                            pdf.setFont(undefined, 'normal');
+                            pdf.setTextColor(80, 80, 80);
+                            const nameLines = pdf.splitTextToSize(imgData.name, imgWidth - 2);
+                            pdf.text(nameLines, imgXPos + imgWidth / 2, imgRowY + imgHeight + 3, { align: 'center', maxWidth: imgWidth - 2 });
+
+                            // Add quantity
+                            pdf.setFont(undefined, 'bold');
+                            pdf.setTextColor(102, 126, 234);
+                            pdf.setFontSize(7);
+                            pdf.text(`Qty: ${imgData.quantity}`, imgXPos + imgWidth / 2, imgRowY + imgHeight + nameLines.length * 3.5 + 6, { align: 'center' });
+
+                            imgCountInRow++;
+                            if (imgCountInRow >= imgsPerRow) {
+                                imgXPos = margin;
+                                imgRowY += imgHeight + nameLines.length * 3.5 + 12;
+                                imgCountInRow = 0;
+                            } else {
+                                imgXPos += imgWidth + 12;
+                            }
+                        });
+                    }
+
+                    // Save PDF
+                    const fileName = `bill_${document.getElementById('customerName').value.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+                    pdf.save(fileName);
+
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    alert('PDF downloaded successfully!');
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error generating PDF: ' + error.message);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            }).catch(error => {
+                console.error('Image loading error:', error);
+                alert('Error loading images: ' + error.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        // Initialize
+        displayProducts();
+    </script>
+</body>
+</html>
