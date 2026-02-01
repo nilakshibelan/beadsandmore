@@ -1288,70 +1288,94 @@
                     const margin = 15;
                     const contentWidth = pageWidth - (margin * 2);
 
+                    // Header Background
+                    pdf.setFillColor(102, 126, 234);
+                    pdf.rect(0, 0, pageWidth, 45, 'F');
+
+                    // Add Logo (if available)
+                    // Note: Replace 'images/logo.png' with your actual logo path
+                    // Uncomment the line below when logo is added:
+                    // pdf.addImage('images/beads-more-logo.png', 'PNG', margin, 5, 40, 35);
+
                     // Header - Business Info
-                    pdf.setFontSize(20);
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.setFontSize(24);
                     pdf.setFont(undefined, 'bold');
-                    pdf.text('BEADS & MORE', pageWidth / 2, yPosition, { align: 'center' });
+                    pdf.text('BEADS & MORE', pageWidth / 2, 12, { align: 'center' });
                     
-                    yPosition += 8;
-                    pdf.setFontSize(9);
+                    pdf.setFontSize(10);
                     pdf.setFont(undefined, 'normal');
-                    pdf.text('Traditional Ornaments & Jewelry', pageWidth / 2, yPosition, { align: 'center' });
+                    pdf.text('Traditional Ornaments & Jewelry', pageWidth / 2, 20, { align: 'center' });
                     
-                    yPosition += 6;
                     pdf.setFontSize(8);
-                    pdf.text('+91 8432254327 | nilakshibelan@gmail.com | Pune, Maharashtra', pageWidth / 2, yPosition, { align: 'center' });
+                    pdf.text('+91 8432254327 | nilakshibelan@gmail.com | Pune, Maharashtra', pageWidth / 2, 27, { align: 'center' });
 
-                    // Divider line
-                    yPosition += 10;
-                    pdf.setDrawColor(102, 126, 234);
-                    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
-                    yPosition += 8;
+                    // Reset text color for body
+                    pdf.setTextColor(0, 0, 0);
+                    yPosition = 52;
 
-                    // Customer and Order Details
+                    // Customer and Order Details section
                     pdf.setFontSize(10);
                     pdf.setFont(undefined, 'bold');
+                    pdf.setTextColor(102, 126, 234);
                     pdf.text('BILL TO:', margin, yPosition);
                     
                     yPosition += 6;
                     pdf.setFontSize(9);
                     pdf.setFont(undefined, 'normal');
+                    pdf.setTextColor(0, 0, 0);
                     pdf.text(document.getElementById('customerName').value, margin, yPosition);
                     
                     yPosition += 6;
                     pdf.setFontSize(8);
                     pdf.setTextColor(100, 100, 100);
-                    const addressLines = pdf.splitTextToSize(document.getElementById('address').value, contentWidth);
+                    const addressLines = pdf.splitTextToSize(document.getElementById('address').value, contentWidth - 80);
                     pdf.text(addressLines, margin, yPosition);
                     yPosition += (addressLines.length * 4) + 2;
                     
                     pdf.text('Contact: ' + document.getElementById('contactNumber').value, margin, yPosition);
                     
-                    // Order Details on Right
-                    const orderY = 50;
+                    // Order Details on Right with background
+                    const orderBoxX = pageWidth - margin - 70;
+                    const orderBoxWidth = 70;
+                    const orderBoxHeight = 28;
+                    
+                    // Generate unique bill number
+                    const billNumber = 'BM-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 100000)).padStart(5, '0');
+                    
+                    pdf.setFillColor(245, 245, 245);
+                    pdf.rect(orderBoxX, 50, orderBoxWidth, orderBoxHeight, 'F');
+                    pdf.setDrawColor(102, 126, 234);
+                    pdf.setLineWidth(0.5);
+                    pdf.rect(orderBoxX, 50, orderBoxWidth, orderBoxHeight);
+                    
                     pdf.setTextColor(0, 0, 0);
                     pdf.setFontSize(8);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('ORDER DETAILS', orderBoxX + orderBoxWidth / 2, 56, { align: 'center' });
+                    
                     pdf.setFont(undefined, 'normal');
-                    pdf.text('Order Date: ' + document.getElementById('orderDate').value, pageWidth - margin - 60, orderY);
-                    pdf.text('Delivery Date: ' + document.getElementById('deliveryDate').value, pageWidth - margin - 60, orderY + 6);
-                    pdf.text('Bill Date: ' + new Date().toISOString().split('T')[0], pageWidth - margin - 60, orderY + 12);
+                    pdf.setFontSize(7);
+                    pdf.setTextColor(50, 50, 50);
+                    pdf.text('Bill #: ' + billNumber, orderBoxX + 2, 62);
+                    pdf.text('Order: ' + document.getElementById('orderDate').value, orderBoxX + 2, 67);
+                    pdf.text('Delivery: ' + document.getElementById('deliveryDate').value, orderBoxX + 2, 72);
 
-                    yPosition += 15;
+                    yPosition = 84;
 
                     // Items Table Header
-                    yPosition += 5;
+                    yPosition += 3;
+                    pdf.setFillColor(102, 126, 234);
+                    pdf.rect(margin, yPosition - 4, contentWidth, 8, 'F');
+                    
                     pdf.setFont(undefined, 'bold');
                     pdf.setFontSize(9);
-                    pdf.setTextColor(102, 126, 234);
-                    pdf.text('Item Description', margin, yPosition);
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.text('Item Description', margin + 2, yPosition);
                     pdf.text('Qty', pageWidth - margin - 45, yPosition, { align: 'center' });
                     pdf.text('Amount', pageWidth - margin - 15, yPosition, { align: 'right' });
 
-                    // Table divider
-                    yPosition += 3;
-                    pdf.setDrawColor(200, 200, 200);
-                    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
-                    yPosition += 6;
+                    yPosition += 8;
 
                     // Items
                     const byCategory = {};
@@ -1364,6 +1388,7 @@
                     pdf.setFont(undefined, 'normal');
                     pdf.setFontSize(8);
                     let subtotal = 0;
+                    let rowCount = 0;
 
                     Object.keys(byCategory).forEach(category => {
                         byCategory[category].forEach(product => {
@@ -1376,42 +1401,70 @@
                                 yPosition = 20;
                             }
 
+                            // Alternating row background
+                            if (rowCount % 2 === 0) {
+                                pdf.setFillColor(245, 245, 245);
+                                pdf.rect(margin, yPosition - 3, contentWidth, 6, 'F');
+                            }
+
                             const itemName = `${product.name} (${category})`;
                             const itemLines = pdf.splitTextToSize(itemName, 80);
                             
-                            pdf.text(itemLines, margin, yPosition);
+                            pdf.setTextColor(0, 0, 0);
+                            pdf.text(itemLines, margin + 1, yPosition);
                             const itemHeight = itemLines.length * 4;
                             
                             pdf.text(String(product.quantity), pageWidth - margin - 45, yPosition, { align: 'center' });
-                            pdf.text('₹' + (total).toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+                            pdf.text('Rs. ' + (total).toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
                             
                             yPosition += itemHeight + 4;
+                            rowCount++;
                         });
                     });
 
                     // Summary Section
-                    yPosition += 5;
-                    pdf.setDrawColor(200, 200, 200);
+                    yPosition += 6;
+                    pdf.setDrawColor(102, 126, 234);
+                    pdf.setLineWidth(0.5);
                     pdf.line(margin, yPosition, pageWidth - margin, yPosition);
                     yPosition += 8;
 
+                    // Summary Box
+                    const summaryBoxWidth = 60;
+                    const summaryBoxX = pageWidth - margin - summaryBoxWidth;
+                    
+                    pdf.setFillColor(250, 250, 250);
+                    pdf.rect(summaryBoxX, yPosition - 5, summaryBoxWidth, 25, 'F');
+                    pdf.setDrawColor(102, 126, 234);
+                    pdf.rect(summaryBoxX, yPosition - 5, summaryBoxWidth, 25);
+
                     pdf.setFont(undefined, 'normal');
                     pdf.setFontSize(8);
-                    pdf.text('Subtotal:', pageWidth - margin - 45, yPosition, { align: 'right' });
-                    pdf.text('₹' + subtotal.toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+                    pdf.setTextColor(80, 80, 80);
+                    pdf.text('Subtotal:', summaryBoxX + 2, yPosition);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('Rs. ' + subtotal.toFixed(2), pageWidth - margin - 2, yPosition, { align: 'right' });
 
                     yPosition += 6;
                     const shipping = parseFloat(document.getElementById('shippingAmount').value) || 0;
-                    pdf.text('Shipping:', pageWidth - margin - 45, yPosition, { align: 'right' });
-                    pdf.text('₹' + shipping.toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+                    pdf.setFont(undefined, 'normal');
+                    pdf.setTextColor(80, 80, 80);
+                    pdf.text('Shipping:', summaryBoxX + 2, yPosition);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('Rs. ' + shipping.toFixed(2), pageWidth - margin - 2, yPosition, { align: 'right' });
 
                     yPosition += 8;
                     pdf.setFont(undefined, 'bold');
-                    pdf.setFontSize(10);
-                    pdf.setTextColor(102, 126, 234);
+                    pdf.setFontSize(11);
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.setFillColor(102, 126, 234);
+                    
+                    // Grand Total Highlight Box
+                    pdf.rect(summaryBoxX, yPosition - 4, summaryBoxWidth, 8, 'F');
                     const grandTotal = subtotal + shipping;
-                    pdf.text('Grand Total:', pageWidth - margin - 45, yPosition, { align: 'right' });
-                    pdf.text('₹' + grandTotal.toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+                    pdf.text('Grand Total: Rs. ' + grandTotal.toFixed(2), pageWidth - margin - 2, yPosition, { align: 'right' });
 
                     // Add Images Section on same or new page
                     yPosition += 20;
@@ -1422,22 +1475,22 @@
                     }
 
                     if (imagesWithData.length > 0) {
-                        pdf.setFontSize(12);
+                        pdf.setFontSize(11);
                         pdf.setFont(undefined, 'bold');
                         pdf.setTextColor(102, 126, 234);
                         pdf.text('Product Images', margin, yPosition);
-                        yPosition += 10;
+                        yPosition += 6;
 
-                        const imgMaxWidth = 30;
-                        const imgMaxHeight = 30;
-                        const imgsPerRow = 3;
+                        const imgMaxWidth = 28;
+                        const imgMaxHeight = 28;
+                        const imgsPerRow = 4;
                         let imgXPos = margin;
                         let imgRowY = yPosition;
                         let imgCountInRow = 0;
 
                         imagesWithData.forEach((imgData, index) => {
                             // Check if we need a new page
-                            if (imgRowY > pageHeight - 50) {
+                            if (imgRowY > pageHeight - 40) {
                                 pdf.addPage();
                                 imgRowY = 20;
                                 imgXPos = margin;
@@ -1458,31 +1511,37 @@
                             const offsetX = (imgMaxWidth - imgWidth) / 2;
                             const offsetY = (imgMaxHeight - imgHeight) / 2;
 
-                            // Add image with border
-                            pdf.setDrawColor(200, 200, 200);
+                            // Add subtle elegant background and border
+                            pdf.setFillColor(250, 250, 250);
+                            pdf.rect(imgXPos, imgRowY, imgMaxWidth, imgMaxHeight, 'F');
+                            
+                            // Single elegant border
+                            pdf.setDrawColor(210, 210, 210);
+                            pdf.setLineWidth(0.2);
                             pdf.rect(imgXPos, imgRowY, imgMaxWidth, imgMaxHeight);
+                            
                             pdf.addImage(imgData.base64, 'JPEG', imgXPos + offsetX, imgRowY + offsetY, imgWidth, imgHeight);
 
                             // Add label below image
-                            pdf.setFontSize(7);
+                            pdf.setFontSize(6);
                             pdf.setFont(undefined, 'normal');
                             pdf.setTextColor(80, 80, 80);
-                            const nameLines = pdf.splitTextToSize(imgData.name, imgMaxWidth - 2);
-                            pdf.text(nameLines, imgXPos + imgMaxWidth / 2, imgRowY + imgMaxHeight + 3, { align: 'center', maxWidth: imgMaxWidth - 2 });
+                            const nameLines = pdf.splitTextToSize(imgData.name, imgMaxWidth - 1);
+                            pdf.text(nameLines, imgXPos + imgMaxWidth / 2, imgRowY + imgMaxHeight + 2, { align: 'center', maxWidth: imgMaxWidth - 1 });
 
                             // Add quantity
                             pdf.setFont(undefined, 'bold');
                             pdf.setTextColor(102, 126, 234);
-                            pdf.setFontSize(7);
-                            pdf.text(`Qty: ${imgData.quantity}`, imgXPos + imgMaxWidth / 2, imgRowY + imgMaxHeight + nameLines.length * 3.5 + 6, { align: 'center' });
+                            pdf.setFontSize(6);
+                            pdf.text(`Qty: ${imgData.quantity}`, imgXPos + imgMaxWidth / 2, imgRowY + imgMaxHeight + nameLines.length * 2.8 + 4, { align: 'center' });
 
                             imgCountInRow++;
                             if (imgCountInRow >= imgsPerRow) {
                                 imgXPos = margin;
-                                imgRowY += imgMaxHeight + nameLines.length * 3.5 + 12;
+                                imgRowY += imgMaxHeight + nameLines.length * 2.8 + 8;
                                 imgCountInRow = 0;
                             } else {
-                                imgXPos += imgMaxWidth + 12;
+                                imgXPos += imgMaxWidth + 6;
                             }
                         });
                     }
