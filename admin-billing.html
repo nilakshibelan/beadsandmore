@@ -937,7 +937,7 @@
                 { name: "Small Multicolour Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Small Multicolour Flowers Rangoli.jpeg" },
                 { name: "Small Multicolour U Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Small Multicolour U Flowers Rangoli.jpeg" },
                 { name: "Small Star Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Small Star Flowers Rangoli.jpeg" },
-                { name: "Tiny Flowers Rangoli", price: "20", image: "images/Rangoli (Small)/Tiny Flowers Rangoli.jpeg" },
+                { name: "Tiny Flowers Rangoli", price: "15", image: "images/Rangoli (Small)/Tiny Flowers Rangoli.jpeg" },
                 { name: "Big Multicolour Flowers Rangoli", price: "25", image: "images/Rangoli (Small)/Big Multicolour Flowers Rangoli.jpeg" },
                 { name: "Flowers with leaves Rangoli", price: "30", image: "images/Rangoli (Small)/Flowers with leaves Rangoli.jpeg" },
                 { name: "Star Hanging Flower Rangoli", price: "30", image: "images/Rangoli (Small)/Star Hanging Flower Rangoli.jpeg" },
@@ -951,7 +951,9 @@
                 { name: "Big Petals Flower Rangoli", price: "60", image: "images/Rangoli (Small)/Big Petals Flower Rangoli.jpeg" },
                 { name: "Multi Petal Flowers Rangoli", price: "70", image: "images/Rangoli (Small)/Multi Petal Flowers Rangoli.jpeg" },
                 { name: "Small Rangoli", price: "70", image: "images/Rangoli (Small)/Small Rangoli.jpeg" },
-                { name: "Big Star Flowers Rangoli", price: "350", image: "images/Rangoli (Small)/Big Star Flowers Rangoli.jpeg" }
+                { name: "Big Star Flowers Rangoli", price: "350", image: "images/Rangoli (Small)/Big Star Flowers Rangoli.jpeg" },
+                { name: "Green and Red Colour Flower Rangoli", price: "15", image: "images/Rangoli (Small)/Green and Red Colour Flower Rangoli.jpeg" },
+                { name: "White and Orange Colour Flower Rangoli", price: "15", image: "images/Rangoli (Small)/White and Orange Colour Flower Rangoli.jpeg" }
             ],
             "Rangoli (Big)": [
                 { name: "Big Star Rangoli", price: "150", image: "images/Rangoli (Big)/Big Star Rangoli.jpeg" },
@@ -1074,7 +1076,8 @@
                     category,
                     price: parseInt(price),
                     image,
-                    quantity
+                    quantity,
+                    itemDiscount: 0
                 });
             }
 
@@ -1093,21 +1096,32 @@
                 return;
             }
 
-            cartItems.innerHTML = selectedProducts.map((product, index) => `
-                <div class="cart-item">
-                    <div class="cart-item-info">
-                        <div class="cart-item-name">${product.name}</div>
-                        <div class="cart-item-category">${product.category}</div>
-                        <div class="cart-item-details">₹${product.price} × ${product.quantity} = ₹${product.price * product.quantity}</div>
+            cartItems.innerHTML = selectedProducts.map((product, index) => {
+                const itemTotal = product.price * product.quantity;
+                const discountAmount = itemTotal * (product.itemDiscount / 100);
+                const finalAmount = itemTotal - discountAmount;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${product.name}</div>
+                            <div class="cart-item-category">${product.category}</div>
+                            <div class="cart-item-details">₹${product.price} × ${product.quantity} = ₹${itemTotal.toFixed(2)}</div>
+                            <div style="margin-top: 8px; display: flex; align-items: center; gap: 10px;">
+                                <label style="margin: 0; font-size: 12px; color: #666;">Discount %:</label>
+                                <input type="number" min="0" max="100" value="${product.itemDiscount}" class="discount-input" style="width: 60px; padding: 4px; border: 1px solid #ddd; border-radius: 4px;" onchange="updateItemDiscount(${index}, this.value)">
+                                <span style="font-size: 12px; color: #c92d2d;">-₹${discountAmount.toFixed(2)}</span>
+                                <span style="font-size: 12px; font-weight: 600;">Final: ₹${finalAmount.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="decreaseQuantity(${index})">−</button>
+                            <span style="min-width: 30px; text-align: center;">${product.quantity}</span>
+                            <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
+                            <button class="remove-btn" onclick="removeProduct(${index})">Remove</button>
+                        </div>
                     </div>
-                    <div class="cart-item-controls">
-                        <button class="qty-btn" onclick="decreaseQuantity(${index})">−</button>
-                        <span style="min-width: 30px; text-align: center;">${product.quantity}</span>
-                        <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
-                        <button class="remove-btn" onclick="removeProduct(${index})">Remove</button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function increaseQuantity(index) {
@@ -1126,6 +1140,12 @@
 
         function removeProduct(index) {
             selectedProducts.splice(index, 1);
+            updateCartDisplay();
+            updateBillingSummary();
+        }
+
+        function updateItemDiscount(index, value) {
+            selectedProducts[index].itemDiscount = parseFloat(value) || 0;
             updateCartDisplay();
             updateBillingSummary();
         }
@@ -1150,15 +1170,17 @@
 
                 categoryProducts.forEach(product => {
                     const itemTotal = product.price * product.quantity;
-                    categoryTotal += itemTotal;
+                    const discountAmount = itemTotal * (product.itemDiscount / 100);
+                    const finalAmount = itemTotal - discountAmount;
+                    categoryTotal += finalAmount;
                     categoryQty += product.quantity;
-                    subtotal += itemTotal;
+                    subtotal += finalAmount;
 
                     summaryRows += `
                         <div class="summary-row">
                             <div class="summary-col">${product.name}</div>
                             <div class="summary-col">${product.quantity}</div>
-                            <div class="summary-col">₹${itemTotal.toFixed(2)}</div>
+                            <div class="summary-col">₹${finalAmount.toFixed(2)}</div>
                         </div>
                     `;
                 });
@@ -1372,8 +1394,10 @@
                     pdf.setFontSize(9);
                     pdf.setTextColor(255, 255, 255);
                     pdf.text('Item Description', margin + 2, yPosition);
-                    pdf.text('Qty', pageWidth - margin - 45, yPosition, { align: 'center' });
-                    pdf.text('Amount', pageWidth - margin - 15, yPosition, { align: 'right' });
+                    pdf.text('Qty', pageWidth - margin - 75, yPosition, { align: 'center' });
+                    pdf.text('Item Amount', pageWidth - margin - 48, yPosition, { align: 'right' });
+                    pdf.text('Discount', pageWidth - margin - 35, yPosition, { align: 'center' });
+                    pdf.text('Amount', pageWidth - margin - 8, yPosition, { align: 'right' });
 
                     yPosition += 8;
 
@@ -1388,12 +1412,17 @@
                     pdf.setFont(undefined, 'normal');
                     pdf.setFontSize(8);
                     let subtotal = 0;
+                    let totalDiscount = 0;
                     let rowCount = 0;
 
                     Object.keys(byCategory).forEach(category => {
                         byCategory[category].forEach(product => {
                             const total = product.price * product.quantity;
-                            subtotal += total;
+                            const discountAmount = total * (product.itemDiscount / 100);
+                            const finalAmount = total - discountAmount;
+                            
+                            subtotal += finalAmount;
+                            totalDiscount += discountAmount;
 
                             // Check if we need a new page
                             if (yPosition > pageHeight - 50) {
@@ -1414,8 +1443,10 @@
                             pdf.text(itemLines, margin + 1, yPosition);
                             const itemHeight = itemLines.length * 4;
                             
-                            pdf.text(String(product.quantity), pageWidth - margin - 45, yPosition, { align: 'center' });
-                            pdf.text('Rs. ' + (total).toFixed(2), pageWidth - margin - 15, yPosition, { align: 'right' });
+                            pdf.text(String(product.quantity), pageWidth - margin - 75, yPosition, { align: 'center' });
+                            pdf.text('Rs. ' + (total).toFixed(2), pageWidth - margin - 48, yPosition, { align: 'right' });
+                            pdf.text(product.itemDiscount.toFixed(2) + '%', pageWidth - margin - 35, yPosition, { align: 'center' });
+                            pdf.text('Rs. ' + (finalAmount).toFixed(2), pageWidth - margin - 8, yPosition, { align: 'right' });
                             
                             yPosition += itemHeight + 4;
                             rowCount++;
@@ -1434,9 +1465,9 @@
                     const summaryBoxX = pageWidth - margin - summaryBoxWidth;
                     
                     pdf.setFillColor(250, 250, 250);
-                    pdf.rect(summaryBoxX, yPosition - 5, summaryBoxWidth, 25, 'F');
+                    pdf.rect(summaryBoxX, yPosition - 5, summaryBoxWidth, 35, 'F');
                     pdf.setDrawColor(102, 126, 234);
-                    pdf.rect(summaryBoxX, yPosition - 5, summaryBoxWidth, 25);
+                    pdf.rect(summaryBoxX, yPosition - 5, summaryBoxWidth, 35);
 
                     pdf.setFont(undefined, 'normal');
                     pdf.setFontSize(8);
@@ -1447,6 +1478,16 @@
                     pdf.text('Rs. ' + subtotal.toFixed(2), pageWidth - margin - 2, yPosition, { align: 'right' });
 
                     yPosition += 6;
+                    if (totalDiscount > 0) {
+                        pdf.setFont(undefined, 'normal');
+                        pdf.setTextColor(80, 80, 80);
+                        pdf.text('Discount:', summaryBoxX + 2, yPosition);
+                        pdf.setTextColor(198, 45, 45);
+                        pdf.setFont(undefined, 'bold');
+                        pdf.text('-Rs. ' + totalDiscount.toFixed(2), pageWidth - margin - 2, yPosition, { align: 'right' });
+                        yPosition += 6;
+                    }
+
                     const shipping = parseFloat(document.getElementById('shippingAmount').value) || 0;
                     pdf.setFont(undefined, 'normal');
                     pdf.setTextColor(80, 80, 80);
