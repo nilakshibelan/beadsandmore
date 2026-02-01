@@ -1444,7 +1444,7 @@
                             const itemHeight = itemLines.length * 4;
                             
                             pdf.text(String(product.quantity), pageWidth - margin - 75, yPosition, { align: 'center' });
-                            pdf.text('Rs. ' + (total).toFixed(2), pageWidth - margin - 48, yPosition, { align: 'right' });
+                            pdf.text('Rs. ' + (product.price).toFixed(2), pageWidth - margin - 48, yPosition, { align: 'right' });
                             pdf.text(product.itemDiscount.toFixed(2) + '%', pageWidth - margin - 35, yPosition, { align: 'center' });
                             pdf.text('Rs. ' + (finalAmount).toFixed(2), pageWidth - margin - 8, yPosition, { align: 'right' });
                             
