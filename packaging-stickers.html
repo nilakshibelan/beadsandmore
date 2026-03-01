@@ -152,100 +152,122 @@
             border-radius: 2px;
         }
 
-        /* Medium Rectangle - 2 x 1 inch */
+        /* Medium Rectangle - 2.5 x 0.75 inch (wider and shorter) */
         .medium-rect {
-            width: 200px;
-            height: 120px;
+            width: 240px;
+            height: 90px;
             background: linear-gradient(135deg, #5f73e8 0%, #6e4d9a 100%);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            justify-content: flex-start;
-            padding: 6px 10px 18px 10px;
+            justify-content: space-between;
+            padding: 6px 10px;
             color: white;
             margin: 0 auto;
             border-radius: 15px;
             border: 2px solid white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            gap: 8px;
         }
 
         .medium-rect .left {
-            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-width: 0;
         }
 
         .medium-rect .brand {
             font-family: 'Playfair Display', serif;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 3px;
+            margin-bottom: 1px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             letter-spacing: 0.8px;
             white-space: nowrap;
         }
 
         .medium-rect .logo-img {
-            width: 100px;
+            width: 70px;
             height: auto;
-            margin-bottom: 5px;
-            border-radius: 8px;
+            margin-bottom: 2px;
+            border-radius: 6px;
             background: white;
-            padding: 3px;
+            padding: 2px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .medium-rect .logo-box {
             background: #2c3e50;
-            padding: 5px 20px;
-            border-radius: 10px;
-            margin-bottom: 4px;
+            padding: 3px 12px;
+            border-radius: 8px;
+            margin-bottom: 2px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.3);
             border: 2px solid #ffd700;
             width: auto;
-            min-width: 160px;
+            min-width: 140px;
         }
 
         .medium-rect .logo-text {
             font-family: 'Playfair Display', serif;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             color: #ffd700;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
             white-space: nowrap;
         }
 
         .medium-rect .tagline {
             font-family: 'Inter', sans-serif;
-            font-size: 9px;
-            margin-bottom: 2px;
+            font-size: 7px;
+            margin-bottom: 0px;
             font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             text-align: center;
+        }
+
+        .medium-rect .scan-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 5px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.2px;
+            margin-bottom: 2px;
+            line-height: 1;
+            white-space: nowrap;
         }
 
         .medium-rect .contact {
             font-family: 'Inter', sans-serif;
-            font-size: 8px;
-            line-height: 1.2;
+            font-size: 6px;
+            line-height: 1;
             font-weight: 700;
             text-align: center;
-            margin-top: 2px;
+            margin-top: 0;
             margin-bottom: 0;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            white-space: nowrap;
         }
 
         .medium-rect .contact::after {
             content: '';
-            display: block;
-            height: 12px;
+            display: none;
+        }
+
+        .medium-rect .qr-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
         }
 
         .medium-rect .qr-mini {
-            width: 48px;
-            height: 48px;
+            width: 55px;
+            height: 55px;
             background: white;
             border-radius: 6px;
             display: flex;
@@ -253,13 +275,12 @@
             justify-content: center;
             border: 2px solid rgba(255,255,255,0.9);
             flex-shrink: 0;
-            margin-bottom: 1px;
         }
 
         .medium-rect .qr-mini img {
-            width: 44px;
-            height: 44px;
-            border-radius: 4px;
+            width: 51px;
+            height: 51px;
+            border-radius: 3px;
         }
 
         /* Small Square - 1.2 x 1.2 inch */
@@ -451,22 +472,22 @@
         @media print {
             body {
                 background: white;
-                padding: 20px;
+                padding: 10px;
                 margin: 0;
             }
 
             .stickers-grid {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 22px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
                 max-width: none;
                 justify-items: center;
-                margin: 15px auto;
+                margin: 10px auto;
             }
 
             .sticker {
                 page-break-inside: avoid;
-                margin: 8px;
+                margin: 0;
                 box-shadow: none;
                 break-inside: avoid;
             }
@@ -488,54 +509,101 @@
             }
 
             .medium-rect {
-                width: 170px;  /* Reduced for better A4 fit */
-                height: 102px; /* Adjusted for better proportion */
-                padding: 4px 8px 14px 8px;
+                width: 190px;  /* Reduced width for 3 per row */
+                height: 75px;  /* Shorter for compact design */
+                padding: 4px 6px;
                 overflow: hidden;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
                 display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .medium-rect .left {
+                flex: 1;
+                display: flex;
                 flex-direction: column;
-                justify-content: flex-start;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .medium-rect .logo-box {
+                padding: 2px 8px;
+                margin-bottom: 1px;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+
+            .medium-rect .logo-text {
+                font-size: 9px;
+                color: #ffd700 !important;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            .medium-rect .tagline {
+                font-size: 6px;
+                margin-bottom: 0;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            .medium-rect .qr-right {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
             }
 
             .medium-rect .qr-mini {
-                width: 40px;
-                height: 40px;
-                margin-bottom: 1px;
+                width: 45px;
+                height: 45px;
+                margin-bottom: 0;
             }
 
             .medium-rect .qr-mini img {
-                width: 37px;
-                height: 37px;
+                width: 42px;
+                height: 42px;
+            }
+
+            .medium-rect .scan-text {
+                font-size: 4px;
+                margin-bottom: 1px;
+                line-height: 1;
+                white-space: nowrap;
+                font-weight: 700 !important;
             }
 
             .medium-rect .contact {
-                font-size: 8px;
-                margin-top: 2px;
+                font-size: 5px;
+                margin-top: 0;
                 text-align: center;
                 color: white !important;
-                font-weight: 700;
+                font-weight: 700 !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-                text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+                white-space: nowrap;
             }
 
             .medium-rect .contact::after {
                 content: '';
-                display: block;
-                height: 10px;
+                display: none;
             }
 
             /* Remove dark background from logo box in print */
-            .medium-rect .logo-box,
             .small-circle .logo-box {
                 background: transparent !important;
                 border: none !important;
                 box-shadow: none !important;
             }
 
-            .medium-rect .logo-text,
             .small-circle .logo-text {
                 color: #ffd700 !important;
                 text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
@@ -574,12 +642,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -589,12 +660,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -604,12 +678,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -619,12 +696,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -634,12 +714,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -649,12 +732,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -664,12 +750,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -679,12 +768,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -694,12 +786,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -709,12 +804,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -724,12 +822,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -739,12 +840,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -754,12 +858,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -769,12 +876,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -784,12 +894,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -799,12 +912,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -814,12 +930,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -829,12 +948,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -844,12 +966,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -859,12 +984,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
+                    </div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
         <div class="sticker">
             <div class="medium-rect">
@@ -874,42 +1002,15 @@
                     </div>
                     <div class="tagline">Traditional Ornaments</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
-                </div>
-                <div class="contact">+91 8432254327</div>
-            </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
-        </div>
-        <div class="sticker">
-            <div class="medium-rect">
-                <div class="left">
-                    <div class="logo-box">
-                        <div class="logo-text">BEADS & MORE</div>
+                <div class="qr-right">
+                    <div class="scan-text">for more products</div>
+                    <div class="qr-mini">
+                        <img src="images/beadsandmore-new-qr.png" alt="QR">
                     </div>
-                    <div class="tagline">Traditional Ornaments</div>
+                    <div class="contact">+91 8432254327</div>
                 </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
-                </div>
-                <div class="contact">+91 8432254327</div>
             </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
-        </div>
-        <div class="sticker">
-            <div class="medium-rect">
-                <div class="left">
-                    <div class="logo-box">
-                        <div class="logo-text">BEADS & MORE</div>
-                    </div>
-                    <div class="tagline">Traditional Ornaments</div>
-                </div>
-                <div class="qr-mini">
-                    <img src="images/beadsandmore-new-qr.png" alt="QR">
-                </div>
-                <div class="contact">+91 8432254327</div>
-            </div>
-            <div class="sticker-label">2" x 1" Rectangle - With QR Code</div>
+            <div class="sticker-label">2.5" x 0.75" Rectangle - With QR Code</div>
         </div>
     </div>
 
